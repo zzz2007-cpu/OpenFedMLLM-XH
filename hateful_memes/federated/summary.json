@@ -1,0 +1,4792 @@
+{
+  "dataset": "hateful_memes",
+  "source_split": "train",
+  "num_clients": 10,
+  "seed": 42,
+  "settings": [
+    {
+      "path": "iid/aligned",
+      "stat_setting": "iid",
+      "modal_setting": "aligned",
+      "alpha": null,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 850,
+        "client_1": 850,
+        "client_2": 850,
+        "client_3": 850,
+        "client_4": 850,
+        "client_5": 850,
+        "client_6": 850,
+        "client_7": 850,
+        "client_8": 850,
+        "client_9": 850
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 545,
+          "1": 305
+        },
+        "client_1": {
+          "0": 545,
+          "1": 305
+        },
+        "client_2": {
+          "0": 545,
+          "1": 305
+        },
+        "client_3": {
+          "0": 545,
+          "1": 305
+        },
+        "client_4": {
+          "0": 545,
+          "1": 305
+        },
+        "client_5": {
+          "0": 545,
+          "1": 305
+        },
+        "client_6": {
+          "0": 545,
+          "1": 305
+        },
+        "client_7": {
+          "0": 545,
+          "1": 305
+        },
+        "client_8": {
+          "0": 545,
+          "1": 305
+        },
+        "client_9": {
+          "0": 545,
+          "1": 305
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 850,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_1": {
+          "image_text": 850,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_2": {
+          "image_text": 850,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_3": {
+          "image_text": 850,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_4": {
+          "image_text": 850,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_5": {
+          "image_text": 850,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_6": {
+          "image_text": 850,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_7": {
+          "image_text": 850,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_8": {
+          "image_text": 850,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_9": {
+          "image_text": 850,
+          "image_only": 0,
+          "text_only": 0
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "iid/missing_0.3",
+      "stat_setting": "iid",
+      "modal_setting": "missing_0.3",
+      "alpha": null,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 850,
+        "client_1": 850,
+        "client_2": 850,
+        "client_3": 850,
+        "client_4": 850,
+        "client_5": 850,
+        "client_6": 850,
+        "client_7": 850,
+        "client_8": 850,
+        "client_9": 850
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 545,
+          "1": 305
+        },
+        "client_1": {
+          "0": 545,
+          "1": 305
+        },
+        "client_2": {
+          "0": 545,
+          "1": 305
+        },
+        "client_3": {
+          "0": 545,
+          "1": 305
+        },
+        "client_4": {
+          "0": 545,
+          "1": 305
+        },
+        "client_5": {
+          "0": 545,
+          "1": 305
+        },
+        "client_6": {
+          "0": 545,
+          "1": 305
+        },
+        "client_7": {
+          "0": 545,
+          "1": 305
+        },
+        "client_8": {
+          "0": 545,
+          "1": 305
+        },
+        "client_9": {
+          "0": 545,
+          "1": 305
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 435,
+          "image_only": 208,
+          "text_only": 207
+        },
+        "client_1": {
+          "image_text": 418,
+          "image_only": 218,
+          "text_only": 214
+        },
+        "client_2": {
+          "image_text": 449,
+          "image_only": 212,
+          "text_only": 189
+        },
+        "client_3": {
+          "image_text": 423,
+          "image_only": 223,
+          "text_only": 204
+        },
+        "client_4": {
+          "image_text": 421,
+          "image_only": 221,
+          "text_only": 208
+        },
+        "client_5": {
+          "image_text": 437,
+          "image_only": 214,
+          "text_only": 199
+        },
+        "client_6": {
+          "image_text": 427,
+          "image_only": 210,
+          "text_only": 213
+        },
+        "client_7": {
+          "image_text": 417,
+          "image_only": 209,
+          "text_only": 224
+        },
+        "client_8": {
+          "image_text": 437,
+          "image_only": 212,
+          "text_only": 201
+        },
+        "client_9": {
+          "image_text": 437,
+          "image_only": 214,
+          "text_only": 199
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "iid/missing_0.4",
+      "stat_setting": "iid",
+      "modal_setting": "missing_0.4",
+      "alpha": null,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 850,
+        "client_1": 850,
+        "client_2": 850,
+        "client_3": 850,
+        "client_4": 850,
+        "client_5": 850,
+        "client_6": 850,
+        "client_7": 850,
+        "client_8": 850,
+        "client_9": 850
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 545,
+          "1": 305
+        },
+        "client_1": {
+          "0": 545,
+          "1": 305
+        },
+        "client_2": {
+          "0": 545,
+          "1": 305
+        },
+        "client_3": {
+          "0": 545,
+          "1": 305
+        },
+        "client_4": {
+          "0": 545,
+          "1": 305
+        },
+        "client_5": {
+          "0": 545,
+          "1": 305
+        },
+        "client_6": {
+          "0": 545,
+          "1": 305
+        },
+        "client_7": {
+          "0": 545,
+          "1": 305
+        },
+        "client_8": {
+          "0": 545,
+          "1": 305
+        },
+        "client_9": {
+          "0": 545,
+          "1": 305
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 298,
+          "image_only": 274,
+          "text_only": 278
+        },
+        "client_1": {
+          "image_text": 300,
+          "image_only": 286,
+          "text_only": 264
+        },
+        "client_2": {
+          "image_text": 313,
+          "image_only": 264,
+          "text_only": 273
+        },
+        "client_3": {
+          "image_text": 315,
+          "image_only": 248,
+          "text_only": 287
+        },
+        "client_4": {
+          "image_text": 310,
+          "image_only": 255,
+          "text_only": 285
+        },
+        "client_5": {
+          "image_text": 304,
+          "image_only": 291,
+          "text_only": 255
+        },
+        "client_6": {
+          "image_text": 290,
+          "image_only": 268,
+          "text_only": 292
+        },
+        "client_7": {
+          "image_text": 311,
+          "image_only": 249,
+          "text_only": 290
+        },
+        "client_8": {
+          "image_text": 298,
+          "image_only": 274,
+          "text_only": 278
+        },
+        "client_9": {
+          "image_text": 322,
+          "image_only": 263,
+          "text_only": 265
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "iid/missing_0.5",
+      "stat_setting": "iid",
+      "modal_setting": "missing_0.5",
+      "alpha": null,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 850,
+        "client_1": 850,
+        "client_2": 850,
+        "client_3": 850,
+        "client_4": 850,
+        "client_5": 850,
+        "client_6": 850,
+        "client_7": 850,
+        "client_8": 850,
+        "client_9": 850
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 545,
+          "1": 305
+        },
+        "client_1": {
+          "0": 545,
+          "1": 305
+        },
+        "client_2": {
+          "0": 545,
+          "1": 305
+        },
+        "client_3": {
+          "0": 545,
+          "1": 305
+        },
+        "client_4": {
+          "0": 545,
+          "1": 305
+        },
+        "client_5": {
+          "0": 545,
+          "1": 305
+        },
+        "client_6": {
+          "0": 545,
+          "1": 305
+        },
+        "client_7": {
+          "0": 545,
+          "1": 305
+        },
+        "client_8": {
+          "0": 545,
+          "1": 305
+        },
+        "client_9": {
+          "0": 545,
+          "1": 305
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 214,
+          "image_only": 311,
+          "text_only": 325
+        },
+        "client_1": {
+          "image_text": 199,
+          "image_only": 323,
+          "text_only": 328
+        },
+        "client_2": {
+          "image_text": 233,
+          "image_only": 308,
+          "text_only": 309
+        },
+        "client_3": {
+          "image_text": 201,
+          "image_only": 314,
+          "text_only": 335
+        },
+        "client_4": {
+          "image_text": 217,
+          "image_only": 323,
+          "text_only": 310
+        },
+        "client_5": {
+          "image_text": 195,
+          "image_only": 323,
+          "text_only": 332
+        },
+        "client_6": {
+          "image_text": 224,
+          "image_only": 294,
+          "text_only": 332
+        },
+        "client_7": {
+          "image_text": 193,
+          "image_only": 323,
+          "text_only": 334
+        },
+        "client_8": {
+          "image_text": 176,
+          "image_only": 324,
+          "text_only": 350
+        },
+        "client_9": {
+          "image_text": 212,
+          "image_only": 328,
+          "text_only": 310
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "iid/cross_3_7",
+      "stat_setting": "iid",
+      "modal_setting": "cross_3_7",
+      "alpha": null,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 850,
+        "client_1": 850,
+        "client_2": 850,
+        "client_3": 850,
+        "client_4": 850,
+        "client_5": 850,
+        "client_6": 850,
+        "client_7": 850,
+        "client_8": 850,
+        "client_9": 850
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 545,
+          "1": 305
+        },
+        "client_1": {
+          "0": 545,
+          "1": 305
+        },
+        "client_2": {
+          "0": 545,
+          "1": 305
+        },
+        "client_3": {
+          "0": 545,
+          "1": 305
+        },
+        "client_4": {
+          "0": 545,
+          "1": 305
+        },
+        "client_5": {
+          "0": 545,
+          "1": 305
+        },
+        "client_6": {
+          "0": 545,
+          "1": 305
+        },
+        "client_7": {
+          "0": 545,
+          "1": 305
+        },
+        "client_8": {
+          "0": 545,
+          "1": 305
+        },
+        "client_9": {
+          "0": 545,
+          "1": 305
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 850
+        },
+        "client_1": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 850
+        },
+        "client_2": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 850
+        },
+        "client_3": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 850
+        },
+        "client_4": {
+          "image_text": 0,
+          "image_only": 850,
+          "text_only": 0
+        },
+        "client_5": {
+          "image_text": 0,
+          "image_only": 850,
+          "text_only": 0
+        },
+        "client_6": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 850
+        },
+        "client_7": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 850
+        },
+        "client_8": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 850
+        },
+        "client_9": {
+          "image_text": 0,
+          "image_only": 850,
+          "text_only": 0
+        }
+      },
+      "image_only_clients": [
+        "client_4",
+        "client_5",
+        "client_9"
+      ],
+      "text_only_clients": [
+        "client_0",
+        "client_1",
+        "client_2",
+        "client_3",
+        "client_6",
+        "client_7",
+        "client_8"
+      ]
+    },
+    {
+      "path": "iid/cross_5_5",
+      "stat_setting": "iid",
+      "modal_setting": "cross_5_5",
+      "alpha": null,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 850,
+        "client_1": 850,
+        "client_2": 850,
+        "client_3": 850,
+        "client_4": 850,
+        "client_5": 850,
+        "client_6": 850,
+        "client_7": 850,
+        "client_8": 850,
+        "client_9": 850
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 545,
+          "1": 305
+        },
+        "client_1": {
+          "0": 545,
+          "1": 305
+        },
+        "client_2": {
+          "0": 545,
+          "1": 305
+        },
+        "client_3": {
+          "0": 545,
+          "1": 305
+        },
+        "client_4": {
+          "0": 545,
+          "1": 305
+        },
+        "client_5": {
+          "0": 545,
+          "1": 305
+        },
+        "client_6": {
+          "0": 545,
+          "1": 305
+        },
+        "client_7": {
+          "0": 545,
+          "1": 305
+        },
+        "client_8": {
+          "0": 545,
+          "1": 305
+        },
+        "client_9": {
+          "0": 545,
+          "1": 305
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 850
+        },
+        "client_1": {
+          "image_text": 0,
+          "image_only": 850,
+          "text_only": 0
+        },
+        "client_2": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 850
+        },
+        "client_3": {
+          "image_text": 0,
+          "image_only": 850,
+          "text_only": 0
+        },
+        "client_4": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 850
+        },
+        "client_5": {
+          "image_text": 0,
+          "image_only": 850,
+          "text_only": 0
+        },
+        "client_6": {
+          "image_text": 0,
+          "image_only": 850,
+          "text_only": 0
+        },
+        "client_7": {
+          "image_text": 0,
+          "image_only": 850,
+          "text_only": 0
+        },
+        "client_8": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 850
+        },
+        "client_9": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 850
+        }
+      },
+      "image_only_clients": [
+        "client_1",
+        "client_3",
+        "client_5",
+        "client_6",
+        "client_7"
+      ],
+      "text_only_clients": [
+        "client_0",
+        "client_2",
+        "client_4",
+        "client_8",
+        "client_9"
+      ]
+    },
+    {
+      "path": "iid/cross_7_3",
+      "stat_setting": "iid",
+      "modal_setting": "cross_7_3",
+      "alpha": null,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 850,
+        "client_1": 850,
+        "client_2": 850,
+        "client_3": 850,
+        "client_4": 850,
+        "client_5": 850,
+        "client_6": 850,
+        "client_7": 850,
+        "client_8": 850,
+        "client_9": 850
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 545,
+          "1": 305
+        },
+        "client_1": {
+          "0": 545,
+          "1": 305
+        },
+        "client_2": {
+          "0": 545,
+          "1": 305
+        },
+        "client_3": {
+          "0": 545,
+          "1": 305
+        },
+        "client_4": {
+          "0": 545,
+          "1": 305
+        },
+        "client_5": {
+          "0": 545,
+          "1": 305
+        },
+        "client_6": {
+          "0": 545,
+          "1": 305
+        },
+        "client_7": {
+          "0": 545,
+          "1": 305
+        },
+        "client_8": {
+          "0": 545,
+          "1": 305
+        },
+        "client_9": {
+          "0": 545,
+          "1": 305
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 850
+        },
+        "client_1": {
+          "image_text": 0,
+          "image_only": 850,
+          "text_only": 0
+        },
+        "client_2": {
+          "image_text": 0,
+          "image_only": 850,
+          "text_only": 0
+        },
+        "client_3": {
+          "image_text": 0,
+          "image_only": 850,
+          "text_only": 0
+        },
+        "client_4": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 850
+        },
+        "client_5": {
+          "image_text": 0,
+          "image_only": 850,
+          "text_only": 0
+        },
+        "client_6": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 850
+        },
+        "client_7": {
+          "image_text": 0,
+          "image_only": 850,
+          "text_only": 0
+        },
+        "client_8": {
+          "image_text": 0,
+          "image_only": 850,
+          "text_only": 0
+        },
+        "client_9": {
+          "image_text": 0,
+          "image_only": 850,
+          "text_only": 0
+        }
+      },
+      "image_only_clients": [
+        "client_1",
+        "client_2",
+        "client_3",
+        "client_5",
+        "client_7",
+        "client_8",
+        "client_9"
+      ],
+      "text_only_clients": [
+        "client_0",
+        "client_4",
+        "client_6"
+      ]
+    },
+    {
+      "path": "iid/hybrid_0.8",
+      "stat_setting": "iid",
+      "modal_setting": "hybrid_0.8",
+      "alpha": null,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 850,
+        "client_1": 850,
+        "client_2": 850,
+        "client_3": 850,
+        "client_4": 850,
+        "client_5": 850,
+        "client_6": 850,
+        "client_7": 850,
+        "client_8": 850,
+        "client_9": 850
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 545,
+          "1": 305
+        },
+        "client_1": {
+          "0": 545,
+          "1": 305
+        },
+        "client_2": {
+          "0": 545,
+          "1": 305
+        },
+        "client_3": {
+          "0": 545,
+          "1": 305
+        },
+        "client_4": {
+          "0": 545,
+          "1": 305
+        },
+        "client_5": {
+          "0": 545,
+          "1": 305
+        },
+        "client_6": {
+          "0": 545,
+          "1": 305
+        },
+        "client_7": {
+          "0": 545,
+          "1": 305
+        },
+        "client_8": {
+          "0": 545,
+          "1": 305
+        },
+        "client_9": {
+          "0": 545,
+          "1": 305
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 553,
+          "image_only": 140,
+          "text_only": 157
+        },
+        "client_1": {
+          "image_text": 561,
+          "image_only": 145,
+          "text_only": 144
+        },
+        "client_2": {
+          "image_text": 542,
+          "image_only": 172,
+          "text_only": 136
+        },
+        "client_3": {
+          "image_text": 546,
+          "image_only": 135,
+          "text_only": 169
+        },
+        "client_4": {
+          "image_text": 573,
+          "image_only": 136,
+          "text_only": 141
+        },
+        "client_5": {
+          "image_text": 546,
+          "image_only": 153,
+          "text_only": 151
+        },
+        "client_6": {
+          "image_text": 529,
+          "image_only": 150,
+          "text_only": 171
+        },
+        "client_7": {
+          "image_text": 549,
+          "image_only": 160,
+          "text_only": 141
+        },
+        "client_8": {
+          "image_text": 550,
+          "image_only": 157,
+          "text_only": 143
+        },
+        "client_9": {
+          "image_text": 551,
+          "image_only": 149,
+          "text_only": 150
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "iid/hybrid_0.7",
+      "stat_setting": "iid",
+      "modal_setting": "hybrid_0.7",
+      "alpha": null,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 850,
+        "client_1": 850,
+        "client_2": 850,
+        "client_3": 850,
+        "client_4": 850,
+        "client_5": 850,
+        "client_6": 850,
+        "client_7": 850,
+        "client_8": 850,
+        "client_9": 850
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 545,
+          "1": 305
+        },
+        "client_1": {
+          "0": 545,
+          "1": 305
+        },
+        "client_2": {
+          "0": 545,
+          "1": 305
+        },
+        "client_3": {
+          "0": 545,
+          "1": 305
+        },
+        "client_4": {
+          "0": 545,
+          "1": 305
+        },
+        "client_5": {
+          "0": 545,
+          "1": 305
+        },
+        "client_6": {
+          "0": 545,
+          "1": 305
+        },
+        "client_7": {
+          "0": 545,
+          "1": 305
+        },
+        "client_8": {
+          "0": 545,
+          "1": 305
+        },
+        "client_9": {
+          "0": 545,
+          "1": 305
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 403,
+          "image_only": 231,
+          "text_only": 216
+        },
+        "client_1": {
+          "image_text": 413,
+          "image_only": 198,
+          "text_only": 239
+        },
+        "client_2": {
+          "image_text": 420,
+          "image_only": 223,
+          "text_only": 207
+        },
+        "client_3": {
+          "image_text": 407,
+          "image_only": 210,
+          "text_only": 233
+        },
+        "client_4": {
+          "image_text": 386,
+          "image_only": 239,
+          "text_only": 225
+        },
+        "client_5": {
+          "image_text": 432,
+          "image_only": 200,
+          "text_only": 218
+        },
+        "client_6": {
+          "image_text": 410,
+          "image_only": 229,
+          "text_only": 211
+        },
+        "client_7": {
+          "image_text": 422,
+          "image_only": 223,
+          "text_only": 205
+        },
+        "client_8": {
+          "image_text": 411,
+          "image_only": 224,
+          "text_only": 215
+        },
+        "client_9": {
+          "image_text": 401,
+          "image_only": 244,
+          "text_only": 205
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "iid/hybrid_0.6",
+      "stat_setting": "iid",
+      "modal_setting": "hybrid_0.6",
+      "alpha": null,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 850,
+        "client_1": 850,
+        "client_2": 850,
+        "client_3": 850,
+        "client_4": 850,
+        "client_5": 850,
+        "client_6": 850,
+        "client_7": 850,
+        "client_8": 850,
+        "client_9": 850
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 545,
+          "1": 305
+        },
+        "client_1": {
+          "0": 545,
+          "1": 305
+        },
+        "client_2": {
+          "0": 545,
+          "1": 305
+        },
+        "client_3": {
+          "0": 545,
+          "1": 305
+        },
+        "client_4": {
+          "0": 545,
+          "1": 305
+        },
+        "client_5": {
+          "0": 545,
+          "1": 305
+        },
+        "client_6": {
+          "0": 545,
+          "1": 305
+        },
+        "client_7": {
+          "0": 545,
+          "1": 305
+        },
+        "client_8": {
+          "0": 545,
+          "1": 305
+        },
+        "client_9": {
+          "0": 545,
+          "1": 305
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 325,
+          "image_only": 256,
+          "text_only": 269
+        },
+        "client_1": {
+          "image_text": 312,
+          "image_only": 272,
+          "text_only": 266
+        },
+        "client_2": {
+          "image_text": 280,
+          "image_only": 271,
+          "text_only": 299
+        },
+        "client_3": {
+          "image_text": 321,
+          "image_only": 263,
+          "text_only": 266
+        },
+        "client_4": {
+          "image_text": 308,
+          "image_only": 252,
+          "text_only": 290
+        },
+        "client_5": {
+          "image_text": 294,
+          "image_only": 282,
+          "text_only": 274
+        },
+        "client_6": {
+          "image_text": 307,
+          "image_only": 270,
+          "text_only": 273
+        },
+        "client_7": {
+          "image_text": 318,
+          "image_only": 284,
+          "text_only": 248
+        },
+        "client_8": {
+          "image_text": 303,
+          "image_only": 268,
+          "text_only": 279
+        },
+        "client_9": {
+          "image_text": 298,
+          "image_only": 262,
+          "text_only": 290
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_1.0/aligned",
+      "stat_setting": "dir_1.0",
+      "modal_setting": "aligned",
+      "alpha": 1.0,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1118,
+        "client_1": 396,
+        "client_2": 310,
+        "client_3": 747,
+        "client_4": 910,
+        "client_5": 402,
+        "client_6": 1188,
+        "client_7": 1040,
+        "client_8": 204,
+        "client_9": 2185
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1041,
+          "1": 77
+        },
+        "client_1": {
+          "0": 44,
+          "1": 352
+        },
+        "client_2": {
+          "0": 164,
+          "1": 146
+        },
+        "client_3": {
+          "0": 89,
+          "1": 658
+        },
+        "client_4": {
+          "0": 563,
+          "1": 347
+        },
+        "client_5": {
+          "0": 53,
+          "1": 349
+        },
+        "client_6": {
+          "0": 913,
+          "1": 275
+        },
+        "client_7": {
+          "0": 568,
+          "1": 472
+        },
+        "client_8": {
+          "0": 73,
+          "1": 131
+        },
+        "client_9": {
+          "0": 1942,
+          "1": 243
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 1118,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_1": {
+          "image_text": 396,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_2": {
+          "image_text": 310,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_3": {
+          "image_text": 747,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_4": {
+          "image_text": 910,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_5": {
+          "image_text": 402,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_6": {
+          "image_text": 1188,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_7": {
+          "image_text": 1040,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_8": {
+          "image_text": 204,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_9": {
+          "image_text": 2185,
+          "image_only": 0,
+          "text_only": 0
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_1.0/missing_0.3",
+      "stat_setting": "dir_1.0",
+      "modal_setting": "missing_0.3",
+      "alpha": 1.0,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1118,
+        "client_1": 396,
+        "client_2": 310,
+        "client_3": 747,
+        "client_4": 910,
+        "client_5": 402,
+        "client_6": 1188,
+        "client_7": 1040,
+        "client_8": 204,
+        "client_9": 2185
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1041,
+          "1": 77
+        },
+        "client_1": {
+          "0": 44,
+          "1": 352
+        },
+        "client_2": {
+          "0": 164,
+          "1": 146
+        },
+        "client_3": {
+          "0": 89,
+          "1": 658
+        },
+        "client_4": {
+          "0": 563,
+          "1": 347
+        },
+        "client_5": {
+          "0": 53,
+          "1": 349
+        },
+        "client_6": {
+          "0": 913,
+          "1": 275
+        },
+        "client_7": {
+          "0": 568,
+          "1": 472
+        },
+        "client_8": {
+          "0": 73,
+          "1": 131
+        },
+        "client_9": {
+          "0": 1942,
+          "1": 243
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 566,
+          "image_only": 266,
+          "text_only": 286
+        },
+        "client_1": {
+          "image_text": 197,
+          "image_only": 110,
+          "text_only": 89
+        },
+        "client_2": {
+          "image_text": 147,
+          "image_only": 83,
+          "text_only": 80
+        },
+        "client_3": {
+          "image_text": 385,
+          "image_only": 183,
+          "text_only": 179
+        },
+        "client_4": {
+          "image_text": 426,
+          "image_only": 244,
+          "text_only": 240
+        },
+        "client_5": {
+          "image_text": 201,
+          "image_only": 111,
+          "text_only": 90
+        },
+        "client_6": {
+          "image_text": 578,
+          "image_only": 288,
+          "text_only": 322
+        },
+        "client_7": {
+          "image_text": 541,
+          "image_only": 252,
+          "text_only": 247
+        },
+        "client_8": {
+          "image_text": 98,
+          "image_only": 55,
+          "text_only": 51
+        },
+        "client_9": {
+          "image_text": 1114,
+          "image_only": 558,
+          "text_only": 513
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_1.0/missing_0.4",
+      "stat_setting": "dir_1.0",
+      "modal_setting": "missing_0.4",
+      "alpha": 1.0,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1118,
+        "client_1": 396,
+        "client_2": 310,
+        "client_3": 747,
+        "client_4": 910,
+        "client_5": 402,
+        "client_6": 1188,
+        "client_7": 1040,
+        "client_8": 204,
+        "client_9": 2185
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1041,
+          "1": 77
+        },
+        "client_1": {
+          "0": 44,
+          "1": 352
+        },
+        "client_2": {
+          "0": 164,
+          "1": 146
+        },
+        "client_3": {
+          "0": 89,
+          "1": 658
+        },
+        "client_4": {
+          "0": 563,
+          "1": 347
+        },
+        "client_5": {
+          "0": 53,
+          "1": 349
+        },
+        "client_6": {
+          "0": 913,
+          "1": 275
+        },
+        "client_7": {
+          "0": 568,
+          "1": 472
+        },
+        "client_8": {
+          "0": 73,
+          "1": 131
+        },
+        "client_9": {
+          "0": 1942,
+          "1": 243
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 397,
+          "image_only": 365,
+          "text_only": 356
+        },
+        "client_1": {
+          "image_text": 135,
+          "image_only": 111,
+          "text_only": 150
+        },
+        "client_2": {
+          "image_text": 119,
+          "image_only": 101,
+          "text_only": 90
+        },
+        "client_3": {
+          "image_text": 265,
+          "image_only": 240,
+          "text_only": 242
+        },
+        "client_4": {
+          "image_text": 320,
+          "image_only": 298,
+          "text_only": 292
+        },
+        "client_5": {
+          "image_text": 140,
+          "image_only": 127,
+          "text_only": 135
+        },
+        "client_6": {
+          "image_text": 466,
+          "image_only": 368,
+          "text_only": 354
+        },
+        "client_7": {
+          "image_text": 376,
+          "image_only": 339,
+          "text_only": 325
+        },
+        "client_8": {
+          "image_text": 73,
+          "image_only": 66,
+          "text_only": 65
+        },
+        "client_9": {
+          "image_text": 765,
+          "image_only": 710,
+          "text_only": 710
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_1.0/missing_0.5",
+      "stat_setting": "dir_1.0",
+      "modal_setting": "missing_0.5",
+      "alpha": 1.0,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1118,
+        "client_1": 396,
+        "client_2": 310,
+        "client_3": 747,
+        "client_4": 910,
+        "client_5": 402,
+        "client_6": 1188,
+        "client_7": 1040,
+        "client_8": 204,
+        "client_9": 2185
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1041,
+          "1": 77
+        },
+        "client_1": {
+          "0": 44,
+          "1": 352
+        },
+        "client_2": {
+          "0": 164,
+          "1": 146
+        },
+        "client_3": {
+          "0": 89,
+          "1": 658
+        },
+        "client_4": {
+          "0": 563,
+          "1": 347
+        },
+        "client_5": {
+          "0": 53,
+          "1": 349
+        },
+        "client_6": {
+          "0": 913,
+          "1": 275
+        },
+        "client_7": {
+          "0": 568,
+          "1": 472
+        },
+        "client_8": {
+          "0": 73,
+          "1": 131
+        },
+        "client_9": {
+          "0": 1942,
+          "1": 243
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 282,
+          "image_only": 441,
+          "text_only": 395
+        },
+        "client_1": {
+          "image_text": 94,
+          "image_only": 130,
+          "text_only": 172
+        },
+        "client_2": {
+          "image_text": 85,
+          "image_only": 113,
+          "text_only": 112
+        },
+        "client_3": {
+          "image_text": 189,
+          "image_only": 280,
+          "text_only": 278
+        },
+        "client_4": {
+          "image_text": 230,
+          "image_only": 336,
+          "text_only": 344
+        },
+        "client_5": {
+          "image_text": 103,
+          "image_only": 151,
+          "text_only": 148
+        },
+        "client_6": {
+          "image_text": 305,
+          "image_only": 458,
+          "text_only": 425
+        },
+        "client_7": {
+          "image_text": 267,
+          "image_only": 384,
+          "text_only": 389
+        },
+        "client_8": {
+          "image_text": 53,
+          "image_only": 66,
+          "text_only": 85
+        },
+        "client_9": {
+          "image_text": 530,
+          "image_only": 819,
+          "text_only": 836
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_1.0/cross_3_7",
+      "stat_setting": "dir_1.0",
+      "modal_setting": "cross_3_7",
+      "alpha": 1.0,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1118,
+        "client_1": 396,
+        "client_2": 310,
+        "client_3": 747,
+        "client_4": 910,
+        "client_5": 402,
+        "client_6": 1188,
+        "client_7": 1040,
+        "client_8": 204,
+        "client_9": 2185
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1041,
+          "1": 77
+        },
+        "client_1": {
+          "0": 44,
+          "1": 352
+        },
+        "client_2": {
+          "0": 164,
+          "1": 146
+        },
+        "client_3": {
+          "0": 89,
+          "1": 658
+        },
+        "client_4": {
+          "0": 563,
+          "1": 347
+        },
+        "client_5": {
+          "0": 53,
+          "1": 349
+        },
+        "client_6": {
+          "0": 913,
+          "1": 275
+        },
+        "client_7": {
+          "0": 568,
+          "1": 472
+        },
+        "client_8": {
+          "0": 73,
+          "1": 131
+        },
+        "client_9": {
+          "0": 1942,
+          "1": 243
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 1118
+        },
+        "client_1": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 396
+        },
+        "client_2": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 310
+        },
+        "client_3": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 747
+        },
+        "client_4": {
+          "image_text": 0,
+          "image_only": 910,
+          "text_only": 0
+        },
+        "client_5": {
+          "image_text": 0,
+          "image_only": 402,
+          "text_only": 0
+        },
+        "client_6": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 1188
+        },
+        "client_7": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 1040
+        },
+        "client_8": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 204
+        },
+        "client_9": {
+          "image_text": 0,
+          "image_only": 2185,
+          "text_only": 0
+        }
+      },
+      "image_only_clients": [
+        "client_4",
+        "client_5",
+        "client_9"
+      ],
+      "text_only_clients": [
+        "client_0",
+        "client_1",
+        "client_2",
+        "client_3",
+        "client_6",
+        "client_7",
+        "client_8"
+      ]
+    },
+    {
+      "path": "dir_1.0/cross_5_5",
+      "stat_setting": "dir_1.0",
+      "modal_setting": "cross_5_5",
+      "alpha": 1.0,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1118,
+        "client_1": 396,
+        "client_2": 310,
+        "client_3": 747,
+        "client_4": 910,
+        "client_5": 402,
+        "client_6": 1188,
+        "client_7": 1040,
+        "client_8": 204,
+        "client_9": 2185
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1041,
+          "1": 77
+        },
+        "client_1": {
+          "0": 44,
+          "1": 352
+        },
+        "client_2": {
+          "0": 164,
+          "1": 146
+        },
+        "client_3": {
+          "0": 89,
+          "1": 658
+        },
+        "client_4": {
+          "0": 563,
+          "1": 347
+        },
+        "client_5": {
+          "0": 53,
+          "1": 349
+        },
+        "client_6": {
+          "0": 913,
+          "1": 275
+        },
+        "client_7": {
+          "0": 568,
+          "1": 472
+        },
+        "client_8": {
+          "0": 73,
+          "1": 131
+        },
+        "client_9": {
+          "0": 1942,
+          "1": 243
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 0,
+          "image_only": 1118,
+          "text_only": 0
+        },
+        "client_1": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 396
+        },
+        "client_2": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 310
+        },
+        "client_3": {
+          "image_text": 0,
+          "image_only": 747,
+          "text_only": 0
+        },
+        "client_4": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 910
+        },
+        "client_5": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 402
+        },
+        "client_6": {
+          "image_text": 0,
+          "image_only": 1188,
+          "text_only": 0
+        },
+        "client_7": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 1040
+        },
+        "client_8": {
+          "image_text": 0,
+          "image_only": 204,
+          "text_only": 0
+        },
+        "client_9": {
+          "image_text": 0,
+          "image_only": 2185,
+          "text_only": 0
+        }
+      },
+      "image_only_clients": [
+        "client_0",
+        "client_3",
+        "client_6",
+        "client_8",
+        "client_9"
+      ],
+      "text_only_clients": [
+        "client_1",
+        "client_2",
+        "client_4",
+        "client_5",
+        "client_7"
+      ]
+    },
+    {
+      "path": "dir_1.0/cross_7_3",
+      "stat_setting": "dir_1.0",
+      "modal_setting": "cross_7_3",
+      "alpha": 1.0,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1118,
+        "client_1": 396,
+        "client_2": 310,
+        "client_3": 747,
+        "client_4": 910,
+        "client_5": 402,
+        "client_6": 1188,
+        "client_7": 1040,
+        "client_8": 204,
+        "client_9": 2185
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1041,
+          "1": 77
+        },
+        "client_1": {
+          "0": 44,
+          "1": 352
+        },
+        "client_2": {
+          "0": 164,
+          "1": 146
+        },
+        "client_3": {
+          "0": 89,
+          "1": 658
+        },
+        "client_4": {
+          "0": 563,
+          "1": 347
+        },
+        "client_5": {
+          "0": 53,
+          "1": 349
+        },
+        "client_6": {
+          "0": 913,
+          "1": 275
+        },
+        "client_7": {
+          "0": 568,
+          "1": 472
+        },
+        "client_8": {
+          "0": 73,
+          "1": 131
+        },
+        "client_9": {
+          "0": 1942,
+          "1": 243
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 0,
+          "image_only": 1118,
+          "text_only": 0
+        },
+        "client_1": {
+          "image_text": 0,
+          "image_only": 396,
+          "text_only": 0
+        },
+        "client_2": {
+          "image_text": 0,
+          "image_only": 310,
+          "text_only": 0
+        },
+        "client_3": {
+          "image_text": 0,
+          "image_only": 747,
+          "text_only": 0
+        },
+        "client_4": {
+          "image_text": 0,
+          "image_only": 910,
+          "text_only": 0
+        },
+        "client_5": {
+          "image_text": 0,
+          "image_only": 402,
+          "text_only": 0
+        },
+        "client_6": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 1188
+        },
+        "client_7": {
+          "image_text": 0,
+          "image_only": 1040,
+          "text_only": 0
+        },
+        "client_8": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 204
+        },
+        "client_9": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 2185
+        }
+      },
+      "image_only_clients": [
+        "client_0",
+        "client_1",
+        "client_2",
+        "client_3",
+        "client_4",
+        "client_5",
+        "client_7"
+      ],
+      "text_only_clients": [
+        "client_6",
+        "client_8",
+        "client_9"
+      ]
+    },
+    {
+      "path": "dir_1.0/hybrid_0.8",
+      "stat_setting": "dir_1.0",
+      "modal_setting": "hybrid_0.8",
+      "alpha": 1.0,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1118,
+        "client_1": 396,
+        "client_2": 310,
+        "client_3": 747,
+        "client_4": 910,
+        "client_5": 402,
+        "client_6": 1188,
+        "client_7": 1040,
+        "client_8": 204,
+        "client_9": 2185
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1041,
+          "1": 77
+        },
+        "client_1": {
+          "0": 44,
+          "1": 352
+        },
+        "client_2": {
+          "0": 164,
+          "1": 146
+        },
+        "client_3": {
+          "0": 89,
+          "1": 658
+        },
+        "client_4": {
+          "0": 563,
+          "1": 347
+        },
+        "client_5": {
+          "0": 53,
+          "1": 349
+        },
+        "client_6": {
+          "0": 913,
+          "1": 275
+        },
+        "client_7": {
+          "0": 568,
+          "1": 472
+        },
+        "client_8": {
+          "0": 73,
+          "1": 131
+        },
+        "client_9": {
+          "0": 1942,
+          "1": 243
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 752,
+          "image_only": 185,
+          "text_only": 181
+        },
+        "client_1": {
+          "image_text": 245,
+          "image_only": 76,
+          "text_only": 75
+        },
+        "client_2": {
+          "image_text": 210,
+          "image_only": 41,
+          "text_only": 59
+        },
+        "client_3": {
+          "image_text": 469,
+          "image_only": 142,
+          "text_only": 136
+        },
+        "client_4": {
+          "image_text": 547,
+          "image_only": 183,
+          "text_only": 180
+        },
+        "client_5": {
+          "image_text": 251,
+          "image_only": 74,
+          "text_only": 77
+        },
+        "client_6": {
+          "image_text": 771,
+          "image_only": 209,
+          "text_only": 208
+        },
+        "client_7": {
+          "image_text": 675,
+          "image_only": 175,
+          "text_only": 190
+        },
+        "client_8": {
+          "image_text": 128,
+          "image_only": 37,
+          "text_only": 39
+        },
+        "client_9": {
+          "image_text": 1392,
+          "image_only": 407,
+          "text_only": 386
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_1.0/hybrid_0.7",
+      "stat_setting": "dir_1.0",
+      "modal_setting": "hybrid_0.7",
+      "alpha": 1.0,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1118,
+        "client_1": 396,
+        "client_2": 310,
+        "client_3": 747,
+        "client_4": 910,
+        "client_5": 402,
+        "client_6": 1188,
+        "client_7": 1040,
+        "client_8": 204,
+        "client_9": 2185
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1041,
+          "1": 77
+        },
+        "client_1": {
+          "0": 44,
+          "1": 352
+        },
+        "client_2": {
+          "0": 164,
+          "1": 146
+        },
+        "client_3": {
+          "0": 89,
+          "1": 658
+        },
+        "client_4": {
+          "0": 563,
+          "1": 347
+        },
+        "client_5": {
+          "0": 53,
+          "1": 349
+        },
+        "client_6": {
+          "0": 913,
+          "1": 275
+        },
+        "client_7": {
+          "0": 568,
+          "1": 472
+        },
+        "client_8": {
+          "0": 73,
+          "1": 131
+        },
+        "client_9": {
+          "0": 1942,
+          "1": 243
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 518,
+          "image_only": 298,
+          "text_only": 302
+        },
+        "client_1": {
+          "image_text": 186,
+          "image_only": 89,
+          "text_only": 121
+        },
+        "client_2": {
+          "image_text": 160,
+          "image_only": 72,
+          "text_only": 78
+        },
+        "client_3": {
+          "image_text": 376,
+          "image_only": 185,
+          "text_only": 186
+        },
+        "client_4": {
+          "image_text": 433,
+          "image_only": 230,
+          "text_only": 247
+        },
+        "client_5": {
+          "image_text": 189,
+          "image_only": 99,
+          "text_only": 114
+        },
+        "client_6": {
+          "image_text": 581,
+          "image_only": 290,
+          "text_only": 317
+        },
+        "client_7": {
+          "image_text": 483,
+          "image_only": 299,
+          "text_only": 258
+        },
+        "client_8": {
+          "image_text": 99,
+          "image_only": 53,
+          "text_only": 52
+        },
+        "client_9": {
+          "image_text": 1070,
+          "image_only": 551,
+          "text_only": 564
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_1.0/hybrid_0.6",
+      "stat_setting": "dir_1.0",
+      "modal_setting": "hybrid_0.6",
+      "alpha": 1.0,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1118,
+        "client_1": 396,
+        "client_2": 310,
+        "client_3": 747,
+        "client_4": 910,
+        "client_5": 402,
+        "client_6": 1188,
+        "client_7": 1040,
+        "client_8": 204,
+        "client_9": 2185
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1041,
+          "1": 77
+        },
+        "client_1": {
+          "0": 44,
+          "1": 352
+        },
+        "client_2": {
+          "0": 164,
+          "1": 146
+        },
+        "client_3": {
+          "0": 89,
+          "1": 658
+        },
+        "client_4": {
+          "0": 563,
+          "1": 347
+        },
+        "client_5": {
+          "0": 53,
+          "1": 349
+        },
+        "client_6": {
+          "0": 913,
+          "1": 275
+        },
+        "client_7": {
+          "0": 568,
+          "1": 472
+        },
+        "client_8": {
+          "0": 73,
+          "1": 131
+        },
+        "client_9": {
+          "0": 1942,
+          "1": 243
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 416,
+          "image_only": 344,
+          "text_only": 358
+        },
+        "client_1": {
+          "image_text": 132,
+          "image_only": 128,
+          "text_only": 136
+        },
+        "client_2": {
+          "image_text": 113,
+          "image_only": 95,
+          "text_only": 102
+        },
+        "client_3": {
+          "image_text": 290,
+          "image_only": 218,
+          "text_only": 239
+        },
+        "client_4": {
+          "image_text": 339,
+          "image_only": 276,
+          "text_only": 295
+        },
+        "client_5": {
+          "image_text": 142,
+          "image_only": 146,
+          "text_only": 114
+        },
+        "client_6": {
+          "image_text": 401,
+          "image_only": 371,
+          "text_only": 416
+        },
+        "client_7": {
+          "image_text": 368,
+          "image_only": 375,
+          "text_only": 297
+        },
+        "client_8": {
+          "image_text": 73,
+          "image_only": 75,
+          "text_only": 56
+        },
+        "client_9": {
+          "image_text": 806,
+          "image_only": 714,
+          "text_only": 665
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_0.5/aligned",
+      "stat_setting": "dir_0.5",
+      "modal_setting": "aligned",
+      "alpha": 0.5,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1400,
+        "client_1": 1031,
+        "client_2": 202,
+        "client_3": 1293,
+        "client_4": 789,
+        "client_5": 219,
+        "client_6": 207,
+        "client_7": 1194,
+        "client_8": 1403,
+        "client_9": 762
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1261,
+          "1": 139
+        },
+        "client_1": {
+          "0": 883,
+          "1": 148
+        },
+        "client_2": {
+          "0": 106,
+          "1": 96
+        },
+        "client_3": {
+          "0": 9,
+          "1": 1284
+        },
+        "client_4": {
+          "0": 783,
+          "1": 6
+        },
+        "client_5": {
+          "0": 34,
+          "1": 185
+        },
+        "client_6": {
+          "0": 0,
+          "1": 207
+        },
+        "client_7": {
+          "0": 300,
+          "1": 894
+        },
+        "client_8": {
+          "0": 1400,
+          "1": 3
+        },
+        "client_9": {
+          "0": 674,
+          "1": 88
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 1400,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_1": {
+          "image_text": 1031,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_2": {
+          "image_text": 202,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_3": {
+          "image_text": 1293,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_4": {
+          "image_text": 789,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_5": {
+          "image_text": 219,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_6": {
+          "image_text": 207,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_7": {
+          "image_text": 1194,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_8": {
+          "image_text": 1403,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_9": {
+          "image_text": 762,
+          "image_only": 0,
+          "text_only": 0
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_0.5/missing_0.3",
+      "stat_setting": "dir_0.5",
+      "modal_setting": "missing_0.3",
+      "alpha": 0.5,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1400,
+        "client_1": 1031,
+        "client_2": 202,
+        "client_3": 1293,
+        "client_4": 789,
+        "client_5": 219,
+        "client_6": 207,
+        "client_7": 1194,
+        "client_8": 1403,
+        "client_9": 762
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1261,
+          "1": 139
+        },
+        "client_1": {
+          "0": 883,
+          "1": 148
+        },
+        "client_2": {
+          "0": 106,
+          "1": 96
+        },
+        "client_3": {
+          "0": 9,
+          "1": 1284
+        },
+        "client_4": {
+          "0": 783,
+          "1": 6
+        },
+        "client_5": {
+          "0": 34,
+          "1": 185
+        },
+        "client_6": {
+          "0": 0,
+          "1": 207
+        },
+        "client_7": {
+          "0": 300,
+          "1": 894
+        },
+        "client_8": {
+          "0": 1400,
+          "1": 3
+        },
+        "client_9": {
+          "0": 674,
+          "1": 88
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 688,
+          "image_only": 338,
+          "text_only": 374
+        },
+        "client_1": {
+          "image_text": 507,
+          "image_only": 251,
+          "text_only": 273
+        },
+        "client_2": {
+          "image_text": 105,
+          "image_only": 48,
+          "text_only": 49
+        },
+        "client_3": {
+          "image_text": 656,
+          "image_only": 343,
+          "text_only": 294
+        },
+        "client_4": {
+          "image_text": 400,
+          "image_only": 202,
+          "text_only": 187
+        },
+        "client_5": {
+          "image_text": 119,
+          "image_only": 45,
+          "text_only": 55
+        },
+        "client_6": {
+          "image_text": 102,
+          "image_only": 48,
+          "text_only": 57
+        },
+        "client_7": {
+          "image_text": 579,
+          "image_only": 289,
+          "text_only": 326
+        },
+        "client_8": {
+          "image_text": 663,
+          "image_only": 372,
+          "text_only": 368
+        },
+        "client_9": {
+          "image_text": 377,
+          "image_only": 190,
+          "text_only": 195
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_0.5/missing_0.4",
+      "stat_setting": "dir_0.5",
+      "modal_setting": "missing_0.4",
+      "alpha": 0.5,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1400,
+        "client_1": 1031,
+        "client_2": 202,
+        "client_3": 1293,
+        "client_4": 789,
+        "client_5": 219,
+        "client_6": 207,
+        "client_7": 1194,
+        "client_8": 1403,
+        "client_9": 762
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1261,
+          "1": 139
+        },
+        "client_1": {
+          "0": 883,
+          "1": 148
+        },
+        "client_2": {
+          "0": 106,
+          "1": 96
+        },
+        "client_3": {
+          "0": 9,
+          "1": 1284
+        },
+        "client_4": {
+          "0": 783,
+          "1": 6
+        },
+        "client_5": {
+          "0": 34,
+          "1": 185
+        },
+        "client_6": {
+          "0": 0,
+          "1": 207
+        },
+        "client_7": {
+          "0": 300,
+          "1": 894
+        },
+        "client_8": {
+          "0": 1400,
+          "1": 3
+        },
+        "client_9": {
+          "0": 674,
+          "1": 88
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 521,
+          "image_only": 436,
+          "text_only": 443
+        },
+        "client_1": {
+          "image_text": 375,
+          "image_only": 312,
+          "text_only": 344
+        },
+        "client_2": {
+          "image_text": 80,
+          "image_only": 66,
+          "text_only": 56
+        },
+        "client_3": {
+          "image_text": 462,
+          "image_only": 391,
+          "text_only": 440
+        },
+        "client_4": {
+          "image_text": 288,
+          "image_only": 249,
+          "text_only": 252
+        },
+        "client_5": {
+          "image_text": 87,
+          "image_only": 61,
+          "text_only": 71
+        },
+        "client_6": {
+          "image_text": 79,
+          "image_only": 73,
+          "text_only": 55
+        },
+        "client_7": {
+          "image_text": 426,
+          "image_only": 364,
+          "text_only": 404
+        },
+        "client_8": {
+          "image_text": 516,
+          "image_only": 441,
+          "text_only": 446
+        },
+        "client_9": {
+          "image_text": 293,
+          "image_only": 234,
+          "text_only": 235
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_0.5/missing_0.5",
+      "stat_setting": "dir_0.5",
+      "modal_setting": "missing_0.5",
+      "alpha": 0.5,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1400,
+        "client_1": 1031,
+        "client_2": 202,
+        "client_3": 1293,
+        "client_4": 789,
+        "client_5": 219,
+        "client_6": 207,
+        "client_7": 1194,
+        "client_8": 1403,
+        "client_9": 762
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1261,
+          "1": 139
+        },
+        "client_1": {
+          "0": 883,
+          "1": 148
+        },
+        "client_2": {
+          "0": 106,
+          "1": 96
+        },
+        "client_3": {
+          "0": 9,
+          "1": 1284
+        },
+        "client_4": {
+          "0": 783,
+          "1": 6
+        },
+        "client_5": {
+          "0": 34,
+          "1": 185
+        },
+        "client_6": {
+          "0": 0,
+          "1": 207
+        },
+        "client_7": {
+          "0": 300,
+          "1": 894
+        },
+        "client_8": {
+          "0": 1400,
+          "1": 3
+        },
+        "client_9": {
+          "0": 674,
+          "1": 88
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 353,
+          "image_only": 532,
+          "text_only": 515
+        },
+        "client_1": {
+          "image_text": 251,
+          "image_only": 397,
+          "text_only": 383
+        },
+        "client_2": {
+          "image_text": 52,
+          "image_only": 88,
+          "text_only": 62
+        },
+        "client_3": {
+          "image_text": 356,
+          "image_only": 479,
+          "text_only": 458
+        },
+        "client_4": {
+          "image_text": 209,
+          "image_only": 311,
+          "text_only": 269
+        },
+        "client_5": {
+          "image_text": 59,
+          "image_only": 80,
+          "text_only": 80
+        },
+        "client_6": {
+          "image_text": 51,
+          "image_only": 81,
+          "text_only": 75
+        },
+        "client_7": {
+          "image_text": 303,
+          "image_only": 443,
+          "text_only": 448
+        },
+        "client_8": {
+          "image_text": 371,
+          "image_only": 527,
+          "text_only": 505
+        },
+        "client_9": {
+          "image_text": 180,
+          "image_only": 291,
+          "text_only": 291
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_0.5/cross_3_7",
+      "stat_setting": "dir_0.5",
+      "modal_setting": "cross_3_7",
+      "alpha": 0.5,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1400,
+        "client_1": 1031,
+        "client_2": 202,
+        "client_3": 1293,
+        "client_4": 789,
+        "client_5": 219,
+        "client_6": 207,
+        "client_7": 1194,
+        "client_8": 1403,
+        "client_9": 762
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1261,
+          "1": 139
+        },
+        "client_1": {
+          "0": 883,
+          "1": 148
+        },
+        "client_2": {
+          "0": 106,
+          "1": 96
+        },
+        "client_3": {
+          "0": 9,
+          "1": 1284
+        },
+        "client_4": {
+          "0": 783,
+          "1": 6
+        },
+        "client_5": {
+          "0": 34,
+          "1": 185
+        },
+        "client_6": {
+          "0": 0,
+          "1": 207
+        },
+        "client_7": {
+          "0": 300,
+          "1": 894
+        },
+        "client_8": {
+          "0": 1400,
+          "1": 3
+        },
+        "client_9": {
+          "0": 674,
+          "1": 88
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 0,
+          "image_only": 1400,
+          "text_only": 0
+        },
+        "client_1": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 1031
+        },
+        "client_2": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 202
+        },
+        "client_3": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 1293
+        },
+        "client_4": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 789
+        },
+        "client_5": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 219
+        },
+        "client_6": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 207
+        },
+        "client_7": {
+          "image_text": 0,
+          "image_only": 1194,
+          "text_only": 0
+        },
+        "client_8": {
+          "image_text": 0,
+          "image_only": 1403,
+          "text_only": 0
+        },
+        "client_9": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 762
+        }
+      },
+      "image_only_clients": [
+        "client_0",
+        "client_7",
+        "client_8"
+      ],
+      "text_only_clients": [
+        "client_1",
+        "client_2",
+        "client_3",
+        "client_4",
+        "client_5",
+        "client_6",
+        "client_9"
+      ]
+    },
+    {
+      "path": "dir_0.5/cross_5_5",
+      "stat_setting": "dir_0.5",
+      "modal_setting": "cross_5_5",
+      "alpha": 0.5,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1400,
+        "client_1": 1031,
+        "client_2": 202,
+        "client_3": 1293,
+        "client_4": 789,
+        "client_5": 219,
+        "client_6": 207,
+        "client_7": 1194,
+        "client_8": 1403,
+        "client_9": 762
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1261,
+          "1": 139
+        },
+        "client_1": {
+          "0": 883,
+          "1": 148
+        },
+        "client_2": {
+          "0": 106,
+          "1": 96
+        },
+        "client_3": {
+          "0": 9,
+          "1": 1284
+        },
+        "client_4": {
+          "0": 783,
+          "1": 6
+        },
+        "client_5": {
+          "0": 34,
+          "1": 185
+        },
+        "client_6": {
+          "0": 0,
+          "1": 207
+        },
+        "client_7": {
+          "0": 300,
+          "1": 894
+        },
+        "client_8": {
+          "0": 1400,
+          "1": 3
+        },
+        "client_9": {
+          "0": 674,
+          "1": 88
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 1400
+        },
+        "client_1": {
+          "image_text": 0,
+          "image_only": 1031,
+          "text_only": 0
+        },
+        "client_2": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 202
+        },
+        "client_3": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 1293
+        },
+        "client_4": {
+          "image_text": 0,
+          "image_only": 789,
+          "text_only": 0
+        },
+        "client_5": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 219
+        },
+        "client_6": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 207
+        },
+        "client_7": {
+          "image_text": 0,
+          "image_only": 1194,
+          "text_only": 0
+        },
+        "client_8": {
+          "image_text": 0,
+          "image_only": 1403,
+          "text_only": 0
+        },
+        "client_9": {
+          "image_text": 0,
+          "image_only": 762,
+          "text_only": 0
+        }
+      },
+      "image_only_clients": [
+        "client_1",
+        "client_4",
+        "client_7",
+        "client_8",
+        "client_9"
+      ],
+      "text_only_clients": [
+        "client_0",
+        "client_2",
+        "client_3",
+        "client_5",
+        "client_6"
+      ]
+    },
+    {
+      "path": "dir_0.5/cross_7_3",
+      "stat_setting": "dir_0.5",
+      "modal_setting": "cross_7_3",
+      "alpha": 0.5,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1400,
+        "client_1": 1031,
+        "client_2": 202,
+        "client_3": 1293,
+        "client_4": 789,
+        "client_5": 219,
+        "client_6": 207,
+        "client_7": 1194,
+        "client_8": 1403,
+        "client_9": 762
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1261,
+          "1": 139
+        },
+        "client_1": {
+          "0": 883,
+          "1": 148
+        },
+        "client_2": {
+          "0": 106,
+          "1": 96
+        },
+        "client_3": {
+          "0": 9,
+          "1": 1284
+        },
+        "client_4": {
+          "0": 783,
+          "1": 6
+        },
+        "client_5": {
+          "0": 34,
+          "1": 185
+        },
+        "client_6": {
+          "0": 0,
+          "1": 207
+        },
+        "client_7": {
+          "0": 300,
+          "1": 894
+        },
+        "client_8": {
+          "0": 1400,
+          "1": 3
+        },
+        "client_9": {
+          "0": 674,
+          "1": 88
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 1400
+        },
+        "client_1": {
+          "image_text": 0,
+          "image_only": 1031,
+          "text_only": 0
+        },
+        "client_2": {
+          "image_text": 0,
+          "image_only": 202,
+          "text_only": 0
+        },
+        "client_3": {
+          "image_text": 0,
+          "image_only": 1293,
+          "text_only": 0
+        },
+        "client_4": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 789
+        },
+        "client_5": {
+          "image_text": 0,
+          "image_only": 219,
+          "text_only": 0
+        },
+        "client_6": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 207
+        },
+        "client_7": {
+          "image_text": 0,
+          "image_only": 1194,
+          "text_only": 0
+        },
+        "client_8": {
+          "image_text": 0,
+          "image_only": 1403,
+          "text_only": 0
+        },
+        "client_9": {
+          "image_text": 0,
+          "image_only": 762,
+          "text_only": 0
+        }
+      },
+      "image_only_clients": [
+        "client_1",
+        "client_2",
+        "client_3",
+        "client_5",
+        "client_7",
+        "client_8",
+        "client_9"
+      ],
+      "text_only_clients": [
+        "client_0",
+        "client_4",
+        "client_6"
+      ]
+    },
+    {
+      "path": "dir_0.5/hybrid_0.8",
+      "stat_setting": "dir_0.5",
+      "modal_setting": "hybrid_0.8",
+      "alpha": 0.5,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1400,
+        "client_1": 1031,
+        "client_2": 202,
+        "client_3": 1293,
+        "client_4": 789,
+        "client_5": 219,
+        "client_6": 207,
+        "client_7": 1194,
+        "client_8": 1403,
+        "client_9": 762
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1261,
+          "1": 139
+        },
+        "client_1": {
+          "0": 883,
+          "1": 148
+        },
+        "client_2": {
+          "0": 106,
+          "1": 96
+        },
+        "client_3": {
+          "0": 9,
+          "1": 1284
+        },
+        "client_4": {
+          "0": 783,
+          "1": 6
+        },
+        "client_5": {
+          "0": 34,
+          "1": 185
+        },
+        "client_6": {
+          "0": 0,
+          "1": 207
+        },
+        "client_7": {
+          "0": 300,
+          "1": 894
+        },
+        "client_8": {
+          "0": 1400,
+          "1": 3
+        },
+        "client_9": {
+          "0": 674,
+          "1": 88
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 886,
+          "image_only": 270,
+          "text_only": 244
+        },
+        "client_1": {
+          "image_text": 683,
+          "image_only": 196,
+          "text_only": 152
+        },
+        "client_2": {
+          "image_text": 128,
+          "image_only": 36,
+          "text_only": 38
+        },
+        "client_3": {
+          "image_text": 828,
+          "image_only": 230,
+          "text_only": 235
+        },
+        "client_4": {
+          "image_text": 515,
+          "image_only": 125,
+          "text_only": 149
+        },
+        "client_5": {
+          "image_text": 135,
+          "image_only": 50,
+          "text_only": 34
+        },
+        "client_6": {
+          "image_text": 120,
+          "image_only": 45,
+          "text_only": 42
+        },
+        "client_7": {
+          "image_text": 791,
+          "image_only": 208,
+          "text_only": 195
+        },
+        "client_8": {
+          "image_text": 915,
+          "image_only": 239,
+          "text_only": 249
+        },
+        "client_9": {
+          "image_text": 496,
+          "image_only": 142,
+          "text_only": 124
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_0.5/hybrid_0.7",
+      "stat_setting": "dir_0.5",
+      "modal_setting": "hybrid_0.7",
+      "alpha": 0.5,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1400,
+        "client_1": 1031,
+        "client_2": 202,
+        "client_3": 1293,
+        "client_4": 789,
+        "client_5": 219,
+        "client_6": 207,
+        "client_7": 1194,
+        "client_8": 1403,
+        "client_9": 762
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1261,
+          "1": 139
+        },
+        "client_1": {
+          "0": 883,
+          "1": 148
+        },
+        "client_2": {
+          "0": 106,
+          "1": 96
+        },
+        "client_3": {
+          "0": 9,
+          "1": 1284
+        },
+        "client_4": {
+          "0": 783,
+          "1": 6
+        },
+        "client_5": {
+          "0": 34,
+          "1": 185
+        },
+        "client_6": {
+          "0": 0,
+          "1": 207
+        },
+        "client_7": {
+          "0": 300,
+          "1": 894
+        },
+        "client_8": {
+          "0": 1400,
+          "1": 3
+        },
+        "client_9": {
+          "0": 674,
+          "1": 88
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 697,
+          "image_only": 356,
+          "text_only": 347
+        },
+        "client_1": {
+          "image_text": 533,
+          "image_only": 240,
+          "text_only": 258
+        },
+        "client_2": {
+          "image_text": 97,
+          "image_only": 56,
+          "text_only": 49
+        },
+        "client_3": {
+          "image_text": 637,
+          "image_only": 316,
+          "text_only": 340
+        },
+        "client_4": {
+          "image_text": 401,
+          "image_only": 202,
+          "text_only": 186
+        },
+        "client_5": {
+          "image_text": 101,
+          "image_only": 65,
+          "text_only": 53
+        },
+        "client_6": {
+          "image_text": 81,
+          "image_only": 58,
+          "text_only": 68
+        },
+        "client_7": {
+          "image_text": 606,
+          "image_only": 294,
+          "text_only": 294
+        },
+        "client_8": {
+          "image_text": 694,
+          "image_only": 371,
+          "text_only": 338
+        },
+        "client_9": {
+          "image_text": 373,
+          "image_only": 214,
+          "text_only": 175
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_0.5/hybrid_0.6",
+      "stat_setting": "dir_0.5",
+      "modal_setting": "hybrid_0.6",
+      "alpha": 0.5,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 1400,
+        "client_1": 1031,
+        "client_2": 202,
+        "client_3": 1293,
+        "client_4": 789,
+        "client_5": 219,
+        "client_6": 207,
+        "client_7": 1194,
+        "client_8": 1403,
+        "client_9": 762
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 1261,
+          "1": 139
+        },
+        "client_1": {
+          "0": 883,
+          "1": 148
+        },
+        "client_2": {
+          "0": 106,
+          "1": 96
+        },
+        "client_3": {
+          "0": 9,
+          "1": 1284
+        },
+        "client_4": {
+          "0": 783,
+          "1": 6
+        },
+        "client_5": {
+          "0": 34,
+          "1": 185
+        },
+        "client_6": {
+          "0": 0,
+          "1": 207
+        },
+        "client_7": {
+          "0": 300,
+          "1": 894
+        },
+        "client_8": {
+          "0": 1400,
+          "1": 3
+        },
+        "client_9": {
+          "0": 674,
+          "1": 88
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 500,
+          "image_only": 457,
+          "text_only": 443
+        },
+        "client_1": {
+          "image_text": 365,
+          "image_only": 342,
+          "text_only": 324
+        },
+        "client_2": {
+          "image_text": 73,
+          "image_only": 67,
+          "text_only": 62
+        },
+        "client_3": {
+          "image_text": 472,
+          "image_only": 399,
+          "text_only": 422
+        },
+        "client_4": {
+          "image_text": 269,
+          "image_only": 266,
+          "text_only": 254
+        },
+        "client_5": {
+          "image_text": 83,
+          "image_only": 66,
+          "text_only": 70
+        },
+        "client_6": {
+          "image_text": 82,
+          "image_only": 68,
+          "text_only": 57
+        },
+        "client_7": {
+          "image_text": 431,
+          "image_only": 408,
+          "text_only": 355
+        },
+        "client_8": {
+          "image_text": 499,
+          "image_only": 459,
+          "text_only": 445
+        },
+        "client_9": {
+          "image_text": 300,
+          "image_only": 241,
+          "text_only": 221
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_0.1/aligned",
+      "stat_setting": "dir_0.1",
+      "modal_setting": "aligned",
+      "alpha": 0.1,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 496,
+        "client_1": 286,
+        "client_2": 53,
+        "client_3": 2632,
+        "client_4": 696,
+        "client_5": 891,
+        "client_6": 1403,
+        "client_7": 703,
+        "client_8": 496,
+        "client_9": 844
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 496,
+          "1": 0
+        },
+        "client_1": {
+          "0": 286,
+          "1": 0
+        },
+        "client_2": {
+          "0": 46,
+          "1": 7
+        },
+        "client_3": {
+          "0": 2632,
+          "1": 0
+        },
+        "client_4": {
+          "0": 696,
+          "1": 0
+        },
+        "client_5": {
+          "0": 599,
+          "1": 292
+        },
+        "client_6": {
+          "0": 682,
+          "1": 721
+        },
+        "client_7": {
+          "0": 0,
+          "1": 703
+        },
+        "client_8": {
+          "0": 13,
+          "1": 483
+        },
+        "client_9": {
+          "0": 0,
+          "1": 844
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 496,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_1": {
+          "image_text": 286,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_2": {
+          "image_text": 53,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_3": {
+          "image_text": 2632,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_4": {
+          "image_text": 696,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_5": {
+          "image_text": 891,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_6": {
+          "image_text": 1403,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_7": {
+          "image_text": 703,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_8": {
+          "image_text": 496,
+          "image_only": 0,
+          "text_only": 0
+        },
+        "client_9": {
+          "image_text": 844,
+          "image_only": 0,
+          "text_only": 0
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_0.1/missing_0.3",
+      "stat_setting": "dir_0.1",
+      "modal_setting": "missing_0.3",
+      "alpha": 0.1,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 496,
+        "client_1": 286,
+        "client_2": 53,
+        "client_3": 2632,
+        "client_4": 696,
+        "client_5": 891,
+        "client_6": 1403,
+        "client_7": 703,
+        "client_8": 496,
+        "client_9": 844
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 496,
+          "1": 0
+        },
+        "client_1": {
+          "0": 286,
+          "1": 0
+        },
+        "client_2": {
+          "0": 46,
+          "1": 7
+        },
+        "client_3": {
+          "0": 2632,
+          "1": 0
+        },
+        "client_4": {
+          "0": 696,
+          "1": 0
+        },
+        "client_5": {
+          "0": 599,
+          "1": 292
+        },
+        "client_6": {
+          "0": 682,
+          "1": 721
+        },
+        "client_7": {
+          "0": 0,
+          "1": 703
+        },
+        "client_8": {
+          "0": 13,
+          "1": 483
+        },
+        "client_9": {
+          "0": 0,
+          "1": 844
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 231,
+          "image_only": 130,
+          "text_only": 135
+        },
+        "client_1": {
+          "image_text": 130,
+          "image_only": 66,
+          "text_only": 90
+        },
+        "client_2": {
+          "image_text": 24,
+          "image_only": 17,
+          "text_only": 12
+        },
+        "client_3": {
+          "image_text": 1335,
+          "image_only": 644,
+          "text_only": 653
+        },
+        "client_4": {
+          "image_text": 355,
+          "image_only": 156,
+          "text_only": 185
+        },
+        "client_5": {
+          "image_text": 441,
+          "image_only": 212,
+          "text_only": 238
+        },
+        "client_6": {
+          "image_text": 664,
+          "image_only": 371,
+          "text_only": 368
+        },
+        "client_7": {
+          "image_text": 336,
+          "image_only": 186,
+          "text_only": 181
+        },
+        "client_8": {
+          "image_text": 229,
+          "image_only": 129,
+          "text_only": 138
+        },
+        "client_9": {
+          "image_text": 383,
+          "image_only": 219,
+          "text_only": 242
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_0.1/missing_0.4",
+      "stat_setting": "dir_0.1",
+      "modal_setting": "missing_0.4",
+      "alpha": 0.1,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 496,
+        "client_1": 286,
+        "client_2": 53,
+        "client_3": 2632,
+        "client_4": 696,
+        "client_5": 891,
+        "client_6": 1403,
+        "client_7": 703,
+        "client_8": 496,
+        "client_9": 844
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 496,
+          "1": 0
+        },
+        "client_1": {
+          "0": 286,
+          "1": 0
+        },
+        "client_2": {
+          "0": 46,
+          "1": 7
+        },
+        "client_3": {
+          "0": 2632,
+          "1": 0
+        },
+        "client_4": {
+          "0": 696,
+          "1": 0
+        },
+        "client_5": {
+          "0": 599,
+          "1": 292
+        },
+        "client_6": {
+          "0": 682,
+          "1": 721
+        },
+        "client_7": {
+          "0": 0,
+          "1": 703
+        },
+        "client_8": {
+          "0": 13,
+          "1": 483
+        },
+        "client_9": {
+          "0": 0,
+          "1": 844
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 184,
+          "image_only": 140,
+          "text_only": 172
+        },
+        "client_1": {
+          "image_text": 110,
+          "image_only": 86,
+          "text_only": 90
+        },
+        "client_2": {
+          "image_text": 14,
+          "image_only": 18,
+          "text_only": 21
+        },
+        "client_3": {
+          "image_text": 915,
+          "image_only": 890,
+          "text_only": 827
+        },
+        "client_4": {
+          "image_text": 258,
+          "image_only": 225,
+          "text_only": 213
+        },
+        "client_5": {
+          "image_text": 341,
+          "image_only": 276,
+          "text_only": 274
+        },
+        "client_6": {
+          "image_text": 503,
+          "image_only": 456,
+          "text_only": 444
+        },
+        "client_7": {
+          "image_text": 253,
+          "image_only": 234,
+          "text_only": 216
+        },
+        "client_8": {
+          "image_text": 181,
+          "image_only": 163,
+          "text_only": 152
+        },
+        "client_9": {
+          "image_text": 324,
+          "image_only": 252,
+          "text_only": 268
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_0.1/missing_0.5",
+      "stat_setting": "dir_0.1",
+      "modal_setting": "missing_0.5",
+      "alpha": 0.1,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 496,
+        "client_1": 286,
+        "client_2": 53,
+        "client_3": 2632,
+        "client_4": 696,
+        "client_5": 891,
+        "client_6": 1403,
+        "client_7": 703,
+        "client_8": 496,
+        "client_9": 844
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 496,
+          "1": 0
+        },
+        "client_1": {
+          "0": 286,
+          "1": 0
+        },
+        "client_2": {
+          "0": 46,
+          "1": 7
+        },
+        "client_3": {
+          "0": 2632,
+          "1": 0
+        },
+        "client_4": {
+          "0": 696,
+          "1": 0
+        },
+        "client_5": {
+          "0": 599,
+          "1": 292
+        },
+        "client_6": {
+          "0": 682,
+          "1": 721
+        },
+        "client_7": {
+          "0": 0,
+          "1": 703
+        },
+        "client_8": {
+          "0": 13,
+          "1": 483
+        },
+        "client_9": {
+          "0": 0,
+          "1": 844
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 108,
+          "image_only": 207,
+          "text_only": 181
+        },
+        "client_1": {
+          "image_text": 80,
+          "image_only": 106,
+          "text_only": 100
+        },
+        "client_2": {
+          "image_text": 10,
+          "image_only": 27,
+          "text_only": 16
+        },
+        "client_3": {
+          "image_text": 675,
+          "image_only": 991,
+          "text_only": 966
+        },
+        "client_4": {
+          "image_text": 169,
+          "image_only": 284,
+          "text_only": 243
+        },
+        "client_5": {
+          "image_text": 237,
+          "image_only": 332,
+          "text_only": 322
+        },
+        "client_6": {
+          "image_text": 352,
+          "image_only": 528,
+          "text_only": 523
+        },
+        "client_7": {
+          "image_text": 184,
+          "image_only": 272,
+          "text_only": 247
+        },
+        "client_8": {
+          "image_text": 125,
+          "image_only": 187,
+          "text_only": 184
+        },
+        "client_9": {
+          "image_text": 215,
+          "image_only": 312,
+          "text_only": 317
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_0.1/cross_3_7",
+      "stat_setting": "dir_0.1",
+      "modal_setting": "cross_3_7",
+      "alpha": 0.1,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 496,
+        "client_1": 286,
+        "client_2": 53,
+        "client_3": 2632,
+        "client_4": 696,
+        "client_5": 891,
+        "client_6": 1403,
+        "client_7": 703,
+        "client_8": 496,
+        "client_9": 844
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 496,
+          "1": 0
+        },
+        "client_1": {
+          "0": 286,
+          "1": 0
+        },
+        "client_2": {
+          "0": 46,
+          "1": 7
+        },
+        "client_3": {
+          "0": 2632,
+          "1": 0
+        },
+        "client_4": {
+          "0": 696,
+          "1": 0
+        },
+        "client_5": {
+          "0": 599,
+          "1": 292
+        },
+        "client_6": {
+          "0": 682,
+          "1": 721
+        },
+        "client_7": {
+          "0": 0,
+          "1": 703
+        },
+        "client_8": {
+          "0": 13,
+          "1": 483
+        },
+        "client_9": {
+          "0": 0,
+          "1": 844
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 0,
+          "image_only": 496,
+          "text_only": 0
+        },
+        "client_1": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 286
+        },
+        "client_2": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 53
+        },
+        "client_3": {
+          "image_text": 0,
+          "image_only": 2632,
+          "text_only": 0
+        },
+        "client_4": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 696
+        },
+        "client_5": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 891
+        },
+        "client_6": {
+          "image_text": 0,
+          "image_only": 1403,
+          "text_only": 0
+        },
+        "client_7": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 703
+        },
+        "client_8": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 496
+        },
+        "client_9": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 844
+        }
+      },
+      "image_only_clients": [
+        "client_0",
+        "client_3",
+        "client_6"
+      ],
+      "text_only_clients": [
+        "client_1",
+        "client_2",
+        "client_4",
+        "client_5",
+        "client_7",
+        "client_8",
+        "client_9"
+      ]
+    },
+    {
+      "path": "dir_0.1/cross_5_5",
+      "stat_setting": "dir_0.1",
+      "modal_setting": "cross_5_5",
+      "alpha": 0.1,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 496,
+        "client_1": 286,
+        "client_2": 53,
+        "client_3": 2632,
+        "client_4": 696,
+        "client_5": 891,
+        "client_6": 1403,
+        "client_7": 703,
+        "client_8": 496,
+        "client_9": 844
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 496,
+          "1": 0
+        },
+        "client_1": {
+          "0": 286,
+          "1": 0
+        },
+        "client_2": {
+          "0": 46,
+          "1": 7
+        },
+        "client_3": {
+          "0": 2632,
+          "1": 0
+        },
+        "client_4": {
+          "0": 696,
+          "1": 0
+        },
+        "client_5": {
+          "0": 599,
+          "1": 292
+        },
+        "client_6": {
+          "0": 682,
+          "1": 721
+        },
+        "client_7": {
+          "0": 0,
+          "1": 703
+        },
+        "client_8": {
+          "0": 13,
+          "1": 483
+        },
+        "client_9": {
+          "0": 0,
+          "1": 844
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 0,
+          "image_only": 496,
+          "text_only": 0
+        },
+        "client_1": {
+          "image_text": 0,
+          "image_only": 286,
+          "text_only": 0
+        },
+        "client_2": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 53
+        },
+        "client_3": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 2632
+        },
+        "client_4": {
+          "image_text": 0,
+          "image_only": 696,
+          "text_only": 0
+        },
+        "client_5": {
+          "image_text": 0,
+          "image_only": 891,
+          "text_only": 0
+        },
+        "client_6": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 1403
+        },
+        "client_7": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 703
+        },
+        "client_8": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 496
+        },
+        "client_9": {
+          "image_text": 0,
+          "image_only": 844,
+          "text_only": 0
+        }
+      },
+      "image_only_clients": [
+        "client_0",
+        "client_1",
+        "client_4",
+        "client_5",
+        "client_9"
+      ],
+      "text_only_clients": [
+        "client_2",
+        "client_3",
+        "client_6",
+        "client_7",
+        "client_8"
+      ]
+    },
+    {
+      "path": "dir_0.1/cross_7_3",
+      "stat_setting": "dir_0.1",
+      "modal_setting": "cross_7_3",
+      "alpha": 0.1,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 496,
+        "client_1": 286,
+        "client_2": 53,
+        "client_3": 2632,
+        "client_4": 696,
+        "client_5": 891,
+        "client_6": 1403,
+        "client_7": 703,
+        "client_8": 496,
+        "client_9": 844
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 496,
+          "1": 0
+        },
+        "client_1": {
+          "0": 286,
+          "1": 0
+        },
+        "client_2": {
+          "0": 46,
+          "1": 7
+        },
+        "client_3": {
+          "0": 2632,
+          "1": 0
+        },
+        "client_4": {
+          "0": 696,
+          "1": 0
+        },
+        "client_5": {
+          "0": 599,
+          "1": 292
+        },
+        "client_6": {
+          "0": 682,
+          "1": 721
+        },
+        "client_7": {
+          "0": 0,
+          "1": 703
+        },
+        "client_8": {
+          "0": 13,
+          "1": 483
+        },
+        "client_9": {
+          "0": 0,
+          "1": 844
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 0,
+          "image_only": 496,
+          "text_only": 0
+        },
+        "client_1": {
+          "image_text": 0,
+          "image_only": 286,
+          "text_only": 0
+        },
+        "client_2": {
+          "image_text": 0,
+          "image_only": 53,
+          "text_only": 0
+        },
+        "client_3": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 2632
+        },
+        "client_4": {
+          "image_text": 0,
+          "image_only": 696,
+          "text_only": 0
+        },
+        "client_5": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 891
+        },
+        "client_6": {
+          "image_text": 0,
+          "image_only": 0,
+          "text_only": 1403
+        },
+        "client_7": {
+          "image_text": 0,
+          "image_only": 703,
+          "text_only": 0
+        },
+        "client_8": {
+          "image_text": 0,
+          "image_only": 496,
+          "text_only": 0
+        },
+        "client_9": {
+          "image_text": 0,
+          "image_only": 844,
+          "text_only": 0
+        }
+      },
+      "image_only_clients": [
+        "client_0",
+        "client_1",
+        "client_2",
+        "client_4",
+        "client_7",
+        "client_8",
+        "client_9"
+      ],
+      "text_only_clients": [
+        "client_3",
+        "client_5",
+        "client_6"
+      ]
+    },
+    {
+      "path": "dir_0.1/hybrid_0.8",
+      "stat_setting": "dir_0.1",
+      "modal_setting": "hybrid_0.8",
+      "alpha": 0.1,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 496,
+        "client_1": 286,
+        "client_2": 53,
+        "client_3": 2632,
+        "client_4": 696,
+        "client_5": 891,
+        "client_6": 1403,
+        "client_7": 703,
+        "client_8": 496,
+        "client_9": 844
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 496,
+          "1": 0
+        },
+        "client_1": {
+          "0": 286,
+          "1": 0
+        },
+        "client_2": {
+          "0": 46,
+          "1": 7
+        },
+        "client_3": {
+          "0": 2632,
+          "1": 0
+        },
+        "client_4": {
+          "0": 696,
+          "1": 0
+        },
+        "client_5": {
+          "0": 599,
+          "1": 292
+        },
+        "client_6": {
+          "0": 682,
+          "1": 721
+        },
+        "client_7": {
+          "0": 0,
+          "1": 703
+        },
+        "client_8": {
+          "0": 13,
+          "1": 483
+        },
+        "client_9": {
+          "0": 0,
+          "1": 844
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 325,
+          "image_only": 80,
+          "text_only": 91
+        },
+        "client_1": {
+          "image_text": 179,
+          "image_only": 49,
+          "text_only": 58
+        },
+        "client_2": {
+          "image_text": 38,
+          "image_only": 6,
+          "text_only": 9
+        },
+        "client_3": {
+          "image_text": 1721,
+          "image_only": 458,
+          "text_only": 453
+        },
+        "client_4": {
+          "image_text": 414,
+          "image_only": 138,
+          "text_only": 144
+        },
+        "client_5": {
+          "image_text": 567,
+          "image_only": 157,
+          "text_only": 167
+        },
+        "client_6": {
+          "image_text": 883,
+          "image_only": 274,
+          "text_only": 246
+        },
+        "client_7": {
+          "image_text": 481,
+          "image_only": 109,
+          "text_only": 113
+        },
+        "client_8": {
+          "image_text": 326,
+          "image_only": 82,
+          "text_only": 88
+        },
+        "client_9": {
+          "image_text": 541,
+          "image_only": 150,
+          "text_only": 153
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_0.1/hybrid_0.7",
+      "stat_setting": "dir_0.1",
+      "modal_setting": "hybrid_0.7",
+      "alpha": 0.1,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 496,
+        "client_1": 286,
+        "client_2": 53,
+        "client_3": 2632,
+        "client_4": 696,
+        "client_5": 891,
+        "client_6": 1403,
+        "client_7": 703,
+        "client_8": 496,
+        "client_9": 844
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 496,
+          "1": 0
+        },
+        "client_1": {
+          "0": 286,
+          "1": 0
+        },
+        "client_2": {
+          "0": 46,
+          "1": 7
+        },
+        "client_3": {
+          "0": 2632,
+          "1": 0
+        },
+        "client_4": {
+          "0": 696,
+          "1": 0
+        },
+        "client_5": {
+          "0": 599,
+          "1": 292
+        },
+        "client_6": {
+          "0": 682,
+          "1": 721
+        },
+        "client_7": {
+          "0": 0,
+          "1": 703
+        },
+        "client_8": {
+          "0": 13,
+          "1": 483
+        },
+        "client_9": {
+          "0": 0,
+          "1": 844
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 217,
+          "image_only": 124,
+          "text_only": 155
+        },
+        "client_1": {
+          "image_text": 130,
+          "image_only": 75,
+          "text_only": 81
+        },
+        "client_2": {
+          "image_text": 29,
+          "image_only": 10,
+          "text_only": 14
+        },
+        "client_3": {
+          "image_text": 1273,
+          "image_only": 668,
+          "text_only": 691
+        },
+        "client_4": {
+          "image_text": 344,
+          "image_only": 176,
+          "text_only": 176
+        },
+        "client_5": {
+          "image_text": 443,
+          "image_only": 224,
+          "text_only": 224
+        },
+        "client_6": {
+          "image_text": 653,
+          "image_only": 390,
+          "text_only": 360
+        },
+        "client_7": {
+          "image_text": 334,
+          "image_only": 192,
+          "text_only": 177
+        },
+        "client_8": {
+          "image_text": 232,
+          "image_only": 137,
+          "text_only": 127
+        },
+        "client_9": {
+          "image_text": 394,
+          "image_only": 230,
+          "text_only": 220
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    },
+    {
+      "path": "dir_0.1/hybrid_0.6",
+      "stat_setting": "dir_0.1",
+      "modal_setting": "hybrid_0.6",
+      "alpha": 0.1,
+      "num_samples_total": 8500,
+      "num_samples_per_client": {
+        "client_0": 496,
+        "client_1": 286,
+        "client_2": 53,
+        "client_3": 2632,
+        "client_4": 696,
+        "client_5": 891,
+        "client_6": 1403,
+        "client_7": 703,
+        "client_8": 496,
+        "client_9": 844
+      },
+      "empty_clients": [],
+      "label_distribution_per_client": {
+        "client_0": {
+          "0": 496,
+          "1": 0
+        },
+        "client_1": {
+          "0": 286,
+          "1": 0
+        },
+        "client_2": {
+          "0": 46,
+          "1": 7
+        },
+        "client_3": {
+          "0": 2632,
+          "1": 0
+        },
+        "client_4": {
+          "0": 696,
+          "1": 0
+        },
+        "client_5": {
+          "0": 599,
+          "1": 292
+        },
+        "client_6": {
+          "0": 682,
+          "1": 721
+        },
+        "client_7": {
+          "0": 0,
+          "1": 703
+        },
+        "client_8": {
+          "0": 13,
+          "1": 483
+        },
+        "client_9": {
+          "0": 0,
+          "1": 844
+        }
+      },
+      "modality_distribution_per_client": {
+        "client_0": {
+          "image_text": 161,
+          "image_only": 174,
+          "text_only": 161
+        },
+        "client_1": {
+          "image_text": 106,
+          "image_only": 82,
+          "text_only": 98
+        },
+        "client_2": {
+          "image_text": 22,
+          "image_only": 17,
+          "text_only": 14
+        },
+        "client_3": {
+          "image_text": 973,
+          "image_only": 827,
+          "text_only": 832
+        },
+        "client_4": {
+          "image_text": 230,
+          "image_only": 241,
+          "text_only": 225
+        },
+        "client_5": {
+          "image_text": 325,
+          "image_only": 281,
+          "text_only": 285
+        },
+        "client_6": {
+          "image_text": 471,
+          "image_only": 473,
+          "text_only": 459
+        },
+        "client_7": {
+          "image_text": 264,
+          "image_only": 223,
+          "text_only": 216
+        },
+        "client_8": {
+          "image_text": 172,
+          "image_only": 173,
+          "text_only": 151
+        },
+        "client_9": {
+          "image_text": 299,
+          "image_only": 257,
+          "text_only": 288
+        }
+      },
+      "image_only_clients": [],
+      "text_only_clients": []
+    }
+  ]
+}

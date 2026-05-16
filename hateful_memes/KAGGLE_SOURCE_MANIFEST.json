@@ -1,0 +1,12 @@
+{
+  "source": "KaggleHub parthplc/facebook-hateful-meme-dataset",
+  "source_project_copy": "downloads/kaggle_hateful_memes_raw/data",
+  "note": "Kaggle 10k layout. dev_seen.jsonl and test_seen.jsonl are compatibility aliases for dev.jsonl/test.jsonl. test.jsonl has no labels.",
+  "splits": {
+    "train.jsonl": 8500,
+    "dev.jsonl": 500,
+    "test.jsonl": 1000,
+    "dev_seen.jsonl": "alias of dev.jsonl",
+    "test_seen.jsonl": "alias of test.jsonl"
+  }
+}

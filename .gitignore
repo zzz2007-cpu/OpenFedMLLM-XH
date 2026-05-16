@@ -1,0 +1,84 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Environments
+.env
+.venv/
+venv/
+env/
+conda-meta/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+logs/
+logging/
+wandb/
+runs/
+tensorboard/
+events.out.tfevents.*
+
+# Outputs / checkpoints
+outputs/
+checkpoints/
+model_checkpoints/
+api-log/
+log/
+loggs/
+results.npz
+
+# Model weights
+*.pt
+*.pth
+*.pth.tar
+*.ckpt
+*.bin
+*.safetensors
+
+# HuggingFace / Kaggle cache
+.cache/
+hf_cache/
+hateful_memes_hf_cache/
+kagglehub/
+
+# Large datasets: ignore raw images, keep metadata/json/splits
+hateful_memes/img/
+crisismmd_datasplit_all/
+VQAv2/
+data/
+datasets/
+
+# Temporary generated folders
+tmp/
+temp/
+build/
+dist/
+
+# Keep useful project files even inside ignored-like paths if needed
+!hateful_memes/*.jsonl
+!hateful_memes/*.json
+!hateful_memes/federated_splits/
+!hateful_memes/federated_splits/**/*.json
+
+partition-alpha*/
+partition_vqa*/
+downloads/
+tmp/
+backup*/
+analysis/
+fling_llm/
+zoo/
+flzoo/
+analysis/

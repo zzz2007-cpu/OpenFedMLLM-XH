@@ -1,0 +1,84 @@
+from easydict import EasyDict
+
+
+exp_args = dict(
+    model_args=dict(
+        model_name_or_path="openbmb/MiniCPM-V-2_6-int4",
+    ),
+    data_args=dict(
+        data_path="./data/crisis-mmd/minicpmv_data/partition-alpha0.5-clt10",
+        eval_data_path="./data/crisis-mmd/minicpmv_data/test.json",
+    ),
+    training_args=dict(
+        output_dir="./mllmzoo/output/minicpmv_crisismmid_centralized",
+        cache_dir="./mllmzoo/cache",
+        seed=42,
+        data_seed=42,
+        full_determinism=True,
+        num_train_epochs=1,
+        per_device_train_batch_size=1,
+        gradient_accumulation_steps=16,
+        learning_rate=3e-5,
+        bf16=True,
+        fp16=False,
+        logging_steps=20,
+        save_steps=1000,
+        save_total_limit=1,
+        remove_unused_columns=False,
+        report_to="none",
+        model_max_length=1024,
+        max_slice_nums=9,
+        vision_batch_size=13,
+        llm_type="minicpm",
+        gradient_checkpointing=True,
+        tune_vision=False,
+        tune_llm=False,
+        use_lora=True,
+        enable_audio=False,
+        max_steps=-1,
+    ),
+    lora_args=dict(
+        lora_r=8,
+        lora_alpha=16,
+        lora_dropout=0.05,
+        lora_bias="none",
+        q_lora=False,
+    ),
+    fed_args=dict(
+        fed_alg="fedavg",
+        num_rounds=1,
+        num_clients=10,
+        sample_clients=1,
+        init_learning_rate=3e-5,
+        outer_lr_schedule="cosine",
+        outer_lr_eta_min=5e-6,
+        save_model_freq=1,
+        prox_mu=0.01,
+        mu_w=0.1,
+        s_layer=4,
+        fedopt_tau=1e-3,
+        fedopt_eta=1e-3,
+        fedopt_beta1=0.9,
+        fedopt_beta2=0.99,
+    ),
+    eval_args=dict(
+        eval_data_path="./data/crisis-mmd/minicpmv_data/test.json",
+        eval_freq=1,
+        max_new_tokens=16,
+        max_samples=500,
+        startup_eval_full=False,
+        final_eval_full=True,
+    ),
+    run_args=dict(
+        mode="centralized",
+        append_mode_subdir=False,
+    ),
+)
+
+exp_args = EasyDict(exp_args)
+
+
+if __name__ == "__main__":
+    from fling_mllm.pipeline import run_mode_from_config
+
+    run_mode_from_config(exp_args)

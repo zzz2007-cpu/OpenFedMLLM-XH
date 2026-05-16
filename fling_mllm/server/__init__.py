@@ -1,0 +1,3 @@
+class BaseMLLMServer:
+    pass
+

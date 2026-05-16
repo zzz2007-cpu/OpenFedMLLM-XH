@@ -1,0 +1,4 @@
+from .sft_mllm_fedavg_trainer import CPMTrainer
+from .sft_mllm_fedprox_trainer import CPMTrainerReg
+from .sft_mllm_scaffold_trainer import CPMTrainerScaffold
+from .sft_mllm_fednova_trainer import CPMTrainerFedNova

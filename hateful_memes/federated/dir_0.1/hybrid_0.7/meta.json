@@ -1,0 +1,122 @@
+{
+  "dataset": "hateful_memes",
+  "source_split": "train",
+  "num_clients": 10,
+  "seed": 42,
+  "stat_setting": "dir_0.1",
+  "modal_setting": "hybrid_0.7",
+  "alpha": 0.1,
+  "num_samples_total": 8500,
+  "num_samples_per_client": {
+    "client_0": 496,
+    "client_1": 286,
+    "client_2": 53,
+    "client_3": 2632,
+    "client_4": 696,
+    "client_5": 891,
+    "client_6": 1403,
+    "client_7": 703,
+    "client_8": 496,
+    "client_9": 844
+  },
+  "label_distribution_per_client": {
+    "client_0": {
+      "0": 496,
+      "1": 0
+    },
+    "client_1": {
+      "0": 286,
+      "1": 0
+    },
+    "client_2": {
+      "0": 46,
+      "1": 7
+    },
+    "client_3": {
+      "0": 2632,
+      "1": 0
+    },
+    "client_4": {
+      "0": 696,
+      "1": 0
+    },
+    "client_5": {
+      "0": 599,
+      "1": 292
+    },
+    "client_6": {
+      "0": 682,
+      "1": 721
+    },
+    "client_7": {
+      "0": 0,
+      "1": 703
+    },
+    "client_8": {
+      "0": 13,
+      "1": 483
+    },
+    "client_9": {
+      "0": 0,
+      "1": 844
+    }
+  },
+  "modality_distribution_per_client": {
+    "client_0": {
+      "image_text": 217,
+      "image_only": 124,
+      "text_only": 155
+    },
+    "client_1": {
+      "image_text": 130,
+      "image_only": 75,
+      "text_only": 81
+    },
+    "client_2": {
+      "image_text": 29,
+      "image_only": 10,
+      "text_only": 14
+    },
+    "client_3": {
+      "image_text": 1273,
+      "image_only": 668,
+      "text_only": 691
+    },
+    "client_4": {
+      "image_text": 344,
+      "image_only": 176,
+      "text_only": 176
+    },
+    "client_5": {
+      "image_text": 443,
+      "image_only": 224,
+      "text_only": 224
+    },
+    "client_6": {
+      "image_text": 653,
+      "image_only": 390,
+      "text_only": 360
+    },
+    "client_7": {
+      "image_text": 334,
+      "image_only": 192,
+      "text_only": 177
+    },
+    "client_8": {
+      "image_text": 232,
+      "image_only": 137,
+      "text_only": 127
+    },
+    "client_9": {
+      "image_text": 394,
+      "image_only": 230,
+      "text_only": 220
+    }
+  },
+  "global_label_distribution": {
+    "0": 5450,
+    "1": 3050
+  },
+  "empty_clients": [],
+  "hybrid_keep_prob": 0.7
+}

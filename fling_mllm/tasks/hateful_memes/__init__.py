@@ -1,0 +1,2 @@
+"""Hateful Memes task adapter."""
+
