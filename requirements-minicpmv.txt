@@ -1,0 +1,8 @@
+# Tested dependency set for openbmb/MiniCPM-V-2_6-int4.
+# Install after the project package in GPU jobs:
+#   pip install -r requirements-minicpmv.txt
+Pillow==10.1.0
+transformers==4.40.0
+sentencepiece==0.1.99
+accelerate==0.30.1
+bitsandbytes==0.43.1

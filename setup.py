@@ -25,6 +25,44 @@ here = os.path.abspath(os.path.dirname(__file__))
 with open('README.md', mode='r', encoding='utf-8') as f:
     readme = f.read()
 
+BASE_REQUIRES = [
+    'transformers',
+    'datasets',
+    'accelerate',
+    'bitsandbytes',
+    'peft',
+    'evaluate',
+    'rouge-score',
+    'easydict',
+    'pyarrow==14.0.2',
+    'prettytable',
+    'tensorboard',
+    'torch',
+    'torchvision',
+    'torchtext',
+    'timm',
+    'tqdm',
+    'scipy',
+    'numpy',
+    'pillow',
+    'absl-py',
+    'nltk',
+    'six',
+    'matplotlib',
+    'click',
+    'deepspeed',
+    'lmdb==1.4.1',
+    'yapf==0.29.0',
+]
+
+MINICPMV_REQUIRES = [
+    'Pillow==10.1.0',
+    'transformers==4.40.0',
+    'sentencepiece==0.1.99',
+    'accelerate==0.30.1',
+    'bitsandbytes==0.43.1',
+]
+
 setup(
     name=meta['__TITLE__'],
     version=meta['__VERSION__'],
@@ -49,7 +87,7 @@ setup(
         for package_name in find_packages(include='fling.*')
     },
     python_requires=">=3.7",
-    install_requires=['transformers', 'datasets', 'accelerate', 'bitsandbytes', 'peft', 'evaluate', 'rouge-score', 'easydict', 'pyarrow==14.0.2', 'prettytable', 'tensorboard', 'torch', 'torchvision', 'torchtext', 'timm', 'tqdm', 'scipy', 'numpy', 'pillow', 'absl-py', 'nltk', 'six', 'matplotlib', 'click', 'deepspeed', 'lmdb==1.4.1', 'yapf==0.29.0'],
+    install_requires=BASE_REQUIRES,
     entry_points={
         'console_scripts': [
             'fling-mllm-train=fling_mllm.pipeline.generic_model_mllm_pipeline:main',
@@ -58,6 +96,7 @@ setup(
         ]
     },
     extras_require={
+        'minicpmv': MINICPMV_REQUIRES,
         'test': [
             'coverage>=5,<=7.0.1',
             'mock>=4.0.3',
