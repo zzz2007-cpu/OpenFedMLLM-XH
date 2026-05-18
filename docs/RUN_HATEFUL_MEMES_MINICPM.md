@@ -149,6 +149,20 @@ set OPENFED_SAMPLE_CLIENTS=5
 D:\Anaconda\condabin\conda.bat run -n fl python mllmzoo\run_experiment.py --name minicpm_v_2_6_int4_hateful_memes_fedavg
 ```
 
+快速配置用于先确认完整 MiniCPM-V 训练链路能启动，默认 `num_rounds=1`、`sample_clients=2`、每个 client `max_steps=1`、eval 最多 32 条：
+
+```bash
+python3 mllmzoo/run_experiment.py --name minicpm_v_2_6_int4_hateful_memes_fedavg_quick
+```
+
+Windows conda `fl` 环境快速配置：
+
+```bat
+set OPENFED_HATEFUL_MEMES_STAT=dir_0.1
+set OPENFED_HATEFUL_MEMES_MODAL=aligned
+D:\Anaconda\condabin\conda.bat run -n fl python mllmzoo\run_experiment.py --name minicpm_v_2_6_int4_hateful_memes_fedavg_quick
+```
+
 默认输出目录：
 
 ```text

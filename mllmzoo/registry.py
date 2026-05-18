@@ -70,6 +70,11 @@ MODEL_REGISTRY = {
         "config_path": "mllmzoo/configs/minicpm/minicpmv-hateful-memes-FedAvg.py",
         "checksum": None,
     },
+    "minicpm_v_2_6_int4_hateful_memes_fedavg_quick": {
+        "repo_id": "openbmb/MiniCPM-V-2_6-int4",
+        "config_path": "mllmzoo/configs/minicpm/minicpmv-hateful-memes-FedAvg-quick.py",
+        "checksum": None,
+    },
     "tiny_hateful_memes_fedavg_cpu_smoke": {
         "repo_id": "tiny_hateful_memes_cpu",
         "config_path": "mllmzoo/configs/tiny_hateful_memes_fedavg_cpu_smoke.py",
