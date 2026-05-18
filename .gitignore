@@ -78,7 +78,7 @@ downloads/
 tmp/
 backup*/
 analysis/
-fling_llm/
+
 zoo/
 flzoo/
 analysis/
