@@ -3,6 +3,7 @@ import os
 import random
 from numbers import Number
 import torch
+from .fedchi import append_fedchi_weight_records, infer_adapter_type
 
 
 def _alg_match(fed_alg, target):
@@ -34,6 +35,18 @@ def _resolve_fedchi_weights(sample_num_list, clients_this_round, fedchi_info=Non
         uniform = 1.0 / max(1, len(clients_this_round))
         return {client: uniform for client in clients_this_round}, raw_weights
     return {client: raw_weights[client] / total for client in clients_this_round}, raw_weights
+
+
+def _fedchi_clients_for_adapter(adapter_type, clients_this_round, fedchi_info=None):
+    if adapter_type == "shared" or not fedchi_info:
+        return list(clients_this_round)
+    has_key = "client_has_image" if adapter_type == "image" else "client_has_text"
+    has_map = fedchi_info.get(has_key, {}) or {}
+    selected = []
+    for client in clients_this_round:
+        if bool(has_map.get(client, has_map.get(str(client), False))):
+            selected.append(client)
+    return selected
 
 
 def _resolve_fednova_tau_entry(entry, client_idx, eps):
@@ -230,11 +243,48 @@ def global_aggregate(
             )
             global_dict[key] = global_dict[key] + fed_args.fednova_server_lr * tau_eff * normalized_delta
     elif _alg_match(fed_args.fed_alg, "fedchi"):
-        client_weight, raw_weight = _resolve_fedchi_weights(
-            sample_num_list=sample_num_list,
-            clients_this_round=clients_this_round,
-            fedchi_info=fedchi_info,
-        )
+        debug_rows = []
+        weight_records = []
+        for key in global_dict.keys():
+            adapter_type = infer_adapter_type(key)
+            adapter_clients = _fedchi_clients_for_adapter(adapter_type, clients_this_round, fedchi_info=fedchi_info)
+            if not adapter_clients:
+                # No participating client owns this modality in the round; keep
+                # the previous global adapter unchanged.
+                continue
+            client_weight, raw_weight = _resolve_fedchi_weights(
+                sample_num_list=sample_num_list,
+                clients_this_round=adapter_clients,
+                fedchi_info=fedchi_info,
+            )
+            value = None
+            for client in adapter_clients:
+                weight = client_weight[client]
+                value = local_dict_list[client][key] * weight if value is None else value + local_dict_list[client][key] * weight
+            global_dict[key] = value
+            if len(debug_rows) < 12:
+                debug_rows.append({
+                    "key": key,
+                    "adapter_type": adapter_type,
+                    "clients": [int(c) for c in adapter_clients],
+                    "normalized_weight": {str(k): float(v) for k, v in client_weight.items()},
+                })
+            hetero = (fedchi_info or {}).get("client_heterogeneity", {}) if fedchi_info else {}
+            modality_type = (fedchi_info or {}).get("client_modality_type", {}) if fedchi_info else {}
+            for client in adapter_clients:
+                h = hetero.get(f"client_{client}", {}) if isinstance(hetero, dict) else {}
+                weight_records.append({
+                    "round": int(round_idx),
+                    "adapter_type": adapter_type,
+                    "client_id": int(client),
+                    "n_k": int(sample_num_list[client]),
+                    "label_div": float(h.get("label_div", 0.0)),
+                    "modality_div": float(h.get("modality_div", 0.0)),
+                    "div_k": float(h.get("div_k", 1.0)),
+                    "raw_weight": float(raw_weight[client]),
+                    "normalized_weight": float(client_weight[client]),
+                    "client_modality_type": modality_type.get(client, modality_type.get(str(client), "unknown")),
+                })
         if _env_flag("OPENFED_DEBUG_FEDCHI", default=True):
             print(
                 "[FedCHI][WeightDebug] "
@@ -242,19 +292,16 @@ def global_aggregate(
                     {
                         "round_idx": int(round_idx),
                         "clients_this_round": [int(c) for c in clients_this_round],
-                        "raw_weight": {str(k): float(v) for k, v in raw_weight.items()},
-                        "normalized_weight": {str(k): float(v) for k, v in client_weight.items()},
+                        "rows": debug_rows,
                     },
                     ensure_ascii=False,
                 ),
                 flush=True,
             )
-        for key in global_dict.keys():
-            value = None
-            for client in clients_this_round:
-                weight = client_weight[client]
-                value = local_dict_list[client][key] * weight if value is None else value + local_dict_list[client][key] * weight
-            global_dict[key] = value
+        weights_path = None
+        if fedchi_info:
+            weights_path = fedchi_info.get("weights_path")
+        append_fedchi_weight_records(weights_path, weight_records)
     else:
         for key in global_dict.keys():
             value = None

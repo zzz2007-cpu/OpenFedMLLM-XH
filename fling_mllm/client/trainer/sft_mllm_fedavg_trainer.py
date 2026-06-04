@@ -35,6 +35,9 @@ class CPMTrainer(Trainer):
         self._last_logits_mean = None
         self._last_logits_std = None
         self._fed_initial_optimizer_lr = None
+        self._last_task_loss = None
+        self._last_cons_loss = None
+        self._last_prox_loss = None
 
     def create_scheduler(self, num_training_steps: int, optimizer: torch.optim.Optimizer = None):
         # Force constant LR inside each client local training.
@@ -86,9 +89,22 @@ class CPMTrainer(Trainer):
             "grad_norm": self._last_grad_norm,
             "logits_mean": self._last_logits_mean,
             "logits_std": self._last_logits_std,
+            "task_loss": self._last_task_loss,
+            "cons_loss": self._last_cons_loss,
+            "prox_loss": self._last_prox_loss,
         }
 
     def compute_loss(self, model, inputs, return_outputs=False):
+        # Side-channel flags used by ScienceQA/FedCHI. They are not accepted by
+        # HuggingFace model forward methods, so remove them before inference.
+        full_context_flags = inputs.pop("scienceqa_full_context", None)
+        inputs.pop("scienceqa_has_image", None)
+        inputs.pop("scienceqa_has_text_context", None)
+        masked_inputs = {}
+        for key in list(inputs.keys()):
+            if key.startswith("scienceqa_masked_"):
+                masked_key = key.replace("scienceqa_masked_", "", 1)
+                masked_inputs[masked_key] = inputs.pop(key)
         labels = inputs.pop("labels") if "labels" in inputs else None
 
         if is_minicpm_family(self.model):
@@ -124,9 +140,40 @@ class CPMTrainer(Trainer):
                 shift_logits.view(-1, shift_logits.size(-1)),
                 shift_labels.view(-1),
             )
+            cons_loss = logits.sum() * 0.0
+            lambda_cons = float(getattr(self, "lambda_cons", getattr(self.args, "lambda_cons", 0.0)))
+            if lambda_cons > 0.0 and masked_inputs and "labels" in masked_inputs:
+                masked_labels = masked_inputs.pop("labels")
+                if is_minicpm_family(self.model):
+                    if not self.args.use_lora:
+                        masked_outputs = self.model(data=masked_inputs, use_cache=False)
+                    else:
+                        with self.model._enable_peft_forward_hooks(**masked_inputs):
+                            masked_outputs = self.model.base_model(data=masked_inputs, use_cache=False)
+                else:
+                    masked_outputs = model(**masked_inputs, use_cache=False)
+                masked_logits = masked_outputs.logits
+                if masked_logits.size(1) >= 2 and masked_labels.size(1) >= 2:
+                    masked_shift_logits = masked_logits[..., :-1, :].contiguous()
+                    masked_shift_labels = masked_labels[..., 1:].long().contiguous().to(masked_shift_logits.device)
+                    cons_loss = loss_fct(
+                        masked_shift_logits.view(-1, masked_shift_logits.size(-1)),
+                        masked_shift_labels.view(-1),
+                    )
+            elif full_context_flags is not None:
+                full_count = int(full_context_flags.detach().sum().item()) if torch.is_tensor(full_context_flags) else 0
+                if full_count <= 0:
+                    cons_loss = logits.sum() * 0.0
+            self._last_cons_loss = float(cons_loss.detach().item())
+            self._last_task_loss = float(loss.detach().item())
+            self._last_prox_loss = 0.0
+            loss = loss + lambda_cons * cons_loss
             self._last_loss = loss.detach().item()
         else:
             loss = outputs["loss"] if isinstance(outputs, dict) else outputs[0]
+            self._last_task_loss = loss.detach().item()
+            self._last_cons_loss = 0.0
+            self._last_prox_loss = 0.0
             self._last_loss = loss.detach().item()
         return (loss, outputs) if return_outputs else loss
 

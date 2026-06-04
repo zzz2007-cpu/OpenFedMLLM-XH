@@ -58,6 +58,8 @@ hateful_memes/img/
 crisismmd_datasplit_all/
 VQAv2/
 data/
+!scripts/data/
+!scripts/data/*.py
 datasets/
 
 # Temporary generated folders
@@ -78,7 +80,13 @@ downloads/
 tmp/
 backup*/
 analysis/
+!scripts/analysis/
+!scripts/analysis/*.py
+!scripts/analysis/
+!scripts/analysis/*.py
 
 ScienceQA/
 
 analysis/
+!scripts/analysis/
+!scripts/analysis/*.py

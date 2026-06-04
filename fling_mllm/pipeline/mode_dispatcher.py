@@ -1,5 +1,7 @@
 import copy
+import json
 import os
+from dataclasses import asdict, is_dataclass
 
 from ..config.arguments import (
     DataArguments,
@@ -56,6 +58,28 @@ def _env_flag(name, default=False):
     return str(raw).strip().lower() in {"1", "true", "yes", "y", "on"}
 
 
+def _jsonable_section(section):
+    if section is None:
+        return {}
+    if is_dataclass(section):
+        return asdict(section)
+    if isinstance(section, dict):
+        return dict(section)
+    try:
+        return dict(section)
+    except Exception:
+        return {}
+
+
+def _write_resolved_config(output_dir, **sections):
+    os.makedirs(output_dir, exist_ok=True)
+    payload = {name: _jsonable_section(value) for name, value in sections.items()}
+    path = os.path.join(output_dir, "config_resolved.json")
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2, default=str)
+        f.write("\n")
+
+
 def run_mode_from_config(exp_args, mode_override=None):
     model_args = ModelArguments(**_to_plain_dict(_get_section(exp_args, "model_args")))
     data_args = DataArguments(**_to_plain_dict(_get_section(exp_args, "data_args")))
@@ -80,6 +104,16 @@ def run_mode_from_config(exp_args, mode_override=None):
 
     # Work on a detached copy so caller's in-memory config stays unchanged.
     training_args = copy.deepcopy(training_args)
+    _write_resolved_config(
+        training_args.output_dir,
+        model_args=model_args,
+        data_args=data_args,
+        training_args=training_args,
+        lora_args=lora_args,
+        fed_args=fed_args,
+        eval_args=eval_args,
+        run_args=run_args,
+    )
     if mode == "federated":
         if str(model_args.model_name_or_path) == "tiny_hateful_memes_cpu":
             return run_tiny_hateful_memes_fedavg_cpu(

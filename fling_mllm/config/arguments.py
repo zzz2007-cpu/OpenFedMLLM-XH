@@ -51,6 +51,13 @@ class LoraArguments:
     lora_alpha: int = 8
     lora_dropout: float = 0.05
     lora_target_modules: str = r"llm\..*layers\.\d+\.self_attn\.(q_proj|v_proj)"
+    fedchi_decomposed_lora: bool = False
+    fedchi_shared_target_modules: str = "auto"
+    fedchi_image_target_modules: str = "auto"
+    fedchi_text_target_modules: str = "auto"
+    fedchi_enable_shared_adapter: bool = True
+    fedchi_enable_image_adapter: bool = True
+    fedchi_enable_text_adapter: bool = True
     lora_weight_path: str = ""
     lora_bias: str = "none"
     q_lora: bool = False
@@ -74,6 +81,10 @@ class FedArguments:
     outer_lr_eta_min: Optional[float] = field(default=0.0)
     outer_lr_warmup_rounds: Optional[int] = field(default=None)
     prox_mu: Optional[float] = field(default=0.01)
+    lambda_label: Optional[float] = field(default=1.0)
+    lambda_modality: Optional[float] = field(default=1.0)
+    lambda_cons: Optional[float] = field(default=0.0)
+    fedchi_weights_path: Optional[str] = field(default=None)
     modality_num: Optional[float] = field(default=2)
     fedopt_tau: Optional[float] = field(default=1e-3)
     fedopt_eta: Optional[float] = field(default=1e-3)

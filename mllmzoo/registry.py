@@ -146,4 +146,85 @@ MODEL_REGISTRY = {
         "config_path": "mllmzoo/configs/qwen2vl/qwen2vl-crisismmid-Centralized.py",
         "checksum": None,
     },
+    # ---------------- ScienceQA FedCHI mainline ----------------
+    "scienceqa_qwen25vl_fedavg_lora_L0_M0": {
+        "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+        "config_path": "mllmzoo/configs/scienceqa_chi/scienceqa_qwen25vl_fedavg_lora_L0_M0.py",
+        "checksum": None,
+    },
+    "scienceqa_qwen25vl_fedavg_lora_L1_M0": {
+        "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+        "config_path": "mllmzoo/configs/scienceqa_chi/scienceqa_qwen25vl_fedavg_lora_L1_M0.py",
+        "checksum": None,
+    },
+    "scienceqa_qwen25vl_fedavg_lora_L0_M1": {
+        "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+        "config_path": "mllmzoo/configs/scienceqa_chi/scienceqa_qwen25vl_fedavg_lora_L0_M1.py",
+        "checksum": None,
+    },
+    "scienceqa_qwen25vl_fedavg_lora_L1_M1": {
+        "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+        "config_path": "mllmzoo/configs/scienceqa_chi/scienceqa_qwen25vl_fedavg_lora_L1_M1.py",
+        "checksum": None,
+    },
+    "scienceqa_qwen25vl_fedchi_L0_M0": {
+        "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+        "config_path": "mllmzoo/configs/scienceqa_chi/scienceqa_qwen25vl_fedchi_L0_M0.py",
+        "checksum": None,
+    },
+    "scienceqa_qwen25vl_fedchi_L1_M0": {
+        "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+        "config_path": "mllmzoo/configs/scienceqa_chi/scienceqa_qwen25vl_fedchi_L1_M0.py",
+        "checksum": None,
+    },
+    "scienceqa_qwen25vl_fedchi_L0_M1": {
+        "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+        "config_path": "mllmzoo/configs/scienceqa_chi/scienceqa_qwen25vl_fedchi_L0_M1.py",
+        "checksum": None,
+    },
+    "scienceqa_qwen25vl_fedchi_L1_M1": {
+        "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+        "config_path": "mllmzoo/configs/scienceqa_chi/scienceqa_qwen25vl_fedchi_L1_M1.py",
+        "checksum": None,
+    },
+    "scienceqa_qwen25vl_fedavg_lora_L2_M2": {
+        "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+        "config_path": "mllmzoo/configs/scienceqa_chi/scienceqa_qwen25vl_fedavg_lora_L2_M2.py",
+        "checksum": None,
+    },
+    "scienceqa_qwen25vl_fedprox_lora_L2_M2": {
+        "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+        "config_path": "mllmzoo/configs/scienceqa_chi/scienceqa_qwen25vl_fedprox_lora_L2_M2.py",
+        "checksum": None,
+    },
+    "scienceqa_qwen25vl_fedchi_L2_M2": {
+        "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+        "config_path": "mllmzoo/configs/scienceqa_chi/scienceqa_qwen25vl_fedchi_L2_M2.py",
+        "checksum": None,
+    },
+    "scienceqa_qwen25vl_fedchi_no_modality_lora_L1_M1": {
+        "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+        "config_path": "mllmzoo/configs/scienceqa_chi/scienceqa_qwen25vl_fedchi_no_modality_lora_L1_M1.py",
+        "checksum": None,
+    },
+    "scienceqa_qwen25vl_fedchi_no_shared_lora_L1_M1": {
+        "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+        "config_path": "mllmzoo/configs/scienceqa_chi/scienceqa_qwen25vl_fedchi_no_shared_lora_L1_M1.py",
+        "checksum": None,
+    },
+    "scienceqa_qwen25vl_fedchi_no_hetagg_L1_M1": {
+        "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+        "config_path": "mllmzoo/configs/scienceqa_chi/scienceqa_qwen25vl_fedchi_no_hetagg_L1_M1.py",
+        "checksum": None,
+    },
+    "scienceqa_qwen25vl_fedchi_no_consistency_L1_M1": {
+        "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+        "config_path": "mllmzoo/configs/scienceqa_chi/scienceqa_qwen25vl_fedchi_no_consistency_L1_M1.py",
+        "checksum": None,
+    },
+    "scienceqa_qwen25vl_shared_lora_only_L1_M1": {
+        "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+        "config_path": "mllmzoo/configs/scienceqa_chi/scienceqa_qwen25vl_shared_lora_only_L1_M1.py",
+        "checksum": None,
+    },
 }

@@ -194,7 +194,7 @@ class FinalModelEvalHook(FederatedHook):
                 loader_kwargs["hateful_memes_root"] = self._eval_args.get("hateful_memes_root")
             if self._eval_args.get("strict_image_path") is not None:
                 loader_kwargs["strict_image_path"] = self._eval_args.get("strict_image_path")
-        run_shared_eval(
+        metrics = run_shared_eval(
             model=self._model,
             tokenizer=self._tokenizer,
             eval_data_path=eval_data_path,
@@ -208,6 +208,28 @@ class FinalModelEvalHook(FederatedHook):
             split=self._eval_args.get("eval_split", "eval"),
             loader_kwargs=loader_kwargs,
         )
+        root_metrics_path = os.path.join(self._output_dir, "eval_metrics.json")
+        _save_json(root_metrics_path, metrics)
+        final_summary = {
+            "dataset": self._eval_args.get("dataset"),
+            "model": self._eval_args.get("model"),
+            "algorithm": self._eval_args.get("algorithm"),
+            "setting": self._eval_args.get("setting"),
+            "label_level": self._eval_args.get("label_level"),
+            "modality_level": self._eval_args.get("modality_level"),
+            "ablation": self._eval_args.get("ablation"),
+            "seed": self._eval_args.get("seed"),
+            "final_accuracy": metrics.get("accuracy"),
+            "final_macro_f1": metrics.get("macro_f1", metrics.get("f1_macro")),
+            "invalid_rate": metrics.get("invalid_rate"),
+            "best_round": None,
+            "best_accuracy": metrics.get("accuracy"),
+            "best_macro_f1": metrics.get("macro_f1", metrics.get("f1_macro")),
+            "output_dir": self._output_dir,
+            "checkpoint_path": None,
+            "eval_metrics_path": root_metrics_path,
+        }
+        _save_json(os.path.join(self._output_dir, "final_summary.json"), final_summary)
 
 
 def _metric_scalar_view(metrics: dict) -> dict:

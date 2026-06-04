@@ -15,6 +15,13 @@ from ..client.trainer.sft_mllm_fedprox_trainer import CPMTrainerReg
 from ..client.trainer.sft_mllm_scaffold_trainer import CPMTrainerScaffold
 from ..client.trainer.sft_mllm_fednova_trainer import CPMTrainerFedNova
 from ..federated.aggregation import get_clients_this_round, global_aggregate
+from ..federated.fedchi import (
+    adapter_names_for_modality,
+    build_fedchi_info,
+    modality_from_samples,
+    set_fedchi_active_adapters,
+    split_state_by_adapter,
+)
 from ..federated.state import get_proxy_dict, get_auxiliary_dict
 from ..federated.hooks import FederatedHookManager, summarize_state_dict
 from ..tasks import (
@@ -529,6 +536,7 @@ def run_federated_finetune(model_args, data_args, training_args, lora_args, fed_
     task_loader_kwargs = build_task_loader_kwargs(task_type=task_type, data_args=data_args)
 
     local_datasets = []
+    local_raw_samples = []
     sample_num_list = []
     bad_sample_logs = []
     for i in range(fed_args.num_clients):
@@ -553,9 +561,41 @@ def run_federated_finetune(model_args, data_args, training_args, lora_args, fed_
             task_loader_kwargs=task_loader_kwargs,
         )
         local_datasets.append(data_module)
+        train_dataset = data_module["train_dataset"]
+        raw_data = getattr(train_dataset, "raw_data", None)
+        local_raw_samples.append(list(raw_data) if raw_data is not None else [])
         sample_num_list.append(len(data_module["train_dataset"]))
         bad_sample_logs.append(bad_sample_log_path)
     _print_first_training_sample_snapshot(local_datasets, tokenizer)
+
+    fedchi_info = None
+    if _alg_match(fed_args.fed_alg, "fedchi"):
+        fedchi_weights_path = getattr(fed_args, "fedchi_weights_path", None)
+        if not fedchi_weights_path:
+            fedchi_weights_path = os.path.join(training_args.output_dir, "fedchi_weights.jsonl")
+        fedchi_info = build_fedchi_info(
+            local_raw_samples,
+            lambda_label=float(getattr(fed_args, "lambda_label", 1.0)),
+            lambda_modality=float(getattr(fed_args, "lambda_modality", 1.0)),
+        )
+        fedchi_info["weights_path"] = fedchi_weights_path
+        adapter_manifest = {
+            "algorithm": str(fed_args.fed_alg),
+            "adapters": split_state_by_adapter(global_dict),
+            "client_modality_type": {
+                f"client_{idx}": modality_from_samples(samples)
+                for idx, samples in enumerate(local_raw_samples)
+            },
+            "fedchi_weights_path": fedchi_weights_path,
+        }
+        # Keep only lightweight adapter key metadata in JSON.
+        adapter_manifest["adapters"] = {
+            key: sorted(value.keys()) for key, value in adapter_manifest["adapters"].items()
+        }
+        import json as _json
+        with open(os.path.join(training_args.output_dir, "adapter_manifest.json"), "w", encoding="utf-8") as f:
+            _json.dump(adapter_manifest, f, ensure_ascii=False, indent=2)
+            f.write("\n")
 
     training_loss = [[] for _ in range(fed_args.num_clients)]
     training_metrics = [[] for _ in range(fed_args.num_clients)]
@@ -610,6 +650,15 @@ def run_federated_finetune(model_args, data_args, training_args, lora_args, fed_
             training_args.seed = base_seed + per_client_offset
             training_args.data_seed = base_data_seed + per_client_offset
             set_peft_model_state_dict(model, global_dict)
+            if _alg_match(fed_args.fed_alg, "fedchi"):
+                modality_type = modality_from_samples(local_raw_samples[client])
+                adapter_names = adapter_names_for_modality(
+                    modality_type,
+                    enable_shared=bool(getattr(lora_args, "fedchi_enable_shared_adapter", True)),
+                    enable_image=bool(getattr(lora_args, "fedchi_enable_image_adapter", True)),
+                    enable_text=bool(getattr(lora_args, "fedchi_enable_text_adapter", True)),
+                )
+                set_fedchi_active_adapters(model, adapter_names)
             sub_dataset = local_datasets[client]
             training_args.learning_rate = compute_outer_learning_rate(
                 round_idx=round_idx,
@@ -676,6 +725,7 @@ def run_federated_finetune(model_args, data_args, training_args, lora_args, fed_
                 )
             trainer.fed_round_idx = round_idx
             trainer.fed_client_idx = client
+            trainer.lambda_cons = float(getattr(fed_args, "lambda_cons", 0.0))
             last_trainer = trainer
             results = trainer.train()
             training_loss[client].append(results.training_loss)
@@ -701,6 +751,24 @@ def run_federated_finetune(model_args, data_args, training_args, lora_args, fed_
                 fednova_stats_list[client] = fednova_stats
                 local_metrics.update(fednova_stats)
             training_metrics[client].append(local_metrics)
+            if _alg_match(fed_args.fed_alg, "fedchi") and _is_main_process():
+                import json as _json
+                loss_path = os.path.join(training_args.output_dir, "loss_breakdown.jsonl")
+                with open(loss_path, "a", encoding="utf-8") as f:
+                    f.write(
+                        _json.dumps(
+                            {
+                                "round": int(round_idx),
+                                "client_id": int(client),
+                                "task_loss": local_metrics.get("task_loss"),
+                                "cons_loss": local_metrics.get("cons_loss"),
+                                "prox_loss": local_metrics.get("prox_loss"),
+                                "training_loss": results.training_loss,
+                            },
+                            ensure_ascii=False,
+                        )
+                        + "\n"
+                    )
             local_dict_list[client] = {k: v.cpu() for k, v in get_peft_model_state_dict(model).items()}
             if _alg_match(fed_args.fed_alg, "scaffold"):
                 local_steps = getattr(results, "global_step", None)
@@ -730,8 +798,24 @@ def run_federated_finetune(model_args, data_args, training_args, lora_args, fed_
             opt_proxy_dict=opt_proxy_dict,
             auxiliary_info=(global_auxiliary, auxiliary_delta_dict),
             fednova_info=(fednova_stats_list,),
+            fedchi_info=fedchi_info,
         )
         set_peft_model_state_dict(model, global_dict)
+        if _is_main_process():
+            import json as _json
+            round_record = {
+                "round": int(round_idx),
+                "clients_this_round": [int(c) for c in clients_this_round],
+                "client_losses": {
+                    str(client): training_loss[client][-1]
+                    for client in clients_this_round
+                },
+                "global_state_summary": summarize_state_dict(global_dict),
+            }
+            with open(os.path.join(training_args.output_dir, "round_metrics.jsonl"), "a", encoding="utf-8") as f:
+                f.write(_json.dumps(round_record, ensure_ascii=False) + "\n")
+            with open(os.path.join(training_args.output_dir, "train_log.jsonl"), "a", encoding="utf-8") as f:
+                f.write(_json.dumps({"event": "aggregate_end", **round_record}, ensure_ascii=False) + "\n")
         hook_manager.emit("on_aggregate_end", {
             "round_idx": round_idx,
             "global_state_summary": summarize_state_dict(global_dict),

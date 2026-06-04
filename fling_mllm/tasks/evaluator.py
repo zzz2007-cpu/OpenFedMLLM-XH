@@ -65,12 +65,17 @@ def save_task_eval_outputs(output_dir: str, metrics: Dict, records) -> None:
     os.makedirs(output_dir, exist_ok=True)
     results_path = os.path.join(output_dir, "eval_results.json")
     metrics_path = os.path.join(output_dir, "eval_metrics.json")
+    predictions_path = os.path.join(output_dir, "predictions.jsonl")
 
     with open(results_path, "w", encoding="utf-8") as f:
         json.dump(records, f, ensure_ascii=False, indent=2)
 
     with open(metrics_path, "w", encoding="utf-8") as f:
         json.dump(metrics, f, ensure_ascii=False, indent=2)
+
+    with open(predictions_path, "w", encoding="utf-8") as f:
+        for record in records:
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
     cm = metrics.get("confusion_matrix")
     label_names = metrics.get("label_names")

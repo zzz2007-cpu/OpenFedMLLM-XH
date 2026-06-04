@@ -9,6 +9,7 @@ from fling_llm.dataset.utils import SupervisedDataset, data_collator
 from ..adapters import MODEL_FAMILY_QWEN2_VL, resolve_model_family
 from ..tasks import load_task_samples
 from .qwen2_vl_dataset import build_qwen2_vl_data_module
+from .scienceqa_qwen2_vl_dataset import build_scienceqa_qwen2_vl_data_module
 
 
 def build_transform():
@@ -54,6 +55,14 @@ def make_supervised_data_module(
             raise ValueError(
                 "Qwen2-VL data module requires processor, but got None. "
                 "Please pass model.processor from model_builder."
+            )
+        if str(task_type).strip().lower() == "scienceqa":
+            return build_scienceqa_qwen2_vl_data_module(
+                train_json=train_json,
+                tokenizer=tokenizer,
+                processor=processor,
+                max_length=max_length,
+                bad_sample_log_path=bad_sample_log_path,
             )
         return build_qwen2_vl_data_module(
             train_json=train_json,

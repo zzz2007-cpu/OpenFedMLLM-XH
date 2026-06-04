@@ -8,6 +8,8 @@ from .classification import data_adapter as _classification_data_adapter  # noqa
 from .classification import evaluator as _classification_evaluator  # noqa: F401
 from .hateful_memes import data_adapter as _hateful_memes_data_adapter  # noqa: F401
 from .hateful_memes import evaluator as _hateful_memes_evaluator  # noqa: F401
+from .scienceqa import data_adapter as _scienceqa_data_adapter  # noqa: F401
+from .scienceqa import evaluator as _scienceqa_evaluator  # noqa: F401
 from .vqa import data_adapter as _vqa_data_adapter  # noqa: F401
 from .vqa import evaluator as _vqa_evaluator  # noqa: F401
 

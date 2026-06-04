@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+RUN_ONE="${ROOT_DIR}/scripts/cloud/run_one_scienceqa_chi.sh"
+
+CONFIGS=(
+  scienceqa_qwen25vl_fedchi_no_modality_lora_L1_M1
+  scienceqa_qwen25vl_fedchi_no_shared_lora_L1_M1
+  scienceqa_qwen25vl_fedchi_no_hetagg_L1_M1
+  scienceqa_qwen25vl_fedchi_no_consistency_L1_M1
+  scienceqa_qwen25vl_shared_lora_only_L1_M1
+)
+
+for cfg in "${CONFIGS[@]}"; do
+  CONFIG_NAME="${cfg}" "${RUN_ONE}"
+done
+

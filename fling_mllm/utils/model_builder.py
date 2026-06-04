@@ -282,6 +282,33 @@ def build_model_and_tokenizer(model_args, training_args, lora_args):
             requested_target_modules=lora_args.lora_target_modules,
             model_family=model_family,
         )
+        fedchi_decomposed = bool(getattr(lora_args, "fedchi_decomposed_lora", False))
+        if fedchi_decomposed:
+            shared_targets = select_effective_lora_target_modules(
+                model=model,
+                requested_target_modules=getattr(lora_args, "fedchi_shared_target_modules", "auto"),
+                model_family=model_family,
+            )
+            image_targets = select_effective_lora_target_modules(
+                model=model,
+                requested_target_modules=getattr(lora_args, "fedchi_image_target_modules", "auto"),
+                model_family=model_family,
+            )
+            text_targets = select_effective_lora_target_modules(
+                model=model,
+                requested_target_modules=getattr(lora_args, "fedchi_text_target_modules", "auto"),
+                model_family=model_family,
+            )
+            print(
+                "[FedCHI][LoRA] target_modules "
+                f"shared={shared_targets} image={image_targets} text={text_targets}",
+                flush=True,
+            )
+            if not shared_targets or not image_targets or not text_targets:
+                raise ValueError(
+                    "FedCHI requires non-empty shared/image/text LoRA target modules."
+                )
+            effective_target_modules = shared_targets
         lora_config = LoraConfig(
             r=lora_args.lora_r,
             lora_alpha=lora_args.lora_alpha,
@@ -298,11 +325,40 @@ def build_model_and_tokenizer(model_args, training_args, lora_args):
             model.get_input_embeddings = MethodType(get_input_embeddings, model)
         if lora_args.q_lora:
             model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=training_args.gradient_checkpointing)
-        model = get_peft_model(model, lora_config)
+        adapter_name = "shared" if fedchi_decomposed else "default"
+        try:
+            model = get_peft_model(model, lora_config, adapter_name=adapter_name)
+        except TypeError:
+            model = get_peft_model(model, lora_config)
+        if fedchi_decomposed:
+            adapter_specs = [
+                ("image", image_targets, bool(getattr(lora_args, "fedchi_enable_image_adapter", True))),
+                ("text", text_targets, bool(getattr(lora_args, "fedchi_enable_text_adapter", True))),
+            ]
+            for adapter_name, target_modules, enabled in adapter_specs:
+                if not enabled:
+                    continue
+                adapter_cfg = LoraConfig(
+                    r=lora_args.lora_r,
+                    lora_alpha=lora_args.lora_alpha,
+                    target_modules=target_modules,
+                    lora_dropout=lora_args.lora_dropout,
+                    bias=lora_args.lora_bias,
+                    layers_to_transform=lora_args.lora_layers_to_transform,
+                    modules_to_save=None,
+                )
+                if not hasattr(model, "add_adapter"):
+                    raise RuntimeError("FedCHI decomposed LoRA requires PEFT add_adapter support.")
+                model.add_adapter(adapter_name, adapter_cfg)
+            model._openfed_fedchi_adapters = ["shared"] + [
+                name for name, _, enabled in adapter_specs if enabled
+            ]
         # Safety fuse: guarantee only LoRA adapter tensors remain trainable.
         for name, param in model.named_parameters():
             if "lora_" not in name.lower():
                 param.requires_grad = False
+            elif fedchi_decomposed:
+                param.requires_grad = True
         if training_args.gradient_checkpointing:
             model.enable_input_require_grads()
 
