@@ -117,6 +117,65 @@ def _label_dist(samples: Iterable[Dict]) -> Dict[str, int]:
     return {str(label): int(counter.get(label, 0)) for label in (0, 1)}
 
 
+def _modality_key(sample: Dict) -> str:
+    has_image = bool(sample.get("image"))
+    has_text = bool(str(sample.get("text", "")).strip())
+    if has_image and has_text:
+        return "image_text"
+    if has_image:
+        return "image_only"
+    if has_text:
+        return "text_only"
+    return "none"
+
+
+def _modality_dist(samples: Iterable[Dict]) -> Dict[str, int]:
+    keys = ("image_text", "image_only", "text_only", "none")
+    counter = Counter(_modality_key(sample) for sample in samples)
+    return {key: int(counter.get(key, 0)) for key in keys}
+
+
+def _prob(counter: Dict[str, int], keys: Iterable[str]) -> List[float]:
+    keys = list(keys)
+    total = float(sum(counter.get(key, 0) for key in keys))
+    if total <= 0.0:
+        return [0.0 for _ in keys]
+    return [float(counter.get(key, 0)) / total for key in keys]
+
+
+def _l1(a: List[float], b: List[float]) -> float:
+    return float(sum(abs(x - y) for x, y in zip(a, b)))
+
+
+def _build_fedchi_info(local_samples: List[List[Dict]]) -> Dict:
+    label_keys = ("0", "1")
+    modality_keys = ("image_text", "image_only", "text_only", "none")
+    global_label = Counter()
+    global_modality = Counter()
+    for samples in local_samples:
+        global_label.update(_label_dist(samples))
+        global_modality.update(_modality_dist(samples))
+
+    global_label_prob = _prob(dict(global_label), label_keys)
+    global_modality_prob = _prob(dict(global_modality), modality_keys)
+    client_weight_divisor = {}
+    client_heterogeneity = {}
+    for client_idx, samples in enumerate(local_samples):
+        label_l1 = _l1(_prob(_label_dist(samples), label_keys), global_label_prob)
+        modality_l1 = _l1(_prob(_modality_dist(samples), modality_keys), global_modality_prob)
+        divisor = 1.0 + label_l1 + modality_l1
+        client_weight_divisor[int(client_idx)] = float(divisor)
+        client_heterogeneity[f"client_{client_idx}"] = {
+            "label_l1": float(label_l1),
+            "modality_l1": float(modality_l1),
+            "weight_divisor": float(divisor),
+        }
+    return {
+        "client_weight_divisor": client_weight_divisor,
+        "client_heterogeneity": client_heterogeneity,
+    }
+
+
 def _load_client_samples(data_args, client_path: str) -> List[Dict]:
     loader_kwargs = build_task_loader_kwargs(task_type=data_args.task_type, data_args=data_args)
     loader_kwargs.setdefault("require_answer", True)
@@ -208,6 +267,10 @@ def run_tiny_hateful_memes_fedavg_cpu(model_args, data_args, training_args, fed_
         local_samples.append(samples)
         sample_num_list.append(len(samples))
 
+    fedchi_info = None
+    if "fedchi" in str(fed_args.fed_alg).lower():
+        fedchi_info = _build_fedchi_info(local_samples)
+
     eval_args = _plain_dict(eval_args)
     eval_path = eval_args.get("eval_data_path") or data_args.eval_data_path
     eval_loader_kwargs = build_task_loader_kwargs(task_type=data_args.task_type, data_args=data_args)
@@ -236,6 +299,10 @@ def run_tiny_hateful_memes_fedavg_cpu(model_args, data_args, training_args, fed_
         "client_label_distribution": {
             f"client_{i}": _label_dist(samples) for i, samples in enumerate(local_samples)
         },
+        "client_modality_distribution": {
+            f"client_{i}": _modality_dist(samples) for i, samples in enumerate(local_samples)
+        },
+        "fedchi_info": fedchi_info,
         "eval_samples": len(eval_samples),
     })
 
@@ -297,6 +364,7 @@ def run_tiny_hateful_memes_fedavg_cpu(model_args, data_args, training_args, fed_
             sample_num_list=sample_num_list,
             clients_this_round=clients_this_round,
             round_idx=round_idx,
+            fedchi_info=fedchi_info,
         )
         after_stats = _state_stats(global_dict, watched_key)
         _load_trainable_state_dict(model, global_dict)
@@ -308,6 +376,7 @@ def run_tiny_hateful_memes_fedavg_cpu(model_args, data_args, training_args, fed_
             "aggregated_keys": list(global_dict.keys()),
             "before_aggregate": before_stats,
             "after_aggregate": after_stats,
+            "fedchi_info": fedchi_info,
             "eval": metrics,
         }
         round_summaries.append(round_record)

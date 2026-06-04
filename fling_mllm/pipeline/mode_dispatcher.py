@@ -48,6 +48,13 @@ def _normalize_mode(mode: str) -> str:
     return normalized
 
 
+def _env_flag(name, default=False):
+    raw = os.environ.get(name)
+    if raw is None:
+        return default
+    return str(raw).strip().lower() in {"1", "true", "yes", "y", "on"}
+
+
 def run_mode_from_config(exp_args, mode_override=None):
     model_args = ModelArguments(**_to_plain_dict(_get_section(exp_args, "model_args")))
     data_args = DataArguments(**_to_plain_dict(_get_section(exp_args, "data_args")))
@@ -59,6 +66,14 @@ def run_mode_from_config(exp_args, mode_override=None):
 
     run_args = _to_plain_dict(_get_section(exp_args, "run_args"))
     mode = _normalize_mode(mode_override if mode_override is not None else run_args.get("mode", "federated"))
+    mock_model_debug = bool(run_args.get("mock_model_debug", False)) or _env_flag("OPENFED_MOCK_MODEL_DEBUG")
+    if mock_model_debug:
+        if normalize_task_type(data_args.task_type) != "hateful_memes":
+            raise ValueError(
+                "mock_model_debug currently uses the tiny_hateful_memes_cpu runner; "
+                f"got task_type={data_args.task_type!r}."
+            )
+        model_args.model_name_or_path = "tiny_hateful_memes_cpu"
     if bool(run_args.get("append_mode_subdir", False)):
         training_args.output_dir = os.path.join(training_args.output_dir, mode)
 

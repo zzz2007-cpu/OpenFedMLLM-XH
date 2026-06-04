@@ -17,6 +17,25 @@ def _env_flag(name, default=False):
     return str(raw).strip().lower() in {"1", "true", "yes", "y", "on"}
 
 
+def _resolve_fedchi_weights(sample_num_list, clients_this_round, fedchi_info=None):
+    eps = 1e-12
+    divisors = {}
+    if fedchi_info:
+        divisors = fedchi_info.get("client_weight_divisor", {}) or {}
+
+    raw_weights = {}
+    for client in clients_this_round:
+        divisor = float(divisors.get(client, divisors.get(str(client), 1.0)))
+        divisor = max(divisor, eps)
+        raw_weights[client] = float(sample_num_list[client]) / divisor
+
+    total = sum(raw_weights.values())
+    if total <= eps:
+        uniform = 1.0 / max(1, len(clients_this_round))
+        return {client: uniform for client in clients_this_round}, raw_weights
+    return {client: raw_weights[client] / total for client in clients_this_round}, raw_weights
+
+
 def _resolve_fednova_tau_entry(entry, client_idx, eps):
     """
     Normalize client tau entry to float.
@@ -89,6 +108,7 @@ def global_aggregate(
     opt_proxy_dict=None,
     auxiliary_info=None,
     fednova_info=None,
+    fedchi_info=None,
 ):
     sample_this_round = sum(sample_num_list[client] for client in clients_this_round)
     global_auxiliary = None
@@ -209,6 +229,32 @@ def global_aggregate(
                 for client in clients_this_round
             )
             global_dict[key] = global_dict[key] + fed_args.fednova_server_lr * tau_eff * normalized_delta
+    elif _alg_match(fed_args.fed_alg, "fedchi"):
+        client_weight, raw_weight = _resolve_fedchi_weights(
+            sample_num_list=sample_num_list,
+            clients_this_round=clients_this_round,
+            fedchi_info=fedchi_info,
+        )
+        if _env_flag("OPENFED_DEBUG_FEDCHI", default=True):
+            print(
+                "[FedCHI][WeightDebug] "
+                + json.dumps(
+                    {
+                        "round_idx": int(round_idx),
+                        "clients_this_round": [int(c) for c in clients_this_round],
+                        "raw_weight": {str(k): float(v) for k, v in raw_weight.items()},
+                        "normalized_weight": {str(k): float(v) for k, v in client_weight.items()},
+                    },
+                    ensure_ascii=False,
+                ),
+                flush=True,
+            )
+        for key in global_dict.keys():
+            value = None
+            for client in clients_this_round:
+                weight = client_weight[client]
+                value = local_dict_list[client][key] * weight if value is None else value + local_dict_list[client][key] * weight
+            global_dict[key] = value
     else:
         for key in global_dict.keys():
             value = None
