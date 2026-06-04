@@ -80,6 +80,11 @@ MODEL_REGISTRY = {
         "config_path": "mllmzoo/configs/tiny_hateful_memes_fedavg_cpu_smoke.py",
         "checksum": None,
     },
+    "tiny_hateful_memes_fedchi_mock_debug": {
+        "repo_id": "tiny_hateful_memes_cpu",
+        "config_path": "mllmzoo/configs/tiny_hateful_memes_fedchi_mock_debug.py",
+        "checksum": None,
+    },
     # ---------------- Qwen2-VL ----------------
     "qwen2_vl_2b": {
         "repo_id": "Qwen/Qwen2-VL-2B-Instruct",

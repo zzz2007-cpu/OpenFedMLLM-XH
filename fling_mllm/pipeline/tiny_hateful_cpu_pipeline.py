@@ -242,7 +242,8 @@ def run_tiny_hateful_memes_fedavg_cpu(model_args, data_args, training_args, fed_
 
     output_dir = Path(training_args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    log_path = output_dir / "tiny_fedavg_trace.jsonl"
+    alg_name = str(getattr(fed_args, "fed_alg", "fedavg")).lower()
+    log_path = output_dir / f"tiny_{alg_name}_trace.jsonl"
     if log_path.exists():
         log_path.unlink()
 
@@ -388,7 +389,7 @@ def run_tiny_hateful_memes_fedavg_cpu(model_args, data_args, training_args, fed_
         _save_json(ckpt_dir / "tiny_checkpoint_meta.json", round_record)
 
     summary = {
-        "mode": "tiny_hateful_memes_cpu_fedavg",
+        "mode": f"tiny_hateful_memes_cpu_{alg_name}",
         "data_path": data_args.data_path,
         "eval_data_path": eval_path,
         "output_dir": str(output_dir),
@@ -397,6 +398,7 @@ def run_tiny_hateful_memes_fedavg_cpu(model_args, data_args, training_args, fed_
         "sample_num_list": sample_num_list,
         "rounds": round_summaries,
     }
+    _save_json(output_dir / f"tiny_{alg_name}_summary.json", summary)
     _save_json(output_dir / "tiny_fedavg_summary.json", summary)
     _save_json(output_dir / "eval_metrics.json", round_summaries[-1]["eval"] if round_summaries else {})
     return summary

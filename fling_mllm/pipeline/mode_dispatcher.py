@@ -15,6 +15,7 @@ from .baseline_runner import (
 )
 from .generic_model_mllm_pipeline import run_federated_finetune
 from .tiny_hateful_cpu_pipeline import run_tiny_hateful_memes_fedavg_cpu
+from ..tasks import normalize_task_type
 
 
 SUPPORTED_MODES = {"federated", "local_only", "centralized"}
