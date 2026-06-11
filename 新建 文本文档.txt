@@ -1,0 +1,22 @@
+export HTTP_PROXY=http://127.0.0.1:7890
+export HTTPS_PROXY=http://127.0.0.1:7890
+export http_proxy=http://127.0.0.1:7890
+export https_proxy=http://127.0.0.1:7890
+export ALL_PROXY=socks5://127.0.0.1:7890
+export all_proxy=socks5://127.0.0.1:7890
+
+cat >> ~/.bashrc <<'EOF'
+export HTTP_PROXY=http://127.0.0.1:7890
+export HTTPS_PROXY=http://127.0.0.1:7890
+export http_proxy=http://127.0.0.1:7890
+export https_proxy=http://127.0.0.1:7890
+export ALL_PROXY=socks5://127.0.0.1:7890
+export all_proxy=socks5://127.0.0.1:7890
+EOF
+source ~/.bashrc
+
+{
+    "http.proxy": "http://127.0.0.1:7890",
+    "http.proxySupport": "on",
+    "http.systemCertificates": true
+}
