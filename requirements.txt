@@ -15,7 +15,7 @@ torchtext
 timm
 tqdm
 scipy
-numpy
+numpy==1.26.4
 pillow
 absl-py
 nltk
@@ -25,3 +25,4 @@ click
 deepspeed
 lmdb==1.4.1
 yapf==0.29.0
+scikit-learn==1.9.0
