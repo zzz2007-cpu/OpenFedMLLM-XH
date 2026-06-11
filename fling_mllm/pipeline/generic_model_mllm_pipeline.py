@@ -586,6 +586,7 @@ def run_federated_finetune(model_args, data_args, training_args, lora_args, fed_
                 f"client_{idx}": modality_from_samples(samples)
                 for idx, samples in enumerate(local_raw_samples)
             },
+            "semantic_key": fedchi_info.get("semantic_key"),
             "fedchi_weights_path": fedchi_weights_path,
         }
         # Keep only lightweight adapter key metadata in JSON.

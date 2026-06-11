@@ -15,10 +15,13 @@ import numpy as np
 import pyarrow.parquet as pq
 
 
-LABEL_LEVEL_ALPHA = {
+SEMANTIC_LEVEL_ALPHA = {
     "L0": 10.0,
     "L1": 0.5,
     "L2": 0.1,
+    "S0": 10.0,
+    "S1": 0.5,
+    "S2": 0.1,
 }
 MODALITY_LEVEL_RATIOS = {
     "M0": {"full": 1.0, "text_only": 0.0, "image_only": 0.0},
@@ -26,6 +29,7 @@ MODALITY_LEVEL_RATIOS = {
     "M2": {"full": 0.2, "text_only": 0.4, "image_only": 0.4},
 }
 DEFAULT_SETTINGS = ["L0_M0", "L1_M0", "L0_M1", "L1_M1"]
+SEMANTIC_SPLIT_TARGETS = ("subject", "topic", "category", "skill")
 SPLIT_FILE_HINTS = {
     "train": "train",
     "validation": "validation",
@@ -44,7 +48,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--split_target",
         choices=["answer", "subject", "topic", "category", "skill"],
-        default="answer",
+        default="subject",
+        help=(
+            "Field used for Dirichlet client skew. ScienceQA defaults to subject "
+            "because answer letters are option positions, not semantic labels."
+        ),
     )
     parser.add_argument("--alpha_l1", type=float, default=0.5)
     parser.add_argument("--alpha_l2", type=float, default=0.1)
@@ -183,6 +191,10 @@ def label_key(sample: dict[str, Any], split_target: str) -> str:
     return text if text else "UNKNOWN"
 
 
+def heterogeneity_axis(split_target: str) -> str:
+    return "semantic" if split_target in SEMANTIC_SPLIT_TARGETS else "answer_label"
+
+
 def build_iid_split(
     samples: list[dict[str, Any]],
     num_clients: int,
@@ -246,8 +258,8 @@ def repair_empty_clients(clients: list[list[dict[str, Any]]], rng: np.random.Gen
 
 def parse_setting(setting: str) -> tuple[str, str]:
     parts = setting.strip().upper().split("_")
-    if len(parts) != 2 or parts[0] not in LABEL_LEVEL_ALPHA or parts[1] not in MODALITY_LEVEL_RATIOS:
-        raise ValueError(f"Invalid setting={setting!r}; expected e.g. L0_M0, L1_M1, L2_M2")
+    if len(parts) != 2 or parts[0] not in SEMANTIC_LEVEL_ALPHA or parts[1] not in MODALITY_LEVEL_RATIOS:
+        raise ValueError(f"Invalid setting={setting!r}; expected e.g. L0_M0, L1_M1, L2_M2, S1_M1")
     return parts[0], parts[1]
 
 
@@ -271,8 +283,9 @@ def client_modality_types(num_clients: int, modality_level: str, seed: int) -> l
 
 def apply_modality(
     clients: list[list[dict[str, Any]]],
-    label_level: str,
+    semantic_level: str,
     modality_level: str,
+    split_target: str,
     seed: int,
 ) -> tuple[list[list[dict[str, Any]]], list[str]]:
     modality_types = client_modality_types(len(clients), modality_level, seed=seed)
@@ -285,7 +298,12 @@ def apply_modality(
         for sample in samples:
             item = dict(sample)
             item["client_id"] = int(cid)
-            item["label_heterogeneity"] = label_level
+            # Keep legacy label_* fields for old configs, but the ScienceQA
+            # axis is semantic/task-domain skew when split_target is not answer.
+            item["label_heterogeneity"] = semantic_level
+            item["semantic_heterogeneity"] = semantic_level
+            item["semantic_split_target"] = split_target
+            item["heterogeneity_axis"] = heterogeneity_axis(split_target)
             item["modality_heterogeneity"] = modality_level
             item["client_modality_type"] = modality_type
             item["available_context"] = {
@@ -316,7 +334,7 @@ def context_key(sample: dict[str, Any]) -> str:
 
 def build_meta(
     setting: str,
-    label_level: str,
+    semantic_level: str,
     modality_level: str,
     alpha: float,
     split_target: str,
@@ -326,7 +344,8 @@ def build_meta(
 ) -> dict[str, Any]:
     flat = [sample for client in clients for sample in client]
     client_sample_counts = {f"client_{i}": int(len(samples)) for i, samples in enumerate(clients)}
-    client_label_distribution = {
+    distribution_key = split_target if split_target != "answer" else "answer"
+    client_semantic_distribution = {
         f"client_{i}": count_distribution(samples, split_target if split_target != "answer" else "answer")
         for i, samples in enumerate(clients)
     }
@@ -339,16 +358,21 @@ def build_meta(
         "setting": setting,
         "num_clients": len(clients),
         "seed": int(seed),
-        "label_level": label_level,
+        "label_level": semantic_level,
+        "semantic_level": semantic_level,
+        "heterogeneity_axis": heterogeneity_axis(split_target),
         "modality_level": modality_level,
         "alpha": float(alpha),
         "split_target": split_target,
+        "semantic_split_target": split_target,
         "modality_ratio": MODALITY_LEVEL_RATIOS[modality_level],
         "client_sample_counts": client_sample_counts,
-        "client_label_distribution": client_label_distribution,
+        "client_label_distribution": client_semantic_distribution,
+        "client_semantic_distribution": client_semantic_distribution,
         "client_modality_type": {f"client_{i}": modality_types[i] for i in range(len(clients))},
         "client_available_context_distribution": client_context_distribution,
-        "global_label_distribution": count_distribution(flat, split_target if split_target != "answer" else "answer"),
+        "global_label_distribution": count_distribution(flat, distribution_key),
+        "global_semantic_distribution": count_distribution(flat, distribution_key),
         "global_modality_distribution": dict(Counter(context_key(sample) for sample in flat)),
     }
 
@@ -363,27 +387,33 @@ def build_setting(
     alpha_l2: float,
     seed: int,
 ) -> None:
-    label_level, modality_level = parse_setting(setting)
-    if label_level == "L1":
+    semantic_level, modality_level = parse_setting(setting)
+    if semantic_level in {"L1", "S1"}:
         alpha = float(alpha_l1)
-    elif label_level == "L2":
+    elif semantic_level in {"L2", "S2"}:
         alpha = float(alpha_l2)
     else:
-        alpha = LABEL_LEVEL_ALPHA[label_level]
+        alpha = SEMANTIC_LEVEL_ALPHA[semantic_level]
 
     setting_seed = int(hashlib.sha1(f"{seed}:{setting}".encode("utf-8")).hexdigest()[:8], 16)
-    if label_level == "L0":
+    if semantic_level in {"L0", "S0"}:
         clients = build_iid_split(train_samples, num_clients, split_target, seed=setting_seed)
     else:
         clients = sample_dirichlet_split(train_samples, num_clients, split_target, alpha, seed=setting_seed)
-    clients, modality_types = apply_modality(clients, label_level, modality_level, seed=setting_seed + 17)
+    clients, modality_types = apply_modality(
+        clients,
+        semantic_level,
+        modality_level,
+        split_target=split_target,
+        seed=setting_seed + 17,
+    )
 
     setting_dir = output_dir / setting
     for cid, samples in enumerate(clients):
         write_jsonl(setting_dir / f"client_{cid}.jsonl", samples)
     meta = build_meta(
         setting=setting,
-        label_level=label_level,
+        semantic_level=semantic_level,
         modality_level=modality_level,
         alpha=alpha,
         split_target=split_target,
@@ -400,6 +430,9 @@ def annotate_eval(samples: list[dict[str, Any]]) -> list[dict[str, Any]]:
         item = dict(sample)
         item["client_id"] = None
         item["label_heterogeneity"] = "eval"
+        item["semantic_heterogeneity"] = "eval"
+        item["semantic_split_target"] = None
+        item["heterogeneity_axis"] = "eval"
         item["modality_heterogeneity"] = "eval"
         item["client_modality_type"] = "full"
         item["available_context"] = {"question": True, "image": True, "text_context": True}
@@ -459,6 +492,8 @@ def main() -> None:
             "settings": args.settings,
             "num_clients": args.num_clients,
             "split_target": args.split_target,
+            "semantic_split_target": args.split_target,
+            "heterogeneity_axis": heterogeneity_axis(args.split_target),
             "seed": args.seed,
             "num_train_samples": len(train),
             "num_validation_samples": len(validation),

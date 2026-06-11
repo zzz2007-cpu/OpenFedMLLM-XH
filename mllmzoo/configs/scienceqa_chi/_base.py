@@ -22,6 +22,7 @@ def build_scienceqa_chi_exp(
     output_root = Path(os.environ.get("OUTPUT_ROOT", "./outputs/scienceqa_chi"))
     seed = _env_int("SEED", 42)
     model_path = os.environ.get("MODEL_PATH", "Qwen/Qwen2.5-VL-3B-Instruct")
+    semantic_split_target = os.environ.get("SCIENCEQA_SPLIT_TARGET", "subject")
     output_dir = output_root / run_name / f"seed_{seed}"
 
     enable_shared = ablation != "no_shared_lora"
@@ -130,6 +131,9 @@ def build_scienceqa_chi_exp(
             algorithm=algorithm,
             setting=setting,
             label_level=setting.split("_")[0],
+            semantic_level=setting.split("_")[0],
+            heterogeneity_axis="semantic",
+            semantic_split_target=semantic_split_target,
             modality_level=setting.split("_")[1],
             ablation=ablation,
             seed=seed,
@@ -144,6 +148,8 @@ def build_scienceqa_chi_exp(
             model=model_path,
             algorithm=algorithm,
             setting=setting,
+            heterogeneity_axis="semantic",
+            semantic_split_target=semantic_split_target,
             ablation=ablation,
             seed=seed,
         ),

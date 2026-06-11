@@ -279,6 +279,8 @@ def global_aggregate(
                     "client_id": int(client),
                     "n_k": int(sample_num_list[client]),
                     "label_div": float(h.get("label_div", 0.0)),
+                    "semantic_div": float(h.get("semantic_div", h.get("label_div", 0.0))),
+                    "semantic_key": h.get("semantic_key", "unknown"),
                     "modality_div": float(h.get("modality_div", 0.0)),
                     "div_k": float(h.get("div_k", 1.0)),
                     "raw_weight": float(raw_weight[client]),

@@ -11,6 +11,7 @@ import torch
 
 
 ADAPTER_TYPES = ("shared", "image", "text")
+SCIENCEQA_SEMANTIC_KEYS = ("subject", "topic", "category", "skill")
 
 
 def infer_adapter_type(param_name: str) -> str:
@@ -73,6 +74,21 @@ def _distribution(samples: Iterable[dict], key: str, universe: list[str]) -> dic
     return {item: float(counter.get(item, 0)) / total for item in universe}
 
 
+def _infer_semantic_key(local_samples: list[list[dict]]) -> str:
+    flat = [sample for samples in local_samples for sample in samples]
+    for sample in flat:
+        target = sample.get("semantic_split_target")
+        if target:
+            return str(target)
+    env_target = os.environ.get("SCIENCEQA_SPLIT_TARGET")
+    if env_target:
+        return str(env_target)
+    for key in SCIENCEQA_SEMANTIC_KEYS:
+        if any(sample.get(key) not in {None, ""} for sample in flat):
+            return key
+    return "answer"
+
+
 def _l1(a: dict[str, float], b: dict[str, float]) -> float:
     keys = sorted(set(a) | set(b))
     return float(sum(abs(a.get(key, 0.0) - b.get(key, 0.0)) for key in keys))
@@ -93,11 +109,17 @@ def build_fedchi_info(
     local_samples: list[list[dict]],
     lambda_label: float = 1.0,
     lambda_modality: float = 1.0,
+    semantic_key: str | None = None,
 ) -> dict:
-    labels = sorted({str(sample.get("answer", "UNKNOWN")) for samples in local_samples for sample in samples})
+    semantic_key = str(semantic_key or _infer_semantic_key(local_samples))
+    semantic_values = sorted({
+        str(sample.get(semantic_key, "UNKNOWN"))
+        for samples in local_samples
+        for sample in samples
+    })
     modalities = ["full", "image_only", "text_only", "question_only"]
     flat = [sample for samples in local_samples for sample in samples]
-    global_label = _distribution(flat, "answer", labels)
+    global_semantic = _distribution(flat, semantic_key, semantic_values)
     global_modality_counter = Counter(_context_key(sample) for sample in flat)
     modality_total = float(sum(global_modality_counter.values()))
     global_modality = {
@@ -111,7 +133,7 @@ def build_fedchi_info(
     client_has_image = {}
     client_has_text = {}
     for client_idx, samples in enumerate(local_samples):
-        label_div = _l1(_distribution(samples, "answer", labels), global_label)
+        semantic_div = _l1(_distribution(samples, semantic_key, semantic_values), global_semantic)
         modality_counter = Counter(_context_key(sample) for sample in samples)
         modality_total = float(sum(modality_counter.values()))
         modality_dist = {
@@ -119,11 +141,13 @@ def build_fedchi_info(
             for key in modalities
         }
         modality_div = _l1(modality_dist, global_modality)
-        div_k = 1.0 + float(lambda_label) * label_div + float(lambda_modality) * modality_div
+        div_k = 1.0 + float(lambda_label) * semantic_div + float(lambda_modality) * modality_div
         modality_type = modality_from_samples(samples)
         client_weight_divisor[int(client_idx)] = float(div_k)
         client_heterogeneity[f"client_{client_idx}"] = {
-            "label_div": float(label_div),
+            "label_div": float(semantic_div),
+            "semantic_div": float(semantic_div),
+            "semantic_key": semantic_key,
             "modality_div": float(modality_div),
             "div_k": float(div_k),
         }
@@ -137,7 +161,9 @@ def build_fedchi_info(
         "client_modality_type": client_modality_type,
         "client_has_image": client_has_image,
         "client_has_text": client_has_text,
-        "global_label_distribution": global_label,
+        "semantic_key": semantic_key,
+        "global_label_distribution": global_semantic,
+        "global_semantic_distribution": global_semantic,
         "global_modality_distribution": global_modality,
         "lambda_label": float(lambda_label),
         "lambda_modality": float(lambda_modality),

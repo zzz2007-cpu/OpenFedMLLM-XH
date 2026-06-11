@@ -85,7 +85,7 @@ analysis/
 !scripts/analysis/
 !scripts/analysis/*.py
 
-ScienceQA/
+/ScienceQA/
 
 analysis/
 !scripts/analysis/
