@@ -5,10 +5,12 @@ __pycache__/
 *.egg-info/
 .pytest_cache/
 .mypy_cache/
+.ruff_cache/
 .ipynb_checkpoints/
 
 # Environments
 .env
+.env.*
 .venv/
 venv/
 env/
@@ -21,7 +23,7 @@ conda-meta/
 Thumbs.db
 Desktop.ini
 
-# Logs
+# Logs and experiment tracking
 *.log
 logs/
 logging/
@@ -30,63 +32,103 @@ runs/
 tensorboard/
 events.out.tfevents.*
 
-# Outputs / checkpoints
-outputs/
-checkpoints/
-model_checkpoints/
-api-log/
-log/
-loggs/
+# Generated outputs, reports, and checkpoints
+/output/
+/outputs/
+/results/
+/reports/
+/checkpoints/
+/model_checkpoints/
+/api-log/
+/log/
+/loggs/
 results.npz
 
-# Model weights
+# Dataset roots and generated federated partitions
+/data/
+/dataset/
+/datasets/
+/ScienceQA/
+/VQAv2/
+/hateful_memes/
+/crisismmd_datasplit_all/
+/partitions/
+/partition-alpha*/
+/partition_vqa*/
+/downloads/
+
+# Dataset tables and serialized samples
+*.arrow
+*.csv
+*.feather
+*.h5
+*.hdf5
+*.jsonl
+*.lmdb
+*.mat
+*.ndjson
+*.npy
+*.npz
+*.parquet
+*.pickle
+*.pkl
+*.record
+*.sqlite
+*.sqlite3
+*.tfrecord
+*.tsv
+
+# Dataset media
+*.avif
+*.bmp
+*.gif
+*.jpeg
+*.jpg
+*.png
+*.tif
+*.tiff
+*.webp
+*.flac
+*.m4a
+*.mp3
+*.ogg
+*.wav
+*.avi
+*.mkv
+*.mov
+*.mp4
+*.webm
+
+# Archives commonly used to distribute datasets
+*.7z
+*.bz2
+*.gz
+*.rar
+*.tar
+*.tgz
+*.xz
+*.zip
+
+# Model weights and local model caches
+/models/
+*.bin
+*.ckpt
+*.gguf
+*.onnx
 *.pt
 *.pth
 *.pth.tar
-*.ckpt
-*.bin
 *.safetensors
 
-# HuggingFace / Kaggle cache
+# Hugging Face / Kaggle caches
 .cache/
 hf_cache/
 hateful_memes_hf_cache/
 kagglehub/
 
-# Large datasets: ignore raw images, keep metadata/json/splits
-hateful_memes/img/
-crisismmd_datasplit_all/
-VQAv2/
-data/
-!scripts/data/
-!scripts/data/*.py
-datasets/
-
-# Temporary generated folders
+# Build and temporary folders
 tmp/
 temp/
 build/
 dist/
-
-# Keep useful project files even inside ignored-like paths if needed
-!hateful_memes/*.jsonl
-!hateful_memes/*.json
-!hateful_memes/federated_splits/
-!hateful_memes/federated_splits/**/*.json
-
-partition-alpha*/
-partition_vqa*/
-downloads/
-tmp/
 backup*/
-analysis/
-!scripts/analysis/
-!scripts/analysis/*.py
-!scripts/analysis/
-!scripts/analysis/*.py
-
-/ScienceQA/
-
-analysis/
-!scripts/analysis/
-!scripts/analysis/*.py
