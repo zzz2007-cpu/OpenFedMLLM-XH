@@ -17,6 +17,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import torch
 import numpy as np
+import transformers
 from PIL import Image
 from sklearn.metrics import (
     accuracy_score,
@@ -102,7 +103,11 @@ def load_model_for_eval(
     if model_family == MODEL_FAMILY_QWEN2_VL:
         if AutoModelForVision2Seq is None:
             raise ImportError(
-                "Qwen2-VL evaluation requires transformers with AutoModelForVision2Seq."
+                "Qwen2.5-VL evaluation requires transformers>=4.50.0,<5 with "
+                "AutoModelForVision2Seq support; installed version is "
+                f"{transformers.__version__}. Run: "
+                "pip install -U 'transformers>=4.50.0,<5' 'peft>=0.10.0' "
+                "'accelerate>=0.30.0'"
             )
         model_loader = AutoModelForVision2Seq
     else:

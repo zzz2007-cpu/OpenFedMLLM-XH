@@ -26,7 +26,7 @@ with open('README.md', mode='r', encoding='utf-8') as f:
     readme = f.read()
 
 BASE_REQUIRES = [
-    'transformers',
+    'transformers>=4.50.0,<5',
     'datasets',
     'accelerate',
     'bitsandbytes',

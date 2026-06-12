@@ -3,6 +3,7 @@ import importlib.util
 import math
 from types import MethodType
 import torch
+import transformers
 from transformers import AutoModel, AutoTokenizer, AutoProcessor
 try:
     from transformers import AutoModelForVision2Seq
@@ -221,8 +222,11 @@ def build_model_and_tokenizer(model_args, training_args, lora_args):
     if model_family == MODEL_FAMILY_QWEN2_VL:
         if AutoModelForVision2Seq is None:
             raise ImportError(
-                "Qwen2-VL requires a newer transformers version with "
-                "AutoModelForVision2Seq support."
+                "Qwen2.5-VL requires transformers>=4.50.0,<5 with "
+                "AutoModelForVision2Seq support; installed version is "
+                f"{transformers.__version__}. Run: "
+                "pip install -U 'transformers>=4.50.0,<5' 'peft>=0.10.0' "
+                "'accelerate>=0.30.0'"
             )
         processor_kwargs = {}
         processor_min_pixels = getattr(model_args, "processor_min_pixels", None)
