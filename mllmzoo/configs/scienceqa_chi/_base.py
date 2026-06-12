@@ -18,10 +18,12 @@ def build_scienceqa_chi_exp(
     run_name: str,
     ablation: str | None = None,
 ):
+    repo_root = Path(__file__).resolve().parents[3]
     fed_root = Path(os.environ.get("SCIENCEQA_FED_DIR", "./data/scienceqa/federated_chi"))
     output_root = Path(os.environ.get("OUTPUT_ROOT", "./outputs/scienceqa_chi"))
     seed = _env_int("SEED", 42)
-    model_path = os.environ.get("MODEL_PATH", "Qwen/Qwen2.5-VL-3B-Instruct")
+    default_model_path = repo_root.parent / "Qwen2.5-VL-3B-Instruct-ms"
+    model_path = os.environ.get("MODEL_PATH", str(default_model_path))
     semantic_split_target = os.environ.get("SCIENCEQA_SPLIT_TARGET", "subject")
     output_dir = output_root / run_name / f"seed_{seed}"
 

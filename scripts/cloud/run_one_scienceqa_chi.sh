@@ -7,7 +7,7 @@ cd "${ROOT_DIR}"
 : "${CONFIG_NAME:?CONFIG_NAME is required, e.g. scienceqa_qwen25vl_fedavg_lora_L0_M0}"
 : "${DATA_ROOT:=${ROOT_DIR}/ScienceQA/image_present}"
 : "${SCIENCEQA_FED_DIR:=${ROOT_DIR}/data/scienceqa/federated_chi}"
-: "${MODEL_PATH:=Qwen/Qwen2.5-VL-3B-Instruct}"
+: "${MODEL_PATH:=${ROOT_DIR}/../Qwen2.5-VL-3B-Instruct-ms}"
 : "${OUTPUT_ROOT:=${ROOT_DIR}/outputs/scienceqa_chi}"
 : "${SEED:=42}"
 : "${DRY_RUN:=0}"
@@ -32,4 +32,3 @@ if [[ "${DRY_RUN}" == "1" ]]; then
 fi
 
 "${CMD[@]}" >"${LOG_PATH}" 2>&1
-
