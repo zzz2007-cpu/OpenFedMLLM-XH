@@ -13,5 +13,5 @@ CONFIGS=(
 )
 
 for cfg in "${CONFIGS[@]}"; do
-  CONFIG_NAME="${cfg}" "${RUN_ONE}"
+  CONFIG_NAME="${cfg}" bash "${RUN_ONE}"
 done
