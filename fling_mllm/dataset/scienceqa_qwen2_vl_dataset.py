@@ -17,8 +17,21 @@ from ..adapters.conversation import build_qwen2_vl_messages
 from ..tasks.scienceqa.prompt_builder import answer_letter_from_sample, build_scienceqa_prompt, image_path_for_context
 
 
-def _move_if_tensor(value):
+def _move_processor_value(key, value):
+    if key in {"image_grid_thw", "video_grid_thw"}:
+        return value
     return value.squeeze(0) if torch.is_tensor(value) and value.dim() > 0 and value.size(0) == 1 else value
+
+
+def _concat_grid_thw(values):
+    grids = []
+    for value in values:
+        if not torch.is_tensor(value):
+            raise TypeError(f"Expected grid tensor, got {type(value).__name__}")
+        if value.numel() % 3 != 0:
+            raise ValueError(f"Grid tensor must contain triples, got shape {tuple(value.shape)}")
+        grids.append(value.reshape(-1, 3))
+    return torch.cat(grids, dim=0)
 
 
 class ScienceQAQwen2VLDataset(Dataset):
@@ -98,7 +111,7 @@ class ScienceQAQwen2VLDataset(Dataset):
         for key, value in full_inputs.items():
             if key in {"input_ids", "attention_mask"}:
                 continue
-            ret[key] = _move_if_tensor(value)
+            ret[key] = _move_processor_value(key, value)
         return ret
 
     def _build_masked_view(self, sample: dict, idx: int, target: str):
@@ -201,10 +214,7 @@ def scienceqa_qwen2_vl_data_collator(examples, pad_token_id=0, max_length=2048):
         if "scienceqa_masked_image_grid_thw" in examples[0]:
             grids = [x["scienceqa_masked_image_grid_thw"] for x in examples]
             if all(torch.is_tensor(g) for g in grids):
-                try:
-                    batch["scienceqa_masked_image_grid_thw"] = torch.cat(grids, dim=0)
-                except Exception:
-                    batch["scienceqa_masked_image_grid_thw"] = grids
+                batch["scienceqa_masked_image_grid_thw"] = _concat_grid_thw(grids)
     if "pixel_values" in examples[0]:
         values = [x["pixel_values"] for x in examples]
         if all(torch.is_tensor(v) for v in values):
@@ -215,10 +225,7 @@ def scienceqa_qwen2_vl_data_collator(examples, pad_token_id=0, max_length=2048):
     if "image_grid_thw" in examples[0]:
         grids = [x["image_grid_thw"] for x in examples]
         if all(torch.is_tensor(g) for g in grids):
-            try:
-                batch["image_grid_thw"] = torch.cat(grids, dim=0)
-            except Exception:
-                batch["image_grid_thw"] = grids
+            batch["image_grid_thw"] = _concat_grid_thw(grids)
     return batch
 
 
