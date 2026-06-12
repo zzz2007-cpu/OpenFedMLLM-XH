@@ -11,8 +11,13 @@ class CPMTrainerReg(CPMTrainer):
         self.s_layer = s_layer
         self.mu_w = mu_w
 
-    def compute_loss(self, model, inputs, return_outputs=False):
-        return_values = super().compute_loss(model, inputs, return_outputs=return_outputs)
+    def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
+        return_values = super().compute_loss(
+            model,
+            inputs,
+            return_outputs=return_outputs,
+            num_items_in_batch=num_items_in_batch,
+        )
         if return_outputs:
             loss, outputs = return_values
         else:

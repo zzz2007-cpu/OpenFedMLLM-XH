@@ -94,7 +94,7 @@ class CPMTrainer(Trainer):
             "prox_loss": self._last_prox_loss,
         }
 
-    def compute_loss(self, model, inputs, return_outputs=False):
+    def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         # Side-channel flags used by ScienceQA/FedCHI. They are not accepted by
         # HuggingFace model forward methods, so remove them before inference.
         full_context_flags = inputs.pop("scienceqa_full_context", None)
@@ -234,14 +234,19 @@ class CPMTrainer(Trainer):
             logits = logits[0]
         return (loss, logits, labels)
 
-    def training_step(self, model: nn.Module, inputs: Dict[str, Union[torch.Tensor, Any]]) -> torch.Tensor:
+    def training_step(
+        self,
+        model: nn.Module,
+        inputs: Dict[str, Union[torch.Tensor, Any]],
+        num_items_in_batch=None,
+    ) -> torch.Tensor:
         model.train()
         inputs = self._prepare_inputs(inputs)
         if is_sagemaker_mp_enabled() and smp_forward_backward is not None:
             loss_mb = smp_forward_backward(model, inputs, self.args.gradient_accumulation_steps)
             return loss_mb.reduce_mean().detach().to(self.args.device)
         with self.compute_loss_context_manager():
-            loss = self.compute_loss(model, inputs)
+            loss = self.compute_loss(model, inputs, num_items_in_batch=num_items_in_batch)
         del inputs
         torch.cuda.empty_cache()
         if self.args.n_gpu > 1:
@@ -289,8 +294,13 @@ class CPMTrainerReg(CPMTrainer):
         self.s_layer = s_layer
         self.mu_w = mu_w
 
-    def compute_loss(self, model, inputs, return_outputs=False):
-        return_values = super().compute_loss(model, inputs, return_outputs=return_outputs)
+    def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
+        return_values = super().compute_loss(
+            model,
+            inputs,
+            return_outputs=return_outputs,
+            num_items_in_batch=num_items_in_batch,
+        )
         if return_outputs:
             loss, outputs = return_values
         else:

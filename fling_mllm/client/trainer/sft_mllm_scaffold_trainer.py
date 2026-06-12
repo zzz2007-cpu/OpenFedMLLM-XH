@@ -77,19 +77,24 @@ class CPMTrainerScaffold(CPMTrainer):
         if self._debug_scaffold and matched == 0:
             print("[SCAFFOLD][WARN] No trainable params matched control variates.", flush=True)
 
-    def compute_loss(self, model, inputs, return_outputs=False):
+    def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         # Keep reported/scalar loss as task loss only. The SCAFFOLD correction
         # is injected directly into gradients in training_step.
-        return super().compute_loss(model, inputs, return_outputs=return_outputs)
+        return super().compute_loss(
+            model,
+            inputs,
+            return_outputs=return_outputs,
+            num_items_in_batch=num_items_in_batch,
+        )
 
-    def training_step(self, model, inputs):
+    def training_step(self, model, inputs, num_items_in_batch=None):
         model.train()
         inputs = self._prepare_inputs(inputs)
         if is_sagemaker_mp_enabled() and smp_forward_backward is not None:
             loss_mb = smp_forward_backward(model, inputs, self.args.gradient_accumulation_steps)
             return loss_mb.reduce_mean().detach().to(self.args.device)
         with self.compute_loss_context_manager():
-            loss = self.compute_loss(model, inputs)
+            loss = self.compute_loss(model, inputs, num_items_in_batch=num_items_in_batch)
         del inputs
         torch.cuda.empty_cache()
         if self.args.n_gpu > 1:
