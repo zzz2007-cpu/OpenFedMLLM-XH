@@ -31,4 +31,26 @@ if [[ "${DRY_RUN}" == "1" ]]; then
   exit 0
 fi
 
+if [[ ! -d "${MODEL_PATH}" ]]; then
+  echo "[ScienceQA-CHI] ERROR: model directory not found: ${MODEL_PATH}" >&2
+  exit 1
+fi
+
+if [[ ! -d "${SCIENCEQA_FED_DIR}" ]]; then
+  echo "[ScienceQA-CHI] ERROR: federated data directory not found: ${SCIENCEQA_FED_DIR}" >&2
+  exit 1
+fi
+
+set +e
 "${CMD[@]}" >"${LOG_PATH}" 2>&1
+status=$?
+set -e
+
+if [[ ${status} -ne 0 ]]; then
+  echo "[ScienceQA-CHI] ERROR: experiment failed with exit code ${status}" >&2
+  echo "[ScienceQA-CHI] Last 80 log lines:" >&2
+  tail -n 80 "${LOG_PATH}" >&2 || true
+  exit "${status}"
+fi
+
+echo "[ScienceQA-CHI] completed: ${CONFIG_NAME}"
