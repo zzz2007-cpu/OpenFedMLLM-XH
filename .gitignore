@@ -34,7 +34,6 @@ events.out.tfevents.*
 
 # Generated outputs, reports, and checkpoints
 /output/
-/outputs/
 /results/
 /reports/
 /checkpoints/

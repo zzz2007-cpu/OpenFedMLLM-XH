@@ -1,0 +1,9 @@
+{
+  "eval_data_path": "/root/autodl-tmp/OpenFedMLLM-XH/data/scienceqa/federated_chi/validation.jsonl",
+  "sample_seed": 42,
+  "max_samples": 1,
+  "num_samples": 1,
+  "sample_ids": [
+    "validation_0ce8e3d944ce6512"
+  ]
+}

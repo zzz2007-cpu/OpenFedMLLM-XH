@@ -1,0 +1,17 @@
+{
+  "round": 0,
+  "next_round": 1,
+  "tensor_count": 144,
+  "param_count": 1843200,
+  "algorithm": "FedAvg-LoRA",
+  "num_rounds": 1,
+  "clients_this_round": [
+    0,
+    1
+  ],
+  "global_state_summary": {
+    "tensor_count": 144,
+    "param_count": 1843200,
+    "l2_norm": 13.859305257843287
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "dataset": "ScienceQA/image_present",
+  "model": "/root/autodl-tmp/OpenFedMLLM-XH/../Qwen2.5-VL-3B-Instruct-ms",
+  "algorithm": "FedAvg-LoRA",
+  "setting": "L0_M0",
+  "label_level": "L0",
+  "modality_level": "M0",
+  "ablation": null,
+  "seed": 42,
+  "final_accuracy": 0.8869814020028612,
+  "final_macro_f1": 0.8177577185778053,
+  "invalid_rate": 0.0004768717215069146,
+  "best_round": 14,
+  "best_accuracy": 0.86,
+  "best_accuracy_round": 14,
+  "best_macro_f1": 0.9003724333841692,
+  "best_macro_f1_round": 14,
+  "output_dir": "/root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807/fedavg_lora_L0_M0/seed_42",
+  "checkpoint_path": null,
+  "eval_metrics_path": "/root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807/fedavg_lora_L0_M0/seed_42/eval_metrics.json"
+}

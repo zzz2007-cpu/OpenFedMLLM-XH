@@ -1,0 +1,1 @@
+/root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_smoke_10min/20260613_151940/fedavg_lora_L0_M0/seed_42/global_round_1

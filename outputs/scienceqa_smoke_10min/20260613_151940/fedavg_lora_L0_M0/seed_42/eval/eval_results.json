@@ -1,0 +1,26 @@
+[
+  {
+    "idx": 0,
+    "id": "validation_0ce8e3d944ce6512",
+    "image": "data/scienceqa/federated_chi/images/validation/validation_0ce8e3d944ce6512.png",
+    "question": "Question: What is the capital of Florida?\nChoices:\nA. Tallahassee\nB. Baton Rouge\nC. Raleigh\nD. Little Rock\nPlease answer with the option letter only.",
+    "prompt": "Question: What is the capital of Florida?\nChoices:\nA. Tallahassee\nB. Baton Rouge\nC. Raleigh\nD. Little Rock\nPlease answer with the option letter only.",
+    "choices": [
+      "Tallahassee",
+      "Baton Rouge",
+      "Raleigh",
+      "Little Rock"
+    ],
+    "ground_truth": "A",
+    "raw_prediction": "A",
+    "parsed_prediction": "A",
+    "correct": true,
+    "invalid_prediction": false,
+    "client_modality_type": "full",
+    "available_context": {
+      "question": true,
+      "image": true,
+      "text_context": true
+    }
+  }
+]
