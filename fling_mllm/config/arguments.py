@@ -95,3 +95,6 @@ class FedArguments:
     fednova_server_lr: Optional[float] = field(default=1.0)
     fednova_eps: Optional[float] = field(default=1e-12)
     save_model_freq: Optional[int] = field(default=5)
+    save_global_model_freq: Optional[int] = field(default=1)
+    resume_from_round: Optional[int] = field(default=0)
+    resume_global_checkpoint: Optional[str] = field(default=None)

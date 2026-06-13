@@ -37,7 +37,7 @@ def parse_args():
     parser.add_argument("--cache_dir", default=None,
                         help="Model cache directory")
     parser.add_argument("--task_type", default="classification",
-                        choices=["classification", "vqa"],
+                        choices=["classification", "vqa", "scienceqa"],
                         help="Task type evaluator")
     parser.add_argument("--data_format", default="auto",
                         help="Data format hint for task loader")

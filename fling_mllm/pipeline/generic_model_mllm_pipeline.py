@@ -1,4 +1,5 @@
 import copy
+import json
 import math
 import os
 from collections import defaultdict
@@ -7,6 +8,7 @@ import transformers
 from tqdm import tqdm
 from PIL import Image
 from peft import get_peft_model_state_dict, set_peft_model_state_dict
+from safetensors.torch import load_file as load_safetensors_file, save_file as save_safetensors_file
 from ..config.arguments import ModelArguments, DataArguments, TrainingArguments, LoraArguments, FedArguments
 from ..model.export_hf import export_hf_tokenizer
 from ..dataset.dataset import make_supervised_data_module
@@ -117,6 +119,53 @@ def _is_finite_number(value):
         return math.isfinite(float(value))
     except Exception:
         return False
+
+
+def _save_global_lora_checkpoint(output_dir, round_idx, model, global_state, metadata=None):
+    if not _is_main_process():
+        return None
+    ckpt_dir = os.path.join(output_dir, f"global_round_{int(round_idx) + 1}")
+    os.makedirs(ckpt_dir, exist_ok=True)
+    cpu_state = {k: v.detach().cpu() for k, v in global_state.items()}
+    save_safetensors_file(cpu_state, os.path.join(ckpt_dir, "openfed_global_state.safetensors"))
+    if hasattr(model, "save_pretrained"):
+        model.save_pretrained(ckpt_dir, state_dict=cpu_state, safe_serialization=True)
+    if not os.path.exists(os.path.join(ckpt_dir, "adapter_model.safetensors")):
+        save_safetensors_file(cpu_state, os.path.join(ckpt_dir, "adapter_model.safetensors"))
+    meta = {
+        "round": int(round_idx),
+        "next_round": int(round_idx) + 1,
+        "tensor_count": len(cpu_state),
+        "param_count": int(sum(v.numel() for v in cpu_state.values())),
+    }
+    if metadata:
+        meta.update(metadata)
+    with open(os.path.join(ckpt_dir, "openfed_global_checkpoint.json"), "w", encoding="utf-8") as f:
+        json.dump(meta, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+
+    latest_path = os.path.join(output_dir, "latest_global_checkpoint.txt")
+    with open(latest_path, "w", encoding="utf-8") as f:
+        f.write(ckpt_dir + "\n")
+    print(f"[GlobalCheckpoint] saved round={int(round_idx)} path={ckpt_dir}", flush=True)
+    return ckpt_dir
+
+
+def _load_global_lora_checkpoint(checkpoint_dir):
+    if not checkpoint_dir:
+        return None, None
+    state_path = os.path.join(checkpoint_dir, "openfed_global_state.safetensors")
+    if not os.path.exists(state_path):
+        state_path = os.path.join(checkpoint_dir, "adapter_model.safetensors")
+    if not os.path.exists(state_path):
+        raise FileNotFoundError(f"Global LoRA checkpoint weights not found: {state_path}")
+    state = load_safetensors_file(state_path, device="cpu")
+    meta_path = os.path.join(checkpoint_dir, "openfed_global_checkpoint.json")
+    metadata = {}
+    if os.path.exists(meta_path):
+        with open(meta_path, "r", encoding="utf-8") as f:
+            metadata = json.load(f)
+    return state, metadata
 
 
 _TRAIN_SAMPLE_SNAPSHOT_PRINTED = False
@@ -516,6 +565,30 @@ def run_federated_finetune(model_args, data_args, training_args, lora_args, fed_
     hook_manager = FederatedHookManager(hooks)
     model, tokenizer = build_model_and_tokenizer(model_args, training_args, lora_args)
     global_dict = {k: v.cpu() for k, v in get_peft_model_state_dict(model).items()}
+    resume_checkpoint = getattr(fed_args, "resume_global_checkpoint", None) or os.environ.get(
+        "RESUME_GLOBAL_CHECKPOINT"
+    )
+    start_round = int(getattr(fed_args, "resume_from_round", 0) or os.environ.get("RESUME_FROM_ROUND", 0) or 0)
+    if resume_checkpoint:
+        loaded_state, loaded_meta = _load_global_lora_checkpoint(resume_checkpoint)
+        missing_keys = sorted(set(global_dict.keys()) - set(loaded_state.keys()))
+        unexpected_keys = sorted(set(loaded_state.keys()) - set(global_dict.keys()))
+        if missing_keys or unexpected_keys:
+            raise ValueError(
+                "Global checkpoint keys do not match current LoRA model. "
+                f"missing={missing_keys[:5]} unexpected={unexpected_keys[:5]}"
+            )
+        global_dict = {k: loaded_state[k].cpu() for k in global_dict.keys()}
+        set_peft_model_state_dict(model, global_dict)
+        if start_round <= 0 and loaded_meta.get("next_round") is not None:
+            start_round = int(loaded_meta["next_round"])
+        print(
+            f"[GlobalCheckpoint] loaded path={resume_checkpoint} "
+            f"resume_from_round={start_round} metadata={loaded_meta}",
+            flush=True,
+        )
+    if start_round < 0 or start_round > int(fed_args.num_rounds):
+        raise ValueError(f"resume_from_round must be in [0, {fed_args.num_rounds}], got {start_round}")
     local_dict_list = [copy.deepcopy(global_dict) for _ in range(fed_args.num_clients)]
     proxy_dict, opt_proxy_dict = get_proxy_dict(fed_args, global_dict)
     global_auxiliary, auxiliary_model_list, auxiliary_delta_dict = get_auxiliary_dict(fed_args, global_dict)
@@ -600,6 +673,10 @@ def run_federated_finetune(model_args, data_args, training_args, lora_args, fed_
 
     training_loss = [[] for _ in range(fed_args.num_clients)]
     training_metrics = [[] for _ in range(fed_args.num_clients)]
+    if start_round > 0:
+        for client_idx in range(fed_args.num_clients):
+            training_loss[client_idx].extend([-1] * start_round)
+            training_metrics[client_idx].extend([{} for _ in range(start_round)])
     fednova_stats_list = [None for _ in range(fed_args.num_clients)]
     # Keep deterministic reproducibility, while avoiding repeated identical
     # local mini-subsets when max_steps is set to a small positive value.
@@ -630,11 +707,12 @@ def run_federated_finetune(model_args, data_args, training_args, lora_args, fed_
             f"base_lr={float(fed_args.init_learning_rate):.10g} "
             f"eta_min={outer_lr_eta_min:.10g} "
             f"warmup_rounds={outer_lr_warmup_rounds} "
+            f"start_round={start_round} "
             "inner_lr_schedule=constant",
             flush=True,
         )
     last_trainer = None
-    for round_idx in tqdm(range(fed_args.num_rounds)):
+    for round_idx in tqdm(range(start_round, fed_args.num_rounds)):
         clients_this_round = get_clients_this_round(fed_args, round_idx)
         hook_manager.emit("on_round_start", {
             "round_idx": round_idx,
@@ -822,6 +900,20 @@ def run_federated_finetune(model_args, data_args, training_args, lora_args, fed_
             "global_state_summary": summarize_state_dict(global_dict),
             "global_auxiliary": global_auxiliary,
         })
+        save_global_freq = int(getattr(fed_args, "save_global_model_freq", 1) or os.environ.get("SAVE_GLOBAL_MODEL_FREQ", 1) or 0)
+        if save_global_freq > 0 and (round_idx + 1) % save_global_freq == 0:
+            _save_global_lora_checkpoint(
+                training_args.output_dir,
+                round_idx,
+                model,
+                global_dict,
+                metadata={
+                    "algorithm": str(fed_args.fed_alg),
+                    "num_rounds": int(fed_args.num_rounds),
+                    "clients_this_round": [int(c) for c in clients_this_round],
+                    "global_state_summary": summarize_state_dict(global_dict),
+                },
+            )
         if (round_idx + 1) % fed_args.save_model_freq == 0:
             if last_trainer is not None:
                 last_trainer.save_state()
