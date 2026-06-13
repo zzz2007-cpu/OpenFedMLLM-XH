@@ -51,6 +51,57 @@ def _save_json(path: str, payload: dict) -> None:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
 
+def _is_main_process() -> bool:
+    return int(os.environ.get("RANK", "0")) == 0
+
+
+def _build_eval_loader_kwargs(eval_args: dict, task_type: str) -> dict:
+    loader_kwargs = {}
+    if task_type == "vqa":
+        if eval_args.get("vqa_image_root") is not None:
+            loader_kwargs["vqa_image_root"] = eval_args.get("vqa_image_root")
+        if eval_args.get("vqa_prompt_template") is not None:
+            loader_kwargs["vqa_prompt_template"] = eval_args.get("vqa_prompt_template")
+        if eval_args.get("strict_image_path") is not None:
+            loader_kwargs["strict_image_path"] = eval_args.get("strict_image_path")
+    if task_type == "hateful_memes":
+        if eval_args.get("hateful_memes_root") is not None:
+            loader_kwargs["hateful_memes_root"] = eval_args.get("hateful_memes_root")
+        if eval_args.get("strict_image_path") is not None:
+            loader_kwargs["strict_image_path"] = eval_args.get("strict_image_path")
+    return loader_kwargs
+
+
+def _load_per_round_metrics(path: str) -> List[dict]:
+    if not os.path.exists(path):
+        return []
+    records = []
+    with open(path, "r", encoding="utf-8") as f:
+        for line_no, line in enumerate(f, start=1):
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                records.append(json.loads(line))
+            except json.JSONDecodeError as exc:
+                print(
+                    f"[FinalModelEvalHook] WARNING: ignoring invalid per-round metric "
+                    f"at {path}:{line_no}: {exc}"
+                )
+    return records
+
+
+def _metric_value(record: dict, *keys: str) -> float:
+    for key in keys:
+        value = record.get(key)
+        if value is not None:
+            try:
+                return float(value)
+            except (TypeError, ValueError):
+                continue
+    return float("-inf")
+
+
 def _collect_client_data_paths(data_path: str, num_clients: int) -> List[str]:
     if not data_path or not os.path.isdir(data_path):
         raise FileNotFoundError(f"data_path does not exist: {data_path!r}")
@@ -124,6 +175,7 @@ def run_shared_eval(
     split: str = "eval",
     loader_kwargs: Optional[Dict] = None,
     sample_seed: int = 42,
+    stage_tag: str = "BaselineEval",
 ):
     os.makedirs(output_dir, exist_ok=True)
     model.eval()
@@ -148,10 +200,130 @@ def run_shared_eval(
         samples=samples,
         max_new_tokens=max_new_tokens,
         device=device,
-        stage_tag="BaselineEval",
+        stage_tag=stage_tag,
     )
     save_task_eval_outputs(output_dir=output_dir, metrics=metrics, records=records)
     return metrics
+
+
+class PerRoundModelEvalHook(FederatedHook):
+    """Evaluate a fixed validation subset after selected aggregation rounds."""
+
+    def __init__(self, eval_args: dict, output_dir: str):
+        self._eval_args = _to_plain_dict(eval_args)
+        self._output_dir = output_dir
+        self._metrics_path = os.path.join(output_dir, "eval_metrics_per_round.jsonl")
+        self._sample_ids_path = os.path.join(output_dir, "eval_sample_ids.json")
+        self._model = None
+        self._tokenizer = None
+        self._evaluator = None
+        self._samples = []
+        self._enabled = False
+
+    def on_train_start(self, context):
+        if not _is_main_process():
+            return
+        self._model = context.get("model")
+        self._tokenizer = context.get("tokenizer")
+        eval_data_path = self._eval_args.get("eval_data_path")
+        if not eval_data_path or not os.path.exists(eval_data_path):
+            print(
+                f"[PerRoundModelEvalHook] WARNING: eval_data_path not found: "
+                f"{eval_data_path!r}. Per-round evaluation is disabled."
+            )
+            return
+        if self._model is None or self._tokenizer is None:
+            print(
+                "[PerRoundModelEvalHook] WARNING: model/tokenizer unavailable. "
+                "Per-round evaluation is disabled."
+            )
+            return
+
+        task_type = normalize_task_type(self._eval_args.get("task_type", "classification"))
+        self._evaluator = build_task_evaluator(
+            task_type=task_type,
+            eval_data_path=eval_data_path,
+            data_format=self._eval_args.get("data_format", "auto"),
+            split=self._eval_args.get("eval_split", "eval"),
+            loader_kwargs=_build_eval_loader_kwargs(self._eval_args, task_type),
+        )
+        configured_max_samples = self._eval_args.get("max_samples", 100)
+        max_samples = (
+            None if configured_max_samples is None else int(configured_max_samples)
+        )
+        sample_seed = int(self._eval_args.get("eval_sample_seed", 42))
+        self._samples = self._evaluator.sample_eval_subset(
+            max_samples=max_samples,
+            sample_seed=sample_seed,
+            force_full_eval=False,
+        )
+        sample_ids = [sample.get("id", idx) for idx, sample in enumerate(self._samples)]
+        _save_json(
+            self._sample_ids_path,
+            {
+                "eval_data_path": eval_data_path,
+                "sample_seed": sample_seed,
+                "max_samples": max_samples,
+                "num_samples": len(self._samples),
+                "sample_ids": sample_ids,
+            },
+        )
+        self._enabled = True
+        print(
+            f"[PerRoundModelEvalHook] Initialized with {len(self._samples)} fixed samples "
+            f"(eval_freq={int(self._eval_args.get('eval_freq', 1))}, seed={sample_seed})."
+        )
+
+    def on_aggregate_end(self, context):
+        if not self._enabled:
+            return
+        round_idx = int(context.get("round_idx", -1))
+        eval_freq = int(self._eval_args.get("eval_freq", 1))
+        if eval_freq <= 0 or (round_idx + 1) % eval_freq != 0:
+            return
+
+        stage_tag = f"Round {round_idx + 1} Eval"
+        was_training = bool(getattr(self._model, "training", False))
+        device = self._eval_args.get("device", "cuda")
+        if device == "cuda" and not torch.cuda.is_available():
+            device = "cpu"
+        self._model.eval()
+        try:
+            metrics, records = self._evaluator.evaluate(
+                model=self._model,
+                tokenizer=self._tokenizer,
+                samples=self._samples,
+                max_new_tokens=int(self._eval_args.get("max_new_tokens", 16)),
+                device=device,
+                stage_tag=stage_tag,
+            )
+        finally:
+            if was_training:
+                self._model.train()
+
+        record = {
+            "round_idx": round_idx,
+            "eval_scope": "sampled",
+            **metrics,
+        }
+        os.makedirs(self._output_dir, exist_ok=True)
+        with open(self._metrics_path, "a", encoding="utf-8") as f:
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+        predictions_path = os.path.join(self._output_dir, "output_predictions.jsonl")
+        with open(predictions_path, "a", encoding="utf-8") as f:
+            for prediction in records:
+                output = dict(prediction)
+                output["round_idx"] = round_idx
+                output["eval_scope"] = "sampled"
+                f.write(json.dumps(output, ensure_ascii=False) + "\n")
+
+        macro_f1 = metrics.get("macro_f1", metrics.get("f1_macro"))
+        print(
+            f"[{stage_tag}] Acc={metrics.get('accuracy', 0.0):.4f} "
+            f"Macro-F1={float(macro_f1 or 0.0):.4f} "
+            f"(n={metrics.get('num_samples', len(self._samples))})"
+        )
 
 
 class FinalModelEvalHook(FederatedHook):
@@ -166,10 +338,14 @@ class FinalModelEvalHook(FederatedHook):
         self._tokenizer = None
 
     def on_train_start(self, context):
+        if not _is_main_process():
+            return
         self._model = context.get("model")
         self._tokenizer = context.get("tokenizer")
 
     def on_train_end(self, context):
+        if not _is_main_process():
+            return
         eval_data_path = self._eval_args.get("eval_data_path")
         if not eval_data_path:
             return
@@ -179,37 +355,60 @@ class FinalModelEvalHook(FederatedHook):
             print(f"[FinalModelEvalHook] WARNING: eval_data_path not found: {eval_data_path}")
             return
         eval_dir = os.path.join(self._output_dir, "eval")
-        print(f"[FinalModelEvalHook] Running final evaluation -> {eval_dir}")
         task_type = normalize_task_type(self._eval_args.get("task_type", "classification"))
-        loader_kwargs = {}
-        if task_type == "vqa":
-            if self._eval_args.get("vqa_image_root") is not None:
-                loader_kwargs["vqa_image_root"] = self._eval_args.get("vqa_image_root")
-            if self._eval_args.get("vqa_prompt_template") is not None:
-                loader_kwargs["vqa_prompt_template"] = self._eval_args.get("vqa_prompt_template")
-            if self._eval_args.get("strict_image_path") is not None:
-                loader_kwargs["strict_image_path"] = self._eval_args.get("strict_image_path")
-        if task_type == "hateful_memes":
-            if self._eval_args.get("hateful_memes_root") is not None:
-                loader_kwargs["hateful_memes_root"] = self._eval_args.get("hateful_memes_root")
-            if self._eval_args.get("strict_image_path") is not None:
-                loader_kwargs["strict_image_path"] = self._eval_args.get("strict_image_path")
+        loader_kwargs = _build_eval_loader_kwargs(self._eval_args, task_type)
+        force_full_eval = bool(self._eval_args.get("final_eval_full", False))
+        final_max_samples = None if force_full_eval else self._eval_args.get("max_samples", None)
+        eval_scope = "full" if force_full_eval else f"max_samples={final_max_samples}"
+        print(
+            f"[FinalModelEvalHook] Running final evaluation ({eval_scope}) -> {eval_dir}"
+        )
         metrics = run_shared_eval(
             model=self._model,
             tokenizer=self._tokenizer,
             eval_data_path=eval_data_path,
             output_dir=eval_dir,
             max_new_tokens=int(self._eval_args.get("max_new_tokens", 16)),
-            max_samples=self._eval_args.get("max_samples", None),
+            max_samples=final_max_samples,
             sample_seed=int(self._eval_args.get("eval_sample_seed", 42)),
             device=self._eval_args.get("device", "cuda"),
             task_type=task_type,
             data_format=self._eval_args.get("data_format", "auto"),
             split=self._eval_args.get("eval_split", "eval"),
             loader_kwargs=loader_kwargs,
+            stage_tag="Final Eval",
         )
         root_metrics_path = os.path.join(self._output_dir, "eval_metrics.json")
         _save_json(root_metrics_path, metrics)
+        per_round_metrics = _load_per_round_metrics(
+            os.path.join(self._output_dir, "eval_metrics_per_round.jsonl")
+        )
+        best_accuracy_record = None
+        best_macro_f1_record = None
+        if per_round_metrics:
+            best_accuracy_record = max(
+                per_round_metrics,
+                key=lambda item: _metric_value(item, "accuracy"),
+            )
+            best_macro_f1_record = max(
+                per_round_metrics,
+                key=lambda item: _metric_value(item, "macro_f1", "f1_macro"),
+            )
+        best_round = (
+            int(best_accuracy_record["round_idx"]) + 1
+            if best_accuracy_record is not None
+            else None
+        )
+        best_accuracy = (
+            best_accuracy_record.get("accuracy")
+            if best_accuracy_record is not None
+            else metrics.get("accuracy")
+        )
+        best_macro_f1 = (
+            best_macro_f1_record.get("macro_f1", best_macro_f1_record.get("f1_macro"))
+            if best_macro_f1_record is not None
+            else metrics.get("macro_f1", metrics.get("f1_macro"))
+        )
         final_summary = {
             "dataset": self._eval_args.get("dataset"),
             "model": self._eval_args.get("model"),
@@ -222,9 +421,15 @@ class FinalModelEvalHook(FederatedHook):
             "final_accuracy": metrics.get("accuracy"),
             "final_macro_f1": metrics.get("macro_f1", metrics.get("f1_macro")),
             "invalid_rate": metrics.get("invalid_rate"),
-            "best_round": None,
-            "best_accuracy": metrics.get("accuracy"),
-            "best_macro_f1": metrics.get("macro_f1", metrics.get("f1_macro")),
+            "best_round": best_round,
+            "best_accuracy": best_accuracy,
+            "best_accuracy_round": best_round,
+            "best_macro_f1": best_macro_f1,
+            "best_macro_f1_round": (
+                int(best_macro_f1_record["round_idx"]) + 1
+                if best_macro_f1_record is not None
+                else None
+            ),
             "output_dir": self._output_dir,
             "checkpoint_path": None,
             "eval_metrics_path": root_metrics_path,

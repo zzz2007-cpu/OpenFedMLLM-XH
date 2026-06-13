@@ -12,6 +12,7 @@ from ..config.arguments import (
 )
 from .baseline_runner import (
     FinalModelEvalHook,
+    PerRoundModelEvalHook,
     run_centralized_baseline,
     run_local_only_baseline,
 )
@@ -80,6 +81,25 @@ def _write_resolved_config(output_dir, **sections):
         f.write("\n")
 
 
+def _build_federated_eval_hooks(existing_hooks, eval_args, output_dir, enable_final_eval):
+    hook_list = list(existing_hooks) if existing_hooks is not None else []
+    if eval_args.get("eval_data_path") and int(eval_args.get("eval_freq", 0)) > 0:
+        hook_list.append(
+            PerRoundModelEvalHook(
+                eval_args=eval_args,
+                output_dir=output_dir,
+            )
+        )
+    if enable_final_eval and eval_args.get("eval_data_path"):
+        hook_list.append(
+            FinalModelEvalHook(
+                eval_args=eval_args,
+                output_dir=output_dir,
+            )
+        )
+    return hook_list
+
+
 def run_mode_from_config(exp_args, mode_override=None):
     model_args = ModelArguments(**_to_plain_dict(_get_section(exp_args, "model_args")))
     data_args = DataArguments(**_to_plain_dict(_get_section(exp_args, "data_args")))
@@ -123,10 +143,13 @@ def run_mode_from_config(exp_args, mode_override=None):
                 fed_args=fed_args,
                 eval_args=eval_args,
             )
-        hook_list = list(hooks) if hooks is not None else []
         enable_final_eval = bool(run_args.get("enable_final_eval", True))
-        if enable_final_eval and eval_args.get("eval_data_path"):
-            hook_list.append(FinalModelEvalHook(eval_args=eval_args, output_dir=training_args.output_dir))
+        hook_list = _build_federated_eval_hooks(
+            existing_hooks=hooks,
+            eval_args=eval_args,
+            output_dir=training_args.output_dir,
+            enable_final_eval=enable_final_eval,
+        )
         return run_federated_finetune(
             model_args=model_args,
             data_args=data_args,
