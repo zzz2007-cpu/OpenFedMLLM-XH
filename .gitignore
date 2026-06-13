@@ -63,12 +63,8 @@ results.npz
 *.h5
 *.hdf5
 *.jsonl
-!outputs/**/eval_metrics_per_round.jsonl
-!outputs/**/round_metrics.jsonl
-!outputs/**/train_log.jsonl
-!outputs/**/output_predictions.jsonl
-!outputs/**/predictions.jsonl
-!outputs/**/fedchi_weights.jsonl
+# Experiment metadata and metrics are small, reproducibility-critical artifacts.
+!outputs/**/*.jsonl
 *.lmdb
 *.mat
 *.ndjson
