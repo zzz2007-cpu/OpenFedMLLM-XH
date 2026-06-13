@@ -1,0 +1,79 @@
+{
+  "mode": "tiny_hateful_memes_cpu_fedchi",
+  "data_path": "tmp\\mock_hateful_memes\\federated\\dir_0.5\\cross_1_1",
+  "eval_data_path": "tmp\\mock_hateful_memes\\dev.jsonl",
+  "output_dir": "outputs\\checkpoints\\hm_tiny_cpu_fedchi_mock_debug",
+  "log_path": "outputs\\checkpoints\\hm_tiny_cpu_fedchi_mock_debug\\tiny_fedchi_trace.jsonl",
+  "trainable_keys": [
+    "encoder.weight",
+    "encoder.bias",
+    "classifier.weight",
+    "classifier.bias"
+  ],
+  "sample_num_list": [
+    5,
+    7
+  ],
+  "rounds": [
+    {
+      "round_idx": 0,
+      "client_losses": {
+        "0": 0.6771811246871948,
+        "1": 0.7081467807292938
+      },
+      "aggregated_key_count": 4,
+      "aggregated_keys": [
+        "encoder.weight",
+        "encoder.bias",
+        "classifier.weight",
+        "classifier.bias"
+      ],
+      "before_aggregate": {
+        "mean": -8.216823334805667e-05,
+        "std": 0.02552631124854088
+      },
+      "after_aggregate": {
+        "mean": -8.351291762664914e-05,
+        "std": 0.025527184829115868
+      },
+      "fedchi_info": {
+        "client_weight_divisor": {
+          "0": 2.3666666666666663,
+          "1": 1.976190476190476
+        },
+        "client_heterogeneity": {
+          "client_0": {
+            "label_l1": 0.19999999999999996,
+            "modality_l1": 1.1666666666666665,
+            "weight_divisor": 2.3666666666666663
+          },
+          "client_1": {
+            "label_l1": 0.14285714285714285,
+            "modality_l1": 0.8333333333333333,
+            "weight_divisor": 1.976190476190476
+          }
+        }
+      },
+      "eval": {
+        "loss": 0.6928808093070984,
+        "accuracy": 0.5,
+        "f1_macro": 0.3333333333333333,
+        "num_samples": 6,
+        "confusion_matrix": [
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            3
+          ]
+        ],
+        "label_names": [
+          "no",
+          "yes"
+        ]
+      }
+    }
+  ]
+}

@@ -40,7 +40,7 @@ echo "[Smoke-10m] eval_every=${EVAL_EVERY} eval_samples=${EVAL_MAX_SAMPLES} fina
 echo "[Smoke-10m] output_root=${OUTPUT_ROOT} time_limit=${TIME_LIMIT}"
 
 start_seconds="$(date +%s)"
-timeout --signal=TERM --kill-after=30s "${TIME_LIMIT}" "${RUN_ONE}"
+timeout --signal=TERM --kill-after=30s "${TIME_LIMIT}" bash "${RUN_ONE}"
 elapsed_seconds="$(( $(date +%s) - start_seconds ))"
 
 required_files=(
