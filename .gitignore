@@ -95,3 +95,8 @@ temp/
 build/
 dist/
 backup*/
+
+# Reproducibility metadata and experiment results must remain trackable.
+# Keep these rules last so future broad patterns cannot hide JSON metrics.
+!*.json
+!*.jsonl
