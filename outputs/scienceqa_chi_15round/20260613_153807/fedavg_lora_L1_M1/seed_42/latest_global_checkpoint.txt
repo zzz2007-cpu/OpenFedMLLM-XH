@@ -1,1 +1,1 @@
-/root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807/fedavg_lora_L1_M1/seed_42/global_round_12
+/root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807/fedavg_lora_L1_M1/seed_42/global_round_15

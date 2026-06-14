@@ -38,3 +38,5 @@ nohup: ignoring input
 [ScienceQA-CHI] seed=42
 [ScienceQA-CHI] log=/root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807/logs/scienceqa_qwen25vl_fedavg_lora_L1_M1_seed42_20260614_063130.log
 [ScienceQA-CHI] command=python3 mllmzoo/run_experiment.py --name scienceqa_qwen25vl_fedavg_lora_L1_M1
+[ScienceQA-CHI] completed: scienceqa_qwen25vl_fedavg_lora_L1_M1
+[FedAvg-15] verified final global checkpoint: /root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807/fedavg_lora_L1_M1/seed_42/global_round_15
