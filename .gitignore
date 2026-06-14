@@ -23,25 +23,14 @@ conda-meta/
 Thumbs.db
 Desktop.ini
 
-# Logs and experiment tracking
-*.log
-logs/
-logging/
+# External experiment tracking caches
 wandb/
 runs/
 tensorboard/
 events.out.tfevents.*
 
-# Generated outputs, reports, and checkpoints
-/output/
-/results/
-/reports/
-/checkpoints/
-/model_checkpoints/
-/api-log/
-/log/
-/loggs/
-results.npz
+# Experiment outputs, reports, logs, and checkpoint metadata are tracked.
+# Large arrays and model weights are excluded by extension below.
 
 # Dataset roots and generated federated partitions
 /data/
@@ -58,18 +47,12 @@ results.npz
 
 # Dataset tables and serialized samples
 *.arrow
-*.csv
 *.feather
 *.h5
 *.hdf5
-*.jsonl
-# Experiment metadata and metrics are small, reproducibility-critical artifacts.
-!outputs/**/*.jsonl
 *.lmdb
 *.mat
-*.ndjson
 *.npy
-*.npz
 *.parquet
 *.pickle
 *.pkl
@@ -78,27 +61,6 @@ results.npz
 *.sqlite3
 *.tfrecord
 *.tsv
-
-# Dataset media
-*.avif
-*.bmp
-*.gif
-*.jpeg
-*.jpg
-*.png
-*.tif
-*.tiff
-*.webp
-*.flac
-*.m4a
-*.mp3
-*.ogg
-*.wav
-*.avi
-*.mkv
-*.mov
-*.mp4
-*.webm
 
 # Archives commonly used to distribute datasets
 *.7z
