@@ -1,0 +1,40 @@
+nohup: ignoring input
+[FedAvg-15] output_root=/root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807
+[ScienceQA-CHI] root=/root/autodl-tmp/OpenFedMLLM-XH
+[ScienceQA-CHI] config=scienceqa_qwen25vl_fedavg_lora_L0_M0
+[ScienceQA-CHI] fed_dir=/root/autodl-tmp/OpenFedMLLM-XH/data/scienceqa/federated_chi
+[ScienceQA-CHI] model=/root/autodl-tmp/OpenFedMLLM-XH/../Qwen2.5-VL-3B-Instruct-ms
+[ScienceQA-CHI] output_root=/root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807
+[ScienceQA-CHI] seed=42
+[ScienceQA-CHI] log=/root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807/logs/scienceqa_qwen25vl_fedavg_lora_L0_M0_seed42_20260613_153807.log
+[ScienceQA-CHI] command=python3 mllmzoo/run_experiment.py --name scienceqa_qwen25vl_fedavg_lora_L0_M0
+[ScienceQA-CHI] completed: scienceqa_qwen25vl_fedavg_lora_L0_M0
+[FedAvg-15] verified final global checkpoint: /root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807/fedavg_lora_L0_M0/seed_42/global_round_15
+[ScienceQA-CHI] root=/root/autodl-tmp/OpenFedMLLM-XH
+[ScienceQA-CHI] config=scienceqa_qwen25vl_fedavg_lora_L1_M0
+[ScienceQA-CHI] fed_dir=/root/autodl-tmp/OpenFedMLLM-XH/data/scienceqa/federated_chi
+[ScienceQA-CHI] model=/root/autodl-tmp/OpenFedMLLM-XH/../Qwen2.5-VL-3B-Instruct-ms
+[ScienceQA-CHI] output_root=/root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807
+[ScienceQA-CHI] seed=42
+[ScienceQA-CHI] log=/root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807/logs/scienceqa_qwen25vl_fedavg_lora_L1_M0_seed42_20260613_211544.log
+[ScienceQA-CHI] command=python3 mllmzoo/run_experiment.py --name scienceqa_qwen25vl_fedavg_lora_L1_M0
+[ScienceQA-CHI] completed: scienceqa_qwen25vl_fedavg_lora_L1_M0
+[FedAvg-15] verified final global checkpoint: /root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807/fedavg_lora_L1_M0/seed_42/global_round_15
+[ScienceQA-CHI] root=/root/autodl-tmp/OpenFedMLLM-XH
+[ScienceQA-CHI] config=scienceqa_qwen25vl_fedavg_lora_L0_M1
+[ScienceQA-CHI] fed_dir=/root/autodl-tmp/OpenFedMLLM-XH/data/scienceqa/federated_chi
+[ScienceQA-CHI] model=/root/autodl-tmp/OpenFedMLLM-XH/../Qwen2.5-VL-3B-Instruct-ms
+[ScienceQA-CHI] output_root=/root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807
+[ScienceQA-CHI] seed=42
+[ScienceQA-CHI] log=/root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807/logs/scienceqa_qwen25vl_fedavg_lora_L0_M1_seed42_20260614_023304.log
+[ScienceQA-CHI] command=python3 mllmzoo/run_experiment.py --name scienceqa_qwen25vl_fedavg_lora_L0_M1
+[ScienceQA-CHI] completed: scienceqa_qwen25vl_fedavg_lora_L0_M1
+[FedAvg-15] verified final global checkpoint: /root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807/fedavg_lora_L0_M1/seed_42/global_round_15
+[ScienceQA-CHI] root=/root/autodl-tmp/OpenFedMLLM-XH
+[ScienceQA-CHI] config=scienceqa_qwen25vl_fedavg_lora_L1_M1
+[ScienceQA-CHI] fed_dir=/root/autodl-tmp/OpenFedMLLM-XH/data/scienceqa/federated_chi
+[ScienceQA-CHI] model=/root/autodl-tmp/OpenFedMLLM-XH/../Qwen2.5-VL-3B-Instruct-ms
+[ScienceQA-CHI] output_root=/root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807
+[ScienceQA-CHI] seed=42
+[ScienceQA-CHI] log=/root/autodl-tmp/OpenFedMLLM-XH/outputs/scienceqa_chi_15round/20260613_153807/logs/scienceqa_qwen25vl_fedavg_lora_L1_M1_seed42_20260614_063130.log
+[ScienceQA-CHI] command=python3 mllmzoo/run_experiment.py --name scienceqa_qwen25vl_fedavg_lora_L1_M1

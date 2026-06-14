@@ -1,0 +1,2 @@
+nohup: ignoring input
+scripts/cloud/run_scienceqa_fedavg_remaining_15.sh: line 17: /root/autodl-tmp/OpenFedMLLM-XH/scripts/cloud/run_one_scienceqa_chi.sh: Permission denied

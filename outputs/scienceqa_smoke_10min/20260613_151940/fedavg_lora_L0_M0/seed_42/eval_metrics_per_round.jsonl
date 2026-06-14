@@ -1,0 +1,1 @@
+{"round_idx": 0, "eval_scope": "sampled", "accuracy": 1.0, "macro_f1": 1.0, "invalid_rate": 0.0, "invalid_count": 0, "num_samples": 1, "per_class_f1": {"A": 1.0}, "label_names": ["A"], "task_type": "scienceqa"}

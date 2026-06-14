@@ -1,0 +1,1 @@
+{"round": 0, "clients_this_round": [0, 1], "client_losses": {"0": 0.06091459095478058, "1": 0.013601313345134258}, "global_state_summary": {"tensor_count": 144, "param_count": 1843200, "l2_norm": 13.859305257843287}}

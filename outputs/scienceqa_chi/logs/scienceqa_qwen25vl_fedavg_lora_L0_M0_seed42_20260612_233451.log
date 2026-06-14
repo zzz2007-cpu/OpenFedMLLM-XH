@@ -1,0 +1,18 @@
+
+libgomp: Invalid value for environment variable OMP_NUM_THREADS
+
+libgomp: Invalid value for environment variable OMP_NUM_THREADS
+/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/timm/models/layers/__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+Traceback (most recent call last):
+  File "/root/autodl-tmp/OpenFedMLLM-XH/mllmzoo/run_experiment.py", line 66, in <module>
+    main()
+  File "/root/autodl-tmp/OpenFedMLLM-XH/mllmzoo/run_experiment.py", line 62, in main
+    run_mode_from_config(exp_args, mode_override=args.mode)
+  File "/root/autodl-tmp/OpenFedMLLM-XH/fling_mllm/pipeline/mode_dispatcher.py", line 130, in run_mode_from_config
+    return run_federated_finetune(
+  File "/root/autodl-tmp/OpenFedMLLM-XH/fling_mllm/pipeline/generic_model_mllm_pipeline.py", line 517, in run_federated_finetune
+    model, tokenizer = build_model_and_tokenizer(model_args, training_args, lora_args)
+  File "/root/autodl-tmp/OpenFedMLLM-XH/fling_mllm/utils/model_builder.py", line 223, in build_model_and_tokenizer
+    raise ImportError(
+ImportError: Qwen2-VL requires a newer transformers version with AutoModelForVision2Seq support.

@@ -1,0 +1,293 @@
+/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/timm/models/layers/__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. Note that this behavior will be extended to all models in a future release.
+/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/transformers/models/auto/modeling_auto.py:2284: FutureWarning: The class `AutoModelForVision2Seq` is deprecated and will be removed in v5.0. Please use `AutoModelForImageTextToText` instead.
+  warnings.warn(
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 43.03it/s]
+[TrainSampleDebug] Snapshot hook triggered (rank=0, world_size=1).
+
+==========================================================================================
+[TrainSampleDebug] First training sample snapshot (printed once before round-1).
+[TrainSampleDebug] Stage 1: Raw JSON sample
+  - id: train_686ce98747dfe815
+  - image_field: data/scienceqa/federated_chi/images/train/train_686ce98747dfe815.png
+  - image_load_status: {'raw_image_field_type': 'str', 'loaded': True, 'details': [{'slot': '<image>', 'path': 'data/scienceqa/federated_chi/images/train/train_686ce98747dfe815.png', 'exists': True, 'pil_mode': 'RGB', 'pil_size': (378, 249)}]}
+  - user_text: ''
+  - assistant_text: ''
+[TrainSampleDebug] Stage 2: Preprocessed single sample (__getitem__ output)
+  - input_ids_len: 467
+  - input_ids_decode: '<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|imag... <truncated 2556 chars>'
+  - labels_non_-100_token_count: 3
+  - labels_non_-100_head_ids[:16]: [33, 151645, 198]
+  - labels_non_-100_decode: 'B<|im_end|>\n'
+  - labels_first_non_-100_pos: 464
+  - labels_first_pos_input_window[462:467]: 'assistant\nB<|im_end|>\n'
+  - labels_note: labels_non_-100_decode is unshifted target text; causal shift is applied in trainer.compute_loss.
+  - pixel_values: {'present': True, 'type': 'Tensor', 'shape': (1040, 1176)}
+  - tgt_sizes: None
+  - image_bound: None
+[TrainSampleDebug] Stage 3: Final batch fed to model (after data_collator)
+  - batch_shapes: {'input_ids': (1, 467), 'attention_mask': (1, 467), 'labels': (1, 467), 'scienceqa_full_context': (1,), 'scienceqa_has_image': (1,), 'scienceqa_has_text_context': (1,), 'scienceqa_masked_input_ids': (1, 499), 'scienceqa_masked_attention_mask': (1, 499), 'scienceqa_masked_labels': (1, 499), 'scienceqa_masked_pixel_values': (1040, 1176), 'scienceqa_masked_image_grid_thw': (3,), 'pixel_values': (1040, 1176), 'image_grid_thw': (3,)}
+  - batch_input_ids_decode[0]: '<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|imag... <truncated 2556 chars>'
+  - batch_labels_non_-100_head_ids[0][:16]: [33, 151645, 198]
+  - batch_labels_non_-100_decode[0]: 'B<|im_end|>\n'
+  - batch_labels_first_non_-100_pos[0]: 464
+  - batch_labels_first_pos_input_window[0][462:467]: 'assistant\nB<|im_end|>\n'
+  - batch_pixel_values: {'present': True, 'type': 'Tensor', 'shape': (1040, 1176)}
+==========================================================================================
+
+
+========== [TrainableAudit] START ==========
+[TrainableAudit] Parameter summary: total=3,756,466,176, trainable=1,843,200, ratio=0.0491%
+[TrainableAudit] Trainable tensor count: 144
+[TrainableAudit] Full requires_grad=True parameter list (name | shape | numel):
+[TrainableAudit]   0000 | base_model.model.model.language_model.layers.0.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0001 | base_model.model.model.language_model.layers.0.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0002 | base_model.model.model.language_model.layers.0.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0003 | base_model.model.model.language_model.layers.0.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0004 | base_model.model.model.language_model.layers.1.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0005 | base_model.model.model.language_model.layers.1.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0006 | base_model.model.model.language_model.layers.1.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0007 | base_model.model.model.language_model.layers.1.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0008 | base_model.model.model.language_model.layers.2.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0009 | base_model.model.model.language_model.layers.2.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0010 | base_model.model.model.language_model.layers.2.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0011 | base_model.model.model.language_model.layers.2.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0012 | base_model.model.model.language_model.layers.3.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0013 | base_model.model.model.language_model.layers.3.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0014 | base_model.model.model.language_model.layers.3.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0015 | base_model.model.model.language_model.layers.3.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0016 | base_model.model.model.language_model.layers.4.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0017 | base_model.model.model.language_model.layers.4.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0018 | base_model.model.model.language_model.layers.4.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0019 | base_model.model.model.language_model.layers.4.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0020 | base_model.model.model.language_model.layers.5.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0021 | base_model.model.model.language_model.layers.5.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0022 | base_model.model.model.language_model.layers.5.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0023 | base_model.model.model.language_model.layers.5.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0024 | base_model.model.model.language_model.layers.6.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0025 | base_model.model.model.language_model.layers.6.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0026 | base_model.model.model.language_model.layers.6.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0027 | base_model.model.model.language_model.layers.6.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0028 | base_model.model.model.language_model.layers.7.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0029 | base_model.model.model.language_model.layers.7.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0030 | base_model.model.model.language_model.layers.7.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0031 | base_model.model.model.language_model.layers.7.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0032 | base_model.model.model.language_model.layers.8.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0033 | base_model.model.model.language_model.layers.8.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0034 | base_model.model.model.language_model.layers.8.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0035 | base_model.model.model.language_model.layers.8.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0036 | base_model.model.model.language_model.layers.9.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0037 | base_model.model.model.language_model.layers.9.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0038 | base_model.model.model.language_model.layers.9.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0039 | base_model.model.model.language_model.layers.9.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0040 | base_model.model.model.language_model.layers.10.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0041 | base_model.model.model.language_model.layers.10.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0042 | base_model.model.model.language_model.layers.10.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0043 | base_model.model.model.language_model.layers.10.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0044 | base_model.model.model.language_model.layers.11.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0045 | base_model.model.model.language_model.layers.11.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0046 | base_model.model.model.language_model.layers.11.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0047 | base_model.model.model.language_model.layers.11.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0048 | base_model.model.model.language_model.layers.12.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0049 | base_model.model.model.language_model.layers.12.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0050 | base_model.model.model.language_model.layers.12.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0051 | base_model.model.model.language_model.layers.12.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0052 | base_model.model.model.language_model.layers.13.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0053 | base_model.model.model.language_model.layers.13.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0054 | base_model.model.model.language_model.layers.13.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0055 | base_model.model.model.language_model.layers.13.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0056 | base_model.model.model.language_model.layers.14.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0057 | base_model.model.model.language_model.layers.14.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0058 | base_model.model.model.language_model.layers.14.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0059 | base_model.model.model.language_model.layers.14.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0060 | base_model.model.model.language_model.layers.15.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0061 | base_model.model.model.language_model.layers.15.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0062 | base_model.model.model.language_model.layers.15.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0063 | base_model.model.model.language_model.layers.15.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0064 | base_model.model.model.language_model.layers.16.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0065 | base_model.model.model.language_model.layers.16.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0066 | base_model.model.model.language_model.layers.16.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0067 | base_model.model.model.language_model.layers.16.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0068 | base_model.model.model.language_model.layers.17.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0069 | base_model.model.model.language_model.layers.17.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0070 | base_model.model.model.language_model.layers.17.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0071 | base_model.model.model.language_model.layers.17.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0072 | base_model.model.model.language_model.layers.18.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0073 | base_model.model.model.language_model.layers.18.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0074 | base_model.model.model.language_model.layers.18.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0075 | base_model.model.model.language_model.layers.18.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0076 | base_model.model.model.language_model.layers.19.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0077 | base_model.model.model.language_model.layers.19.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0078 | base_model.model.model.language_model.layers.19.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0079 | base_model.model.model.language_model.layers.19.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0080 | base_model.model.model.language_model.layers.20.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0081 | base_model.model.model.language_model.layers.20.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0082 | base_model.model.model.language_model.layers.20.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0083 | base_model.model.model.language_model.layers.20.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0084 | base_model.model.model.language_model.layers.21.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0085 | base_model.model.model.language_model.layers.21.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0086 | base_model.model.model.language_model.layers.21.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0087 | base_model.model.model.language_model.layers.21.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0088 | base_model.model.model.language_model.layers.22.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0089 | base_model.model.model.language_model.layers.22.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0090 | base_model.model.model.language_model.layers.22.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0091 | base_model.model.model.language_model.layers.22.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0092 | base_model.model.model.language_model.layers.23.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0093 | base_model.model.model.language_model.layers.23.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0094 | base_model.model.model.language_model.layers.23.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0095 | base_model.model.model.language_model.layers.23.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0096 | base_model.model.model.language_model.layers.24.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0097 | base_model.model.model.language_model.layers.24.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0098 | base_model.model.model.language_model.layers.24.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0099 | base_model.model.model.language_model.layers.24.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0100 | base_model.model.model.language_model.layers.25.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0101 | base_model.model.model.language_model.layers.25.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0102 | base_model.model.model.language_model.layers.25.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0103 | base_model.model.model.language_model.layers.25.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0104 | base_model.model.model.language_model.layers.26.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0105 | base_model.model.model.language_model.layers.26.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0106 | base_model.model.model.language_model.layers.26.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0107 | base_model.model.model.language_model.layers.26.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0108 | base_model.model.model.language_model.layers.27.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0109 | base_model.model.model.language_model.layers.27.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0110 | base_model.model.model.language_model.layers.27.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0111 | base_model.model.model.language_model.layers.27.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0112 | base_model.model.model.language_model.layers.28.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0113 | base_model.model.model.language_model.layers.28.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0114 | base_model.model.model.language_model.layers.28.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0115 | base_model.model.model.language_model.layers.28.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0116 | base_model.model.model.language_model.layers.29.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0117 | base_model.model.model.language_model.layers.29.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0118 | base_model.model.model.language_model.layers.29.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0119 | base_model.model.model.language_model.layers.29.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0120 | base_model.model.model.language_model.layers.30.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0121 | base_model.model.model.language_model.layers.30.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0122 | base_model.model.model.language_model.layers.30.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0123 | base_model.model.model.language_model.layers.30.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0124 | base_model.model.model.language_model.layers.31.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0125 | base_model.model.model.language_model.layers.31.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0126 | base_model.model.model.language_model.layers.31.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0127 | base_model.model.model.language_model.layers.31.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0128 | base_model.model.model.language_model.layers.32.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0129 | base_model.model.model.language_model.layers.32.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0130 | base_model.model.model.language_model.layers.32.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0131 | base_model.model.model.language_model.layers.32.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0132 | base_model.model.model.language_model.layers.33.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0133 | base_model.model.model.language_model.layers.33.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0134 | base_model.model.model.language_model.layers.33.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0135 | base_model.model.model.language_model.layers.33.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0136 | base_model.model.model.language_model.layers.34.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0137 | base_model.model.model.language_model.layers.34.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0138 | base_model.model.model.language_model.layers.34.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0139 | base_model.model.model.language_model.layers.34.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit]   0140 | base_model.model.model.language_model.layers.35.self_attn.q_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0141 | base_model.model.model.language_model.layers.35.self_attn.q_proj.lora_B.default.weight | shape=(2048, 8) | numel=16,384
+[TrainableAudit]   0142 | base_model.model.model.language_model.layers.35.self_attn.v_proj.lora_A.default.weight | shape=(8, 2048) | numel=16,384
+[TrainableAudit]   0143 | base_model.model.model.language_model.layers.35.self_attn.v_proj.lora_B.default.weight | shape=(256, 8) | numel=2,048
+[TrainableAudit] LoRA vs non-LoRA split: lora=1,843,200, non_lora=0
+[TrainableAudit] Trainable params aggregated by first 2 module levels (top 40):
+[TrainableAudit]   base_model.model: 1,843,200
+[TrainableAudit] Trainable params aggregated by first 3 module levels (top 40):
+[TrainableAudit]   base_model.model.model: 1,843,200
+[TrainableAudit] Trainable params by keyword (overlap allowed):
+[TrainableAudit]   lora_a: 1,179,648
+[TrainableAudit]   lora_b: 663,552
+[TrainableAudit]   vision: 0
+[TrainableAudit]   visual: 0
+[TrainableAudit]   resampler: 0
+[TrainableAudit]   projector: 0
+[TrainableAudit]   mlp: 0
+[TrainableAudit]   q_proj: 1,179,648
+[TrainableAudit]   k_proj: 0
+[TrainableAudit]   v_proj: 663,552
+[TrainableAudit]   o_proj: 0
+[TrainableAudit]   gate_proj: 0
+[TrainableAudit]   up_proj: 0
+[TrainableAudit]   down_proj: 0
+[TrainableAudit]   embed_tokens: 0
+[TrainableAudit]   lm_head: 0
+[TrainableAudit] peft_config detected.
+[TrainableAudit] adapter_names=['default']
+[TrainableAudit] adapter=default
+[TrainableAudit]   r=8
+[TrainableAudit]   lora_alpha=16
+[TrainableAudit]   lora_dropout=0.05
+[TrainableAudit]   target_modules={'q_proj', 'v_proj'}
+[TrainableAudit]   modules_to_save=None
+[TrainableAudit]   layers_to_transform=None
+[TrainableAudit]   bias=none
+[TrainableAudit] model.print_trainable_parameters():
+trainable params: 1,843,200 || all params: 3,756,466,176 || trainable%: 0.0491
+[TrainableAudit] Heuristic diagnosis:
+[TrainableAudit]   Evidence: LoRA params are the major trainable part.
+[TrainableAudit]   Inference: if trainable count is still high, inspect LoRA target_modules scope.
+========== [TrainableAudit] END ==========
+
+[OuterLR] schedule=cosine base_lr=5e-05 eta_min=0 warmup_rounds=1 inner_lr_schedule=constant
+  0%|          | 0/3 [00:00<?, ?it/s]/root/autodl-tmp/OpenFedMLLM-XH/fling_mllm/client/trainer/sft_mllm_fedavg_trainer.py:32: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `CPMTrainer.__init__`. Use `processing_class` instead.
+  super().__init__(*args, **kwargs)
+[ClientLR][start] round=0 client=0 args.lr=5e-05 optimizer.init.lr=5e-05
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+
+  0%|          | 0/78 [00:00<?, ?it/s][A  0%|          | 0/3 [00:02<?, ?it/s]
+Traceback (most recent call last):
+  File "/root/autodl-tmp/OpenFedMLLM-XH/mllmzoo/run_experiment.py", line 66, in <module>
+    main()
+  File "/root/autodl-tmp/OpenFedMLLM-XH/mllmzoo/run_experiment.py", line 62, in main
+    run_mode_from_config(exp_args, mode_override=args.mode)
+  File "/root/autodl-tmp/OpenFedMLLM-XH/fling_mllm/pipeline/mode_dispatcher.py", line 130, in run_mode_from_config
+    return run_federated_finetune(
+  File "/root/autodl-tmp/OpenFedMLLM-XH/fling_mllm/pipeline/generic_model_mllm_pipeline.py", line 731, in run_federated_finetune
+    results = trainer.train()
+  File "/root/autodl-tmp/OpenFedMLLM-XH/fling_mllm/client/trainer/sft_mllm_fedavg_trainer.py", line 75, in train
+    result = super().train(*args, **kwargs)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/transformers/trainer.py", line 2325, in train
+    return inner_training_loop(
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/transformers/trainer.py", line 2674, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
+  File "/root/autodl-tmp/OpenFedMLLM-XH/fling_mllm/client/trainer/sft_mllm_fedavg_trainer.py", line 249, in training_step
+    loss = self.compute_loss(model, inputs, num_items_in_batch=num_items_in_batch)
+  File "/root/autodl-tmp/OpenFedMLLM-XH/fling_mllm/client/trainer/sft_mllm_fedavg_trainer.py", line 117, in compute_loss
+    outputs = model(**inputs, use_cache=False)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/accelerate/utils/operations.py", line 943, in forward
+    return model_forward(*args, **kwargs)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/accelerate/utils/operations.py", line 931, in __call__
+    return convert_to_fp32(self.model_forward(*args, **kwargs))
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/torch/amp/autocast_mode.py", line 44, in decorate_autocast
+    return func(*args, **kwargs)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/peft/peft_model.py", line 945, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/transformers/utils/generic.py", line 918, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py", line 1476, in forward
+    outputs = self.model(
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py", line 1257, in forward
+    image_embeds = self.get_image_features(pixel_values, image_grid_thw)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py", line 1170, in get_image_features
+    image_embeds = self.visual(pixel_values, grid_thw=image_grid_thw)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py", line 418, in forward
+    rotary_pos_emb = self.rot_pos_emb(grid_thw)
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py", line 338, in rot_pos_emb
+    for t, h, w in grid_thw:
+  File "/root/autodl-tmp/conda_envs/openfedmllm/lib/python3.10/site-packages/torch/_tensor.py", line 1213, in __iter__
+    raise TypeError("iteration over a 0-d tensor")
+TypeError: iteration over a 0-d tensor
+  0%|          | 0/78 [00:00<?, ?it/s]
